@@ -1,4 +1,6 @@
 
+expect fun platform(): String
+
 fun main() {
-    println("Hello, Kotlin JVM!")
+    println("Hello, Kotlin ${platform()}!")
 }

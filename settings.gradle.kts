@@ -15,5 +15,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "KmpWaysToAurora"
+include(":shared")
 include(":app")
 include(":desktop")

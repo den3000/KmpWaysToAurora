@@ -5,5 +5,5 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.9.0" apply false
 
     // desktop
-    kotlin("jvm") version "1.9.23" apply false
+    kotlin("multiplatform") version "1.9.20" apply false
 }

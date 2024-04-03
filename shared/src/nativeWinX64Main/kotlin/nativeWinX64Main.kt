@@ -1,0 +1,1 @@
+actual fun platform() = "Shared WIN X64"

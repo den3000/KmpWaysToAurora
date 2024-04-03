@@ -1,1 +1,0 @@
-actual fun platform() = "WIN X64"

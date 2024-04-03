@@ -34,34 +34,33 @@ kotlin {
     }
 
     sourceSets {
-
         val commonMain by getting {
             dependencies {
-//                implementation(project(":shared"))
+
             }
         }
 
         val jvmMain by getting {
             dependencies {
-
+                implementation(project(":shared"))
             }
         }
 
         val nativeWinX64Main by getting {
             dependencies {
-
+                implementation(project(":shared"))
             }
         }
 
         val nativeLinuxX64Main by getting {
             dependencies {
-
+                implementation(project(":shared"))
             }
         }
 
         val nativeLinuxArm64Main by getting  {
             dependencies {
-
+                implementation(project(":shared"))
             }
         }
     }

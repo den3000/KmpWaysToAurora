@@ -21,3 +21,6 @@
 /captures
 
 !gradle/wrapper/gradle-wrapper.jar
+
+/aurora/build-*
+/aurora/KmpWaysToAurora/com.den3000.kmpwaystoaurora.KmpWaysToAurora.pro.user

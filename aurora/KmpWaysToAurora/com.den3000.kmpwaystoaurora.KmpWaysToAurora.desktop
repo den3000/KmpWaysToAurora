@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=com.den3000.kmpwaystoaurora.KmpWaysToAurora
+Exec=/usr/bin/com.den3000.kmpwaystoaurora.KmpWaysToAurora
+Name=Template
+Name[ru]=Шаблон
+
+[X-Application]
+Permissions=Internet;UserDirs
+OrganizationName=com.den3000.kmpwaystoaurora
+ApplicationName=KmpWaysToAurora
+ExecDBus=/usr/bin/com.den3000.kmpwaystoaurora.KmpWaysToAurora

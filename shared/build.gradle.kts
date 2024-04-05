@@ -11,17 +11,17 @@ kotlin {
     jvm { }
     mingwX64("nativeWinX64") {
         binaries {
-            sharedLib {  }
+            staticLib {  }
         }
     }
     linuxX64("nativeLinuxX64") {
         binaries {
-            sharedLib {  }
+            staticLib {  }
         }
     }
     linuxArm64("nativeLinuxArm64") {
         binaries {
-            sharedLib {  }
+            staticLib {  }
         }
     }
 }

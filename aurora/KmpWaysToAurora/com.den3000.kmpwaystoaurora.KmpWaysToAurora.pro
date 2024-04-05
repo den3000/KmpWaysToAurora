@@ -1,5 +1,17 @@
 TARGET = com.den3000.kmpwaystoaurora.KmpWaysToAurora
 
+contains(QMAKE_HOST.arch, x86_64):{
+    SHARED_LIB_PATH=libs/x86_64 # path to libshared.a
+}
+
+contains(QMAKE_HOST.arch, aarch64):{
+    SHARED_LIB_PATH=libs/aarch64 # path to libshared.a
+}
+
+contains(QMAKE_HOST.arch, armv7l):{
+    error("Unsupported architecture")
+}
+
 CONFIG += \
     auroraapp
 
@@ -9,6 +21,7 @@ SOURCES += \
     src/main.cpp \
 
 HEADERS += \
+    $${SHARED_LIB_PATH}/libshared_api.h \
 
 DISTFILES += \
     rpm/com.den3000.kmpwaystoaurora.KmpWaysToAurora.spec \
@@ -20,3 +33,10 @@ CONFIG += auroraapp_i18n
 TRANSLATIONS += \
     translations/com.den3000.kmpwaystoaurora.KmpWaysToAurora.ts \
     translations/com.den3000.kmpwaystoaurora.KmpWaysToAurora-ru.ts \
+
+unix:!macx: LIBS += -L$$PWD/$${SHARED_LIB_PATH}/ -lshared
+
+INCLUDEPATH += $$PWD/$${SHARED_LIB_PATH}
+DEPENDPATH += $$PWD/$${SHARED_LIB_PATH}
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/$${SHARED_LIB_PATH}/libshared.a

@@ -1,13 +1,14 @@
 plugins {
     kotlin("multiplatform")
-//    id("com.android.library")
+    id("com.android.library")
 }
 
 version = "1.0-SNAPSHOT"
 
 
 kotlin {
-    jvm { withJava() }
+    androidTarget()
+    jvm { }
     mingwX64("nativeWinX64") {
         binaries {
             sharedLib {  }
@@ -22,5 +23,22 @@ kotlin {
         binaries {
             sharedLib {  }
         }
+    }
+}
+
+android {
+    compileSdk = 34
+    namespace = "com.den3000.kmpwaystoaurora.shared"
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    defaultConfig {
+        minSdk = 24
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlin {
+        jvmToolchain(17)
     }
 }

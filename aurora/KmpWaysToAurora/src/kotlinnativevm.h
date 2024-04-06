@@ -16,8 +16,15 @@ public:
     ~KotlinNativeVM() { qDebug(); }
 
     Q_INVOKABLE QString text() {
-        const char * ktText = libshared_symbols()->kotlin.root.platform();
+        auto ktText = libshared_symbols()->kotlin.root.platform();
         QString str = QString(ktText);
+
+        auto ktDataClass = libshared_symbols()->kotlin.root.getDataClass();
+        auto ktDataClassInt = libshared_symbols()->kotlin.root.DataClass.get_int(ktDataClass);
+        auto ktDataClassStr = libshared_symbols()->kotlin.root.DataClass.get_string(ktDataClass);
+        qDebug() << "Int: " << ktDataClassInt;
+        qDebug() << "String: " << ktDataClassStr;
+
         return QString("Hello, %1").arg(str);
     }
 

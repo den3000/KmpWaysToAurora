@@ -24,6 +24,9 @@ HEADERS += \
     $${SHARED_LIB_PATH}/libshared_api.h \
 
 DISTFILES += \
+    qml/pages/KotlinJvmToNativePage.qml \
+    qml/pages/KotlinJSPage.qml \
+    qml/pages/KotlinNativePage.qml \
     rpm/com.den3000.kmpwaystoaurora.KmpWaysToAurora.spec \
 
 AURORAAPP_ICONS = 86x86 108x108 128x128 172x172

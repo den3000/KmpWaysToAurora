@@ -40,11 +40,80 @@
     </message>
 </context>
 <context>
+    <name>KotlinJSPage</name>
+    <message>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="7"/>
+        <source>Kotlin JS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="21"/>
+        <source>Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="26"/>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>KotlinJvmToNativePage</name>
+    <message>
+        <location filename="../qml/pages/KotlinJvmToNativePage.qml" line="7"/>
+        <source>Kotlin JVM To Native</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/KotlinJvmToNativePage.qml" line="21"/>
+        <source>Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/KotlinJvmToNativePage.qml" line="26"/>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>KotlinNativePage</name>
+    <message>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="7"/>
+        <source>Kotlin Native</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="21"/>
+        <source>Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="26"/>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainPage</name>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="10"/>
         <source>Template</source>
         <translation>Template</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="30"/>
+        <source>Kotlin Native</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="37"/>
+        <source>Kotlin JS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="43"/>
+        <source>Kotlin JVM to Native</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

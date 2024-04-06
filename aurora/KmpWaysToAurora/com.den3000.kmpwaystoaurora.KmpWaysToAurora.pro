@@ -22,6 +22,7 @@ SOURCES += \
 
 HEADERS += \
     $${SHARED_LIB_PATH}/libshared_api.h \
+    src/kotlinnativevm.h
 
 DISTFILES += \
     qml/pages/KotlinJvmToNativePage.qml \

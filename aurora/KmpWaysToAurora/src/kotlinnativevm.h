@@ -25,6 +25,13 @@ public:
         qDebug() << "Int: " << ktDataClassInt;
         qDebug() << "String: " << ktDataClassStr;
 
+        auto dk = libshared_symbols()->kotlin.root.DataClass.DataClass(11, "pam");
+        ktDataClassInt = libshared_symbols()->kotlin.root.DataClass.get_int(dk);
+        ktDataClassStr = libshared_symbols()->kotlin.root.DataClass.get_string(dk);
+
+        qDebug() << "Int: " << ktDataClassInt;
+        qDebug() << "String: " << ktDataClassStr;
+
         return QString("Hello, %1").arg(str);
     }
 

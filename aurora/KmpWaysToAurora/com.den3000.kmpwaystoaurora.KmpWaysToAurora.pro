@@ -25,9 +25,12 @@ HEADERS += \
     src/kotlinnativevm.h
 
 DISTFILES += \
-    qml/pages/KotlinJvmToNativePage.qml \
+    qml/pages/AboutPage.qml \
     qml/pages/KotlinJSPage.qml \
+    qml/pages/KotlinJvmToNativePage.qml \
     qml/pages/KotlinNativePage.qml \
+    qml/pages/MainPage.qml \
+    qml/KmpWaysToAurora.qml \
     rpm/com.den3000.kmpwaystoaurora.KmpWaysToAurora.spec \
 
 AURORAAPP_ICONS = 86x86 108x108 128x128 172x172

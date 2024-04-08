@@ -1,16 +1,13 @@
 TARGET = com.den3000.kmpwaystoaurora.KmpWaysToAurora
 
-contains(QMAKE_HOST.arch, x86_64):{
-    SHARED_LIB_PATH=libs/x86_64 # path to libshared.a
-}
+contains(QMAKE_HOST.arch, armv7l):{ error("Unsupported architecture") }
+contains(QMAKE_HOST.arch, x86_64):{ SHARED_LIB_ARCH_TYPE_PATH=lib_shared/x86_64 }
+contains(QMAKE_HOST.arch, aarch64):{ SHARED_LIB_ARCH_TYPE_PATH=lib_shared/aarch64 }
+CONFIG(debug, debug|release):{ SHARED_LIB_BUILD_TYPE_PATH=debug }
+CONFIG(release, debug|release):{ SHARED_LIB_BUILD_TYPE_PATH=release }
 
-contains(QMAKE_HOST.arch, aarch64):{
-    SHARED_LIB_PATH=libs/aarch64 # path to libshared.a
-}
-
-contains(QMAKE_HOST.arch, armv7l):{
-    error("Unsupported architecture")
-}
+# path to libshared.a
+SHARED_LIB_PATH=$${SHARED_LIB_ARCH_TYPE_PATH}/$${SHARED_LIB_BUILD_TYPE_PATH}
 
 CONFIG += \
     auroraapp

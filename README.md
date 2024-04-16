@@ -27,6 +27,6 @@
 
 1. `gradle :shared:linkAndCopyDebugStaticNativeLinuxX64` 
 2. `gradle :shared:linkAndCopyDebugStaticNativeLinuxArm64` 
-3. `gradle :shared:linkAndCopyReleaseStaticNativeLinuxX64` 
+3. `gradle :shared:linkAndCopyReleaseStaticNativeLinuxX64`
 4. `gradle :shared:linkAndCopyReleaseStaticNativeLinuxArm64` 
 5. `gradle :shared:linkAndCopySharedForAllTargets`

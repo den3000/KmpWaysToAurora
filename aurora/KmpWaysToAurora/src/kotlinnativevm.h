@@ -19,12 +19,21 @@ public:
 public slots:
     void std() {
         auto ktText = libshared_symbols()->kotlin.root.platform();
-        auto ktDataClass = libshared_symbols()->kotlin.root.getDataClass();
-        auto ktDataClassStr = libshared_symbols()->kotlin.root.DataClass.toString(ktDataClass);
+        auto ktDataClass1 = libshared_symbols()->kotlin.root.getDataClass();
+        auto ktDataClass1Str = libshared_symbols()->kotlin.root.DataClass.toString(ktDataClass1);
 
-        updateText(QString("Hello, %1\n%2")
+        auto ktDataClass2 = libshared_symbols()->kotlin.root.DataClass.DataClass(
+                    2,
+                    "some aurora string"
+                    );
+        auto ktDataClass2Int = libshared_symbols()->kotlin.root.DataClass.get_int(ktDataClass2);
+        auto ktDataClass2Str = libshared_symbols()->kotlin.root.DataClass.get_string(ktDataClass2);
+
+        updateText(QString("Hello, %1\n%2\nDataClass2\nint: %3\nstring: %4")
                            .arg(ktText)
-                           .arg(ktDataClassStr));
+                           .arg(ktDataClass1Str)
+                           .arg(ktDataClass2Int)
+                           .arg(ktDataClass2Str));
     }
 
     void serialization() {

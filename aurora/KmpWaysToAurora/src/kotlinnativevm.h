@@ -17,22 +17,13 @@ public:
 
     Q_INVOKABLE QString text() {
         auto ktText = libshared_symbols()->kotlin.root.platform();
-        QString str = QString(ktText);
-
         auto ktDataClass = libshared_symbols()->kotlin.root.getDataClass();
-        auto ktDataClassInt = libshared_symbols()->kotlin.root.DataClass.get_int(ktDataClass);
-        auto ktDataClassStr = libshared_symbols()->kotlin.root.DataClass.get_string(ktDataClass);
-        qDebug() << "Int: " << ktDataClassInt;
-        qDebug() << "String: " << ktDataClassStr;
+        auto ktDataClassStr = libshared_symbols()->kotlin.root.DataClass.toString(ktDataClass);
 
-        auto dk = libshared_symbols()->kotlin.root.DataClass.DataClass(11, "pam");
-        ktDataClassInt = libshared_symbols()->kotlin.root.DataClass.get_int(dk);
-        ktDataClassStr = libshared_symbols()->kotlin.root.DataClass.get_string(dk);
-
-        qDebug() << "Int: " << ktDataClassInt;
-        qDebug() << "String: " << ktDataClassStr;
-
-        return QString("Hello, %1").arg(str);
+        return QString("Hello, %1\n%2")
+                .arg(ktText)
+                .arg(ktDataClassStr)
+                ;
     }
 
 //    Q_INVOKABLE void next() { emit nextPressed(m_counter); }

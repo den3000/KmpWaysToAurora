@@ -31,7 +31,6 @@ Page {
             }
             color: palette.highlightColor
             font.pixelSize: Theme.fontSizeSmall
-            textFormat: Text.RichText
             wrapMode: Text.WordWrap
         }
 

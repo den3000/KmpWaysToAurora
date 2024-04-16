@@ -7,11 +7,9 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.den3000.kmpwaystoaurora.ui.theme.KmpWaysToAuroraTheme
-import platform
 
 class MainActivity : ComponentActivity() {
 
@@ -27,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MainView(
-                        platform(),
+                        text = viewModel.text.collectAsStateWithLifecycle().value,
                         onStd = viewModel::std,
                         onSerialization = viewModel::serialization,
                         onCoroutines = viewModel::coroutines,

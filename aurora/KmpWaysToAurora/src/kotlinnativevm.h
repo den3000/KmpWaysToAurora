@@ -10,30 +10,49 @@
 class KotlinNativeVM : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged)
 
 public:
     explicit KotlinNativeVM(QObject *parent = nullptr): QObject(parent) { qDebug(); };
     ~KotlinNativeVM() { qDebug(); }
 
-    Q_INVOKABLE QString text() {
+public slots:
+    void std() {
         auto ktText = libshared_symbols()->kotlin.root.platform();
         auto ktDataClass = libshared_symbols()->kotlin.root.getDataClass();
         auto ktDataClassStr = libshared_symbols()->kotlin.root.DataClass.toString(ktDataClass);
 
-        return QString("Hello, %1\n%2")
-                .arg(ktText)
-                .arg(ktDataClassStr)
-                ;
+        updateText(QString("Hello, %1\n%2")
+                           .arg(ktText)
+                           .arg(ktDataClassStr));
     }
 
-//    Q_INVOKABLE void next() { emit nextPressed(m_counter); }
+    void serialization() {
+        updateText("serialization");
+    }
+
+    void coroutines() {
+        updateText("coroutines");
+    }
+
+    void ktor() {
+        updateText("ktor");
+    }
+
+    void db() {
+        updateText("db");
+    }
 
 signals:
-//    void counterChanged(int counter);
-//    void nextPressed(int);
+    void textChanged(const QString &newText);
 
-public slots:
-//    void decreased(int counter) { setCounter(counter); }
+private:
+    QString m_text = "";
+
+    void updateText(const QString &newText) {
+        m_text = newText;
+        emit textChanged(m_text);
+    }
 };
 
 #endif // KOTLINNATIVEVM_H

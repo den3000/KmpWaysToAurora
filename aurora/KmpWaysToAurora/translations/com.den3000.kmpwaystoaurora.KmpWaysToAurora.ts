@@ -88,22 +88,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinNativePage.qml" line="56"/>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="55"/>
         <source>Serialization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinNativePage.qml" line="68"/>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="65"/>
         <source>Coroutines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinNativePage.qml" line="80"/>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="75"/>
         <source>Ktor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinNativePage.qml" line="92"/>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="85"/>
         <source>DB</source>
         <translation type="unfinished"></translation>
     </message>

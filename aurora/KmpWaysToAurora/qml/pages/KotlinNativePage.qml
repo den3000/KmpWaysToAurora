@@ -32,6 +32,7 @@ Page {
             color: palette.highlightColor
             font.pixelSize: Theme.fontSizeSmall
             wrapMode: Text.WordWrap
+            text: viewModel.text
         }
 
         Button {
@@ -41,9 +42,8 @@ Page {
                 margins: Theme.horizontalPageMargin
             }
             text: qsTr("Std")
-            onClicked: {
-                text.text = viewModel.text()
-            }
+            onClicked: viewModel.std()
+
         }
 
         Button {
@@ -53,9 +53,7 @@ Page {
                 margins: Theme.horizontalPageMargin
             }
             text: qsTr("Serialization")
-            onClicked: {
-
-            }
+            onClicked: viewModel.serialization()
         }
 
         Button {
@@ -65,9 +63,7 @@ Page {
                 margins: Theme.horizontalPageMargin
             }
             text: qsTr("Coroutines")
-            onClicked: {
-
-            }
+            onClicked: viewModel.coroutines()
         }
 
         Button {
@@ -77,9 +73,7 @@ Page {
                 margins: Theme.horizontalPageMargin
             }
             text: qsTr("Ktor")
-            onClicked: {
-
-            }
+            onClicked: viewModel.ktor()
         }
 
         Button {
@@ -89,9 +83,7 @@ Page {
                 margins: Theme.horizontalPageMargin
             }
             text: qsTr("DB")
-            onClicked: {
-
-            }
+            onClicked: viewModel.db()
         }
     }
 }

@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import deserializeFromString
 import getDataClass
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import platform
+import serializeToString
 
 class MainViewModel: ViewModel() {
 
@@ -35,7 +37,14 @@ class MainViewModel: ViewModel() {
     }
 
     fun serialization() {
-        text.update { "serialization" }
+        var dc = getDataClass()
+        var log = "Original to string: $dc"
+        val str = serializeToString(dc)
+        log += "\nSerialized: $str"
+        dc = deserializeFromString(str)
+        log += "\nDeserialized from string: $dc"
+
+        text.update { log }
     }
 
     fun coroutines() {

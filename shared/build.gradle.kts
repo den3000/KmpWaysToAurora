@@ -1,10 +1,10 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    kotlin("plugin.serialization") version "1.9.23"
 }
 
 version = "1.0-SNAPSHOT"
-
 
 kotlin {
     androidTarget()
@@ -22,6 +22,14 @@ kotlin {
     linuxArm64("nativeLinuxArm64") {
         binaries {
             staticLib {  }
+        }
+    }
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+            }
         }
     }
 }
@@ -43,6 +51,7 @@ android {
     }
 }
 
+//region tasks
 val tnLinkDebugLinuxX64 = "linkDebugStaticNativeLinuxX64"
 val tnLinkDebugLinuxArm64 = "linkDebugStaticNativeLinuxArm64"
 val tnLinkReleaseLinuxX64 = "linkReleaseStaticNativeLinuxX64"
@@ -88,3 +97,4 @@ tasks.register("linkAndCopySharedForAllTargets") {
         tasks.getByName(tnCopAndLinkReleaseLinuxArm64)
     )
 }
+//endregion

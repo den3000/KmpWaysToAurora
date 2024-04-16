@@ -1,9 +1,10 @@
 fun main() {
     std()
+    serialization()
 }
 
 fun std() {
-    println("\n\n\n=== STD ===")
+    println("\n=== STD ===\n")
 
     val ktText = platform()
     val ktDataClass1 = getDataClass()
@@ -21,5 +22,15 @@ fun std() {
             "int: $ktDataClass2Int\n" +
             "string: $ktDataClass2Str"
     )
+}
 
+fun serialization() {
+    println("\n=== SERIALIZATION ===\n")
+
+    var dc = getDataClass()
+    println("Original to string: $dc")
+    val str = serializeToString(dc)
+    println("Serialized: $str")
+    dc = deserializeFromString(str)
+    println("Deserialized from string: $dc")
 }

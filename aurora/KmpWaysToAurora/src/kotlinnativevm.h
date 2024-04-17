@@ -37,7 +37,20 @@ public slots:
     }
 
     void serialization() {
-        updateText("serialization");
+        auto lib = libshared_symbols();
+
+        auto dc = lib->kotlin.root.getDataClass();
+        QString log = "Original to string: ";
+        log.append(lib->kotlin.root.DataClass.toString(dc));
+        auto str = lib->kotlin.root.serializeToString(dc);
+        log.append("\nSerialized: ");
+        log.append(str);
+        dc = lib->kotlin.root.deserializeFromString(str);
+        log.append("\nDeserialized from string: ");
+        log.append(lib->kotlin.root.DataClass.toString(dc));
+
+
+        updateText(log);
     }
 
     void coroutines() {

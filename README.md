@@ -30,3 +30,7 @@
 3. `gradle :shared:linkAndCopyReleaseStaticNativeLinuxX64`
 4. `gradle :shared:linkAndCopyReleaseStaticNativeLinuxArm64` 
 5. `gradle :shared:linkAndCopySharedForAllTargets`
+
+[//]: # (TODO: one more level of shared code needed)
+shared - platformSpecific
+shared - dependency for other modules

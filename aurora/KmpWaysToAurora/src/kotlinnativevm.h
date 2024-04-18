@@ -7,15 +7,14 @@
 
 #include <libshared_api.h>
 
-class KotlinNativeVMCallbacks {
+#include <functional>
+
+class KtTriggerLambda {
 public:
-    static const char ** triggerLambdaArg1;
-    static void triggerLambdaSetup(const char ** arg1) {
-        KotlinNativeVMCallbacks::triggerLambdaArg1 = arg1;
-    };
-    static void triggerLambdaCallback() {
-        *(KotlinNativeVMCallbacks::triggerLambdaArg1) = "Triggered from lambda on Aurora";
-    };
+    static void capture(const char ** captureArg1);
+    static void callback();
+private:
+    static const char ** captureArg1;
 };
 
 class KotlinNativeVM : public QObject
@@ -43,11 +42,9 @@ public slots:
         auto lib = libshared_symbols();
 
         const char * result = "";
-        KotlinNativeVMCallbacks::triggerLambdaSetup(&result);
-        auto kCallback = lib->kotlin.root.cfptrToFunc0((libshared_KNativePtr)KotlinNativeVMCallbacks::triggerLambdaCallback);
+        KtTriggerLambda::capture(&result);
+        auto kCallback = lib->kotlin.root.cfptrToFunc0((libshared_KNativePtr)KtTriggerLambda::callback);
         lib->kotlin.root.triggerLambda(kCallback);
-
-        qDebug() << "result: " << result;
 
         updateText(QString("Hello, %1\n%2\nDataClass2\nint: %3\nstring: %4\nfromLambda: %5")
                            .arg(ktText)

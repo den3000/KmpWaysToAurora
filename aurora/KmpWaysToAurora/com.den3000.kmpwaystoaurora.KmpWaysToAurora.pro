@@ -15,6 +15,7 @@ CONFIG += \
 PKGCONFIG += \
 
 SOURCES += \
+    src/kotlinnativevm.cpp \
     src/main.cpp \
 
 HEADERS += \

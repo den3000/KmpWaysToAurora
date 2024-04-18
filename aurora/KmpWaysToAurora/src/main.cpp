@@ -5,8 +5,6 @@
 
 #include <libshared_api.h>
 
-const char ** KotlinNativeVMCallbacks::triggerLambdaArg1;
-
 int main(int argc, char *argv[])
 {
     qmlRegisterType<KotlinNativeVM>("CustomCppClasses.Module", 1, 0, "KotlinNativeVM");

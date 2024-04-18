@@ -41,10 +41,40 @@ public slots:
 
         auto lib = libshared_symbols();
 
+        // Almost plain C-style: using static members of custom class KtTriggerLambda
         const char * result = "";
         KtTriggerLambda::capture(&result);
         auto kCallback = lib->kotlin.root.cfptrToFunc0((libshared_KNativePtr)KtTriggerLambda::callback);
         lib->kotlin.root.triggerLambda(kCallback);
+        // --------------------------------------------------------------------------
+
+        // No Capture lambda as a C Ptr to Func
+        // https://adroit-things.com/programming/c-cpp/how-to-bind-lambda-to-function-pointer/
+//        const char * result = "nothing";
+//        auto noCapture = []() {
+//            qDebug() << "No capture lambda called";
+//            return;
+//        };
+//        typedef void(*NormalFuncType)();
+//        NormalFuncType noCaptureLambdaPtr = noCapture;
+//        auto kCallback = lib->kotlin.root.cfptrToFunc0((libshared_KNativePtr)noCaptureLambdaPtr);
+//        lib->kotlin.root.triggerLambda(kCallback);
+        // --------------------------------------------------------------------------
+
+        // Lambda with capture as a C Ptr to Func
+        // https://adroit-things.com/programming/c-cpp/how-to-bind-lambda-to-function-pointer/
+//        const char * result = "nothing";
+//        auto capture = [&result]() {
+//            result = "Triggered from lambda on Aurora";
+//            return;
+//        };
+//        typedef decltype(capture) CaptureLambdaType;
+//        typedef void(CaptureLambdaType::*CaptureFuncType)() const;
+//        CaptureFuncType captureLambda = &CaptureLambdaType::operator();
+////        (capture.*captureLambda)();
+////        auto kCallback = lib->kotlin.root.cfptrToFunc0((libshared_KNativePtr)...);
+////        lib->kotlin.root.triggerLambda(kCallback);
+        // --------------------------------------------------------------------------
 
         updateText(QString("Hello, %1\n%2\nDataClass2\nint: %3\nstring: %4\nfromLambda: %5")
                            .arg(ktText)

@@ -7,6 +7,17 @@
 
 #include <libshared_api.h>
 
+class KotlinNativeVMCallbacks {
+public:
+    static const char ** triggerLambdaArg1;
+    static void triggerLambdaSetup(const char ** arg1) {
+        KotlinNativeVMCallbacks::triggerLambdaArg1 = arg1;
+    };
+    static void triggerLambdaCallback() {
+        *(KotlinNativeVMCallbacks::triggerLambdaArg1) = "Triggered from lambda on Aurora";
+    };
+};
+
 class KotlinNativeVM : public QObject
 {
     Q_OBJECT
@@ -30,14 +41,20 @@ public slots:
         auto ktDataClass2Str = libshared_symbols()->kotlin.root.DataClass.get_string(ktDataClass2);
 
         auto lib = libshared_symbols();
-        auto l = lib->kotlin.root.createLambda();
-        lib->kotlin.root.triggerLambda(l);
 
-        updateText(QString("Hello, %1\n%2\nDataClass2\nint: %3\nstring: %4")
+        const char * result = "";
+        KotlinNativeVMCallbacks::triggerLambdaSetup(&result);
+        auto kCallback = lib->kotlin.root.cfptrToFunc0((libshared_KNativePtr)KotlinNativeVMCallbacks::triggerLambdaCallback);
+        lib->kotlin.root.triggerLambda(kCallback);
+
+        qDebug() << "result: " << result;
+
+        updateText(QString("Hello, %1\n%2\nDataClass2\nint: %3\nstring: %4\nfromLambda: %5")
                            .arg(ktText)
                            .arg(ktDataClass1Str)
                            .arg(ktDataClass2Int)
-                           .arg(ktDataClass2Str));
+                           .arg(ktDataClass2Str)
+                           .arg(result));
     }
 
     void serialization() {

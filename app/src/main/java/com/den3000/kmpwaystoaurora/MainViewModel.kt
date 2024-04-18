@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import createLambda
 import deserializeFromString
 import getDataClass
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,14 +29,17 @@ class MainViewModel: ViewModel() {
         val ktDataClass2Int = ktDataClass2.int
         val ktDataClass2Str = ktDataClass2.string
 
-        val l = createLambda()
-        triggerLambda(l)
+        var fromLambda = ""
+        triggerLambda {
+            fromLambda = "Triggered from lambda on Android"
+        }
 
         text.update {
             "Hello, $ktText\n$ktDataClass1Str\n" +
                 "DataClass2\n" +
                 "int: $ktDataClass2Int\n" +
-                "string: $ktDataClass2Str"
+                "string: $ktDataClass2Str\n" +
+                "fromLambda: $fromLambda"
         }
     }
 

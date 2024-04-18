@@ -7,8 +7,6 @@ data class DataClass(
 )
 expect fun platform(): String
 
-expect fun createLambda(): () -> Unit
-
 expect fun triggerLambda(callback: () -> Unit)
 
 expect fun getDataClass(): DataClass

@@ -17,13 +17,16 @@ fun std() {
     val ktDataClass2Int = ktDataClass2.int
     val ktDataClass2Str = ktDataClass2.string
 
-    val l = createLambda()
-    triggerLambda(l)
+    var fromLambda = ""
+    triggerLambda {
+        fromLambda = "Triggered from lambda on desktop"
+    }
 
     println("Hello, $ktText\n$ktDataClass1Str\n" +
             "DataClass2\n" +
             "int: $ktDataClass2Int\n" +
-            "string: $ktDataClass2Str"
+            "string: $ktDataClass2Str\n" +
+            "fromLambda: $fromLambda"
     )
 }
 

@@ -1,14 +1,11 @@
+import kotlinx.cinterop.CFunction
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.invoke
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlin.reflect.typeOf
 
 actual fun platform() = "Shared Linux X64"
-
-actual fun createLambda(): () -> Unit {
-    return {
-        println("PAM")
-    }
-}
 
 actual fun triggerLambda(callback: () -> Unit) {
     callback()
@@ -27,4 +24,11 @@ actual fun serializeToString(dc: DataClass): String {
 
 actual fun deserializeFromString(str: String): DataClass {
     return Json.decodeFromString(str)
+}
+
+@OptIn(ExperimentalForeignApi::class)
+fun cfptrToFunc0(cfptr: CPointer<CFunction<() -> Unit>>): () -> Unit {
+    return {
+        cfptr.invoke()
+    }
 }

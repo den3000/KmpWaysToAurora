@@ -3,12 +3,6 @@ import kotlinx.serialization.json.Json
 
 actual fun platform() = "Shared JVM"
 
-actual fun createLambda(): () -> Unit {
-    return {
-        println("PAM")
-    }
-}
-
 actual fun triggerLambda(callback: () -> Unit) {
     callback()
 }

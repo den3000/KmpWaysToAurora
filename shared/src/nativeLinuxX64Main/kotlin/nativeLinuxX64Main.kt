@@ -1,4 +1,5 @@
 import kotlinx.cinterop.CFunction
+import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.invoke
@@ -26,9 +27,10 @@ actual fun deserializeFromString(str: String): DataClass {
     return Json.decodeFromString(str)
 }
 
+// TODO: Should be shared somehow between native targets
 @OptIn(ExperimentalForeignApi::class)
-fun cfptrToFunc0(cfptr: CPointer<CFunction<() -> Unit>>): () -> Unit {
+fun cfptrToFunc0(cfptr: CPointer<CFunction<(COpaquePointer) -> Unit>>, data: COpaquePointer): () -> Unit {
     return {
-        cfptr.invoke()
+        cfptr.invoke(data)
     }
 }

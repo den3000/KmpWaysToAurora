@@ -1,6 +1,4 @@
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 @Serializable
 data class DataClass(
@@ -8,6 +6,10 @@ data class DataClass(
     val string: String,
 )
 expect fun platform(): String
+
+expect fun createLambda(): () -> Unit
+
+expect fun triggerLambda(callback: () -> Unit)
 
 expect fun getDataClass(): DataClass
 

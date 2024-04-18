@@ -29,6 +29,10 @@ public slots:
         auto ktDataClass2Int = libshared_symbols()->kotlin.root.DataClass.get_int(ktDataClass2);
         auto ktDataClass2Str = libshared_symbols()->kotlin.root.DataClass.get_string(ktDataClass2);
 
+        auto lib = libshared_symbols();
+        auto l = lib->kotlin.root.createLambda();
+        lib->kotlin.root.triggerLambda(l);
+
         updateText(QString("Hello, %1\n%2\nDataClass2\nint: %3\nstring: %4")
                            .arg(ktText)
                            .arg(ktDataClass1Str)

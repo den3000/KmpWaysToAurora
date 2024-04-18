@@ -1,7 +1,18 @@
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlin.reflect.typeOf
 
 actual fun platform() = "Shared Linux X64"
+
+actual fun createLambda(): () -> Unit {
+    return {
+        println("PAM")
+    }
+}
+
+actual fun triggerLambda(callback: () -> Unit) {
+    callback()
+}
 
 actual fun getDataClass(): DataClass {
     return DataClass(

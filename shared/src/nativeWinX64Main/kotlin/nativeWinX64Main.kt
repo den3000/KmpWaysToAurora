@@ -3,6 +3,16 @@ import kotlinx.serialization.json.Json
 
 actual fun platform() = "Shared WIN X64"
 
+actual fun createLambda(): () -> Unit {
+    return {
+        println("PAM")
+    }
+}
+
+actual fun triggerLambda(callback: () -> Unit) {
+    callback()
+}
+
 actual fun getDataClass(): DataClass {
     return DataClass(
         int = 10,

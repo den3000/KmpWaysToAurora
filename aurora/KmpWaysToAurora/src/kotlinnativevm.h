@@ -20,34 +20,30 @@ public:
 
 public slots:
     void std() {
-        auto ktText = libshared_symbols()->kotlin.root.platform();
-        auto ktDataClass1 = libshared_symbols()->kotlin.root.getDataClass();
-        auto ktDataClass1Str = libshared_symbols()->kotlin.root.DataClass.toString(ktDataClass1);
+        auto klib = libshared_symbols()->kotlin.root;
+        auto ktText = klib.platform();
+        auto ktDataClass1 = klib.getDataClass();
+        auto ktDataClass1Str = klib.DataClass.toString(ktDataClass1);
 
-        auto ktDataClass2 = libshared_symbols()->kotlin.root.DataClass.DataClass(
+        auto ktDataClass2 = klib.DataClass.DataClass(
                     2,
                     "some aurora string"
                     );
-        auto ktDataClass2Int = libshared_symbols()->kotlin.root.DataClass.get_int(ktDataClass2);
-        auto ktDataClass2Str = libshared_symbols()->kotlin.root.DataClass.get_string(ktDataClass2);
-
-        auto lib = libshared_symbols();
+        auto ktDataClass2Int = klib.DataClass.get_int(ktDataClass2);
+        auto ktDataClass2Str = klib.DataClass.get_string(ktDataClass2);
 
         // No Capture lambda as a C Ptr to Func
         // https://adroit-things.com/programming/c-cpp/how-to-bind-lambda-to-function-pointer/
         struct res {
             const char * text;
-            KotlinNativeVM * that;
-        } result {"", this};
+        } result {""};
         auto noCapture = [](void * data) {
             auto pResult = reinterpret_cast<res *>(data);
             pResult->text = "Triggered from lambda on Aurora";
-//            pResult->that->updateText(pResult->result);
         };
         typedef void(*NormalFuncType)(void * );
         NormalFuncType noCaptureLambdaPtr = noCapture;
-        auto kCallback = lib->kotlin.root.cfptrToFunc0((libshared_KNativePtr)noCaptureLambdaPtr, &result);
-        lib->kotlin.root.triggerLambda(kCallback);
+        klib.triggerLambdaCfptr((libshared_KNativePtr)noCaptureLambdaPtr, &result);
         // --------------------------------------------------------------------------
 
         updateText(QString("Hello, %1\n%2\nDataClass2\nint: %3\nstring: %4\nfromLambda: %5")
@@ -59,32 +55,31 @@ public slots:
     }
 
     void serialization() {
-        auto lib = libshared_symbols();
+        auto klib = libshared_symbols()->kotlin.root;
 
-        auto dc = lib->kotlin.root.getDataClass();
+        auto dc = klib.getDataClass();
         QString log = "Original to string: ";
-        log.append(lib->kotlin.root.DataClass.toString(dc));
-        auto str = lib->kotlin.root.serializeToString(dc);
+        log.append(klib.DataClass.toString(dc));
+        auto str = klib.serializeToString(dc);
         log.append("\nSerialized: ");
         log.append(str);
-        dc = lib->kotlin.root.deserializeFromString(str);
+        dc = klib.deserializeFromString(str);
         log.append("\nDeserialized from string: ");
-        log.append(lib->kotlin.root.DataClass.toString(dc));
+        log.append(klib.DataClass.toString(dc));
 
 
         updateText(log);
     }
 
     void coroutines() {
-        auto lib = libshared_symbols();
+        auto klib = libshared_symbols()->kotlin.root;
         auto noCapture = [](void * data, const char * text, bool finished) {
             auto that = reinterpret_cast<KotlinNativeVM *>(data);
             that->updateText(text);
         };
         typedef void(*NormalFuncType)(void *, const char *, bool);
         NormalFuncType noCaptureLambdaPtr = noCapture;
-        auto kCallback = lib->kotlin.root.cfptrToFunc2((libshared_KNativePtr)noCaptureLambdaPtr, this);
-        lib->kotlin.root.triggerCoroutine(1000, kCallback);
+        klib.triggerCoroutineCfptr(1000, (libshared_KNativePtr)noCaptureLambdaPtr, this);
     }
 
     void ktor() {

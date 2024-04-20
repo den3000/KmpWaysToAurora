@@ -55,16 +55,24 @@ actual fun triggerCoroutine(delayInMs: Long, callback: (String, Boolean) -> Unit
 }
 
 // TODO: Should be shared somehow between native targets
+
 @OptIn(ExperimentalForeignApi::class)
-fun cfptrToFunc0(cfptr: CPointer<CFunction<(COpaquePointer) -> Unit>>, data: COpaquePointer): () -> Unit {
-    return {
+fun triggerLambdaCfptr(
+    cfptr: CPointer<CFunction<(COpaquePointer) -> Unit>>,
+    data: COpaquePointer
+) {
+    triggerLambda {
         cfptr.invoke(data)
     }
 }
 
 @OptIn(ExperimentalForeignApi::class)
-fun cfptrToFunc2(cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>, data: COpaquePointer): (String, Boolean) -> Unit {
-    return { str, b ->
+fun triggerCoroutineCfptr(
+    delayInMs: Long,
+    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>,
+    data: COpaquePointer
+) {
+    triggerCoroutine(delayInMs) { str, b ->
         cfptr.invoke(data, str.cstr, b)
     }
 }

@@ -25,10 +25,44 @@ kotlin {
         }
     }
 
+    val coroutines_version = "1.8.0"
+
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
+            }
+        }
+
+        val androidMain by getting {
+            dependencies {
+
+            }
+        }
+
+        val jvmMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:$coroutines_version")
+
+            }
+        }
+
+        val nativeWinX64Main by getting {
+            dependencies {
+
+            }
+        }
+
+        val nativeLinuxX64Main by getting {
+            dependencies {
+
+            }
+        }
+
+        val nativeLinuxArm64Main by getting  {
+            dependencies {
+
             }
         }
     }

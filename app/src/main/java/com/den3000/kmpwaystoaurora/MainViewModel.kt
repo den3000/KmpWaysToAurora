@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import platform
 import serializeToString
+import triggerCoroutine
 import triggerLambda
 
 class MainViewModel: ViewModel() {
@@ -55,7 +56,9 @@ class MainViewModel: ViewModel() {
     }
 
     fun coroutines() {
-        text.update { "coroutines" }
+        triggerCoroutine(1000) { text, finished ->
+            this@MainViewModel.text.update { text }
+        }
     }
 
     fun ktor() {

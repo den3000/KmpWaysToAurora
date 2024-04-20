@@ -1,6 +1,7 @@
 fun main() {
     std()
     serialization()
+    coroutines()
 }
 
 fun std() {
@@ -39,4 +40,15 @@ fun serialization() {
     println("Serialized: $str")
     dc = deserializeFromString(str)
     println("Deserialized from string: $dc")
+}
+
+fun coroutines() {
+    println("\n=== COROUTINES ===\n")
+
+    var coFinished = false
+    triggerCoroutine(1000) { text, finished ->
+        println(text)
+        coFinished = finished
+    }
+    while (!coFinished) { /**/ }
 }

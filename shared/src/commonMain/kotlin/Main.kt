@@ -14,3 +14,5 @@ expect fun getDataClass(): DataClass
 expect fun serializeToString(dc: DataClass): String
 
 expect fun deserializeFromString(str: String): DataClass
+
+expect fun triggerCoroutine(delayInMs: Long, callback: (String, Boolean) -> Unit)

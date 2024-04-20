@@ -77,16 +77,13 @@ public slots:
 
     void coroutines() {
         auto lib = libshared_symbols();
-        struct res {
-            KotlinNativeVM * that;
-        } result { this };
         auto noCapture = [](void * data, const char * text, bool finished) {
-            auto pResult = reinterpret_cast<res *>(data);
-            pResult->that->updateText(text);
+            auto that = reinterpret_cast<KotlinNativeVM *>(data);
+            that->updateText(text);
         };
         typedef void(*NormalFuncType)(void *, const char *, bool);
         NormalFuncType noCaptureLambdaPtr = noCapture;
-        auto kCallback = lib->kotlin.root.cfptrToFunc2((libshared_KNativePtr)noCaptureLambdaPtr, &result);
+        auto kCallback = lib->kotlin.root.cfptrToFunc2((libshared_KNativePtr)noCaptureLambdaPtr, this);
         lib->kotlin.root.triggerCoroutine(1000, kCallback);
     }
 

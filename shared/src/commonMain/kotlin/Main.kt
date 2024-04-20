@@ -21,3 +21,16 @@ expect fun triggerCoroutine(delayInMs: Long, callback: (String, Boolean) -> Unit
 expect fun getHttpRequestClient() : HttpClient?
 
 expect fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit)
+
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+expect class DriverFactory {
+    fun createDriver(): SqlDriver
+}
+
+fun createDatabase(driverFactory: DriverFactory): Database {
+    val driver = driverFactory.createDriver()
+    val database = Database(driver)
+
+    // Do more work with the database (see below).
+    return database
+}

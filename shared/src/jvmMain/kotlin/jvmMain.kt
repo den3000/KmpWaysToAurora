@@ -2,6 +2,9 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
+import com.den3000.kmpwaystoaurora.Database
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -63,5 +66,13 @@ actual fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit) {
                 callback(it, true)
             }
         }
+    }
+}
+
+actual class DriverFactory {
+    actual fun createDriver(): SqlDriver {
+        val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+        Database.Schema.create(driver)
+        return driver
     }
 }

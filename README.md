@@ -31,6 +31,10 @@
 4. `gradle :shared:linkAndCopyReleaseStaticNativeLinuxArm64` 
 5. `gradle :shared:linkAndCopySharedForAllTargets`
 
+## Generate SqlDelight DB
+
+`gradle :shared:generateSqlDelightInterface`
+
 [//]: # (TODO: one more level of shared code needed)
 shared - platformSpecific
 shared - dependency for other modules

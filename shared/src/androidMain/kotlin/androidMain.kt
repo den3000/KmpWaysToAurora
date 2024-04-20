@@ -1,3 +1,7 @@
+import android.content.Context
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import com.den3000.kmpwaystoaurora.Database
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.request.get
@@ -63,5 +67,11 @@ actual fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit) {
                 callback(it, true)
             }
         }
+    }
+}
+
+actual class DriverFactory(private val context: Context) {
+    actual fun createDriver(): SqlDriver {
+        return AndroidSqliteDriver(Database.Schema, context, "test.db")
     }
 }

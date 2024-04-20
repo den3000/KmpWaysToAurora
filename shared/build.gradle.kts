@@ -2,9 +2,18 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     kotlin("plugin.serialization") version "1.9.23"
+    id("app.cash.sqldelight") version "2.0.0"
 }
 
 version = "1.0-SNAPSHOT"
+
+sqldelight {
+    databases {
+        create("Database") {
+            packageName.set("com.den3000.kmpwaystoaurora") // TODO: ???
+        }
+    }
+}
 
 kotlin {
     androidTarget()
@@ -25,41 +34,45 @@ kotlin {
         }
     }
 
-    val coroutines_version = "1.8.0"
-    val ktor_version = "2.3.10"
-
+    val version_coroutines = "1.8.0"
+    val version_sqldelight  = "2.0.0"
+    val version_ktor = "2.3.10"
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
-                implementation("io.ktor:ktor-client-core:$ktor_version")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutines")
+                implementation("io.ktor:ktor-client-core:$version_ktor")
             }
         }
 
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+                implementation("io.ktor:ktor-client-okhttp:$version_ktor")
+                implementation("app.cash.sqldelight:android-driver:$version_sqldelight")
             }
         }
 
         val jvmMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:$coroutines_version")
-                implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:$version_coroutines")
+                implementation("io.ktor:ktor-client-okhttp:$version_ktor")
+                implementation("app.cash.sqldelight:sqlite-driver:$version_sqldelight")
             }
         }
 
         val nativeWinX64Main by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-winhttp:$ktor_version")
+                implementation("io.ktor:ktor-client-winhttp:$version_ktor")
+                implementation("app.cash.sqldelight:native-driver:$version_sqldelight")
             }
         }
 
         val nativeLinuxX64Main by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-curl:$ktor_version")
-                implementation("io.ktor:ktor-client-cio:$ktor_version")
+                implementation("io.ktor:ktor-client-curl:$version_ktor")
+                implementation("io.ktor:ktor-client-cio:$version_ktor")
+                implementation("app.cash.sqldelight:native-driver:$version_sqldelight")
             }
         }
 
@@ -67,7 +80,8 @@ kotlin {
             dependencies {
                 // Not yet available
                 // implementation("io.ktor:ktor-client-curl:$ktor_version")
-                implementation("io.ktor:ktor-client-cio:$ktor_version")
+                implementation("io.ktor:ktor-client-cio:$version_ktor")
+                implementation("app.cash.sqldelight:native-driver:$version_sqldelight")
             }
         }
     }

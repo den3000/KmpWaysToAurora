@@ -1,10 +1,14 @@
 package com.den3000.kmpwaystoaurora
 
 import DataClass
+import DriverFactory
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.den3000.kmpwaystoaurora.hockey.data.Programmer
+import com.den3000.kmpwaystoaurora.hockey.data.ProgrammerQueries
 import deserializeFromString
 import getDataClass
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -68,8 +72,13 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    fun db() {
-        text.update { "db" }
+    fun db(context: Context) {
+        val df = DriverFactory(context)
+        val dr = df.createDriver() ?: return
+        val db = Database(dr)
+
+        val programmerQueries: ProgrammerQueries = db.programmerQueries
+        text.update { programmerQueries.selectAll().executeAsList().joinToString(separator = "\n") }
     }
 
     companion object {

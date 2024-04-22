@@ -1,8 +1,12 @@
+import com.den3000.kmpwaystoaurora.Database
+import com.den3000.kmpwaystoaurora.hockey.data.ProgrammerQueries
+
 fun main() {
     std()
     serialization()
     coroutines()
     ktor()
+    db()
 }
 
 fun std() {
@@ -63,4 +67,15 @@ fun ktor() {
         end = finished
     }
     while (!end) { /**/ }
+}
+
+fun db() {
+    println("\n=== DB ===\n")
+
+    val df = DriverFactory()
+    val dr = df.createDriver() ?: return
+    val db = Database(dr)
+
+    val programmerQueries: ProgrammerQueries = db.programmerQueries
+    println(programmerQueries.selectAll().executeAsList().joinToString(separator = "\n"))
 }

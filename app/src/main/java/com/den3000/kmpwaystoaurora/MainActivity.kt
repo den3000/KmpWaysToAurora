@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.den3000.kmpwaystoaurora.ui.theme.KmpWaysToAuroraTheme
 
@@ -24,13 +25,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val ctx = LocalContext.current
                     MainView(
                         text = viewModel.text.collectAsStateWithLifecycle().value,
                         onStd = viewModel::std,
                         onSerialization = viewModel::serialization,
                         onCoroutines = viewModel::coroutines,
                         onKtor = viewModel::ktor,
-                        onDb = viewModel::db,
+                        onDb = { viewModel.db(ctx) },
                     )
                 }
             }

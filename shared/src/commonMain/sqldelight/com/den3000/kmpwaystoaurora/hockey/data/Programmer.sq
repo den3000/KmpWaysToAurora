@@ -1,0 +1,17 @@
+CREATE TABLE programmer (
+  programmer_number INTEGER PRIMARY KEY NOT NULL,
+  full_name TEXT NOT NULL
+);
+
+CREATE INDEX programmer_full_name ON programmer(full_name);
+
+INSERT INTO programmer (programmer_number, full_name)
+VALUES (1, 'Charles Babbage'),
+(2, 'Brendan Eich'),
+(3, 'Tim Berners-Lee'),
+(4, 'Linus Torvalds'),
+(5, 'Brian Kernighan');
+
+selectAll:
+SELECT *
+FROM programmer;

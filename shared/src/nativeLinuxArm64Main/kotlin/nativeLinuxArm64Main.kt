@@ -81,9 +81,9 @@ actual fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit) {
 }
 
 actual class DriverFactory {
-    actual fun createDriver(): SqlDriver {
-        error("No NativeSqliteDriver for linux arm64 yet")
-//        return NativeSqliteDriver(Database.Schema, "test.db")
+    actual fun createDriver(): SqlDriver? {
+        println("NativeSqliteDriver not implemented for Linux Arm64")
+        return null
     }
 }
 

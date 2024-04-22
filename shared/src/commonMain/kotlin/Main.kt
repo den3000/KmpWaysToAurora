@@ -24,11 +24,11 @@ expect fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit)
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 expect class DriverFactory {
-    fun createDriver(): SqlDriver
+    fun createDriver(): SqlDriver?
 }
 
-fun createDatabase(driverFactory: DriverFactory): Database {
-    val driver = driverFactory.createDriver()
+fun createDatabase(driverFactory: DriverFactory): Database? {
+    val driver = driverFactory.createDriver() ?: return null
     val database = Database(driver)
 
     // Do more work with the database (see below).

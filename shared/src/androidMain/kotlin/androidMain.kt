@@ -1,3 +1,7 @@
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -42,6 +46,22 @@ actual fun triggerCoroutine(delayInMs: Long, callback: (String, Boolean) -> Unit
 
         withContext(Dispatchers.Main) {
             callback("Kotlin Coroutines World!", true)
+        }
+    }
+}
+
+actual fun getHttpRequestClient() : HttpClient? {
+    return  HttpClient(OkHttp)
+}
+
+actual fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit) {
+    val scope = CoroutineScope(Dispatchers.IO)
+    scope.launch {
+        val response = getHttpRequestClient()?.get("https://ktor.io/docs/welcome.html")
+        response?.bodyAsText()?.let {
+            withContext(Dispatchers.Main) {
+                callback(it, true)
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+import io.ktor.client.HttpClient
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,3 +17,7 @@ expect fun serializeToString(dc: DataClass): String
 expect fun deserializeFromString(str: String): DataClass
 
 expect fun triggerCoroutine(delayInMs: Long, callback: (String, Boolean) -> Unit)
+
+expect fun getHttpRequestClient() : HttpClient?
+
+expect fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit)

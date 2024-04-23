@@ -1,3 +1,7 @@
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -54,6 +58,26 @@ actual fun triggerCoroutine(delayInMs: Long, callback: (String, Boolean) -> Unit
     }
 }
 
+actual fun getHttpRequestClient() : HttpClient? {
+    return  null // HttpClient(CIO) - TLS sessions are not supported on Native platform
+}
+
+actual fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit) {
+    val scope = CoroutineScope(Dispatchers.Default)
+    scope.launch {
+        val response = getHttpRequestClient()?.get("https://ktor.io/docs/welcome.html")
+        if (response != null) {
+            response.bodyAsText().let {
+                withContext(Dispatchers.Default) {
+                    callback(it, true)
+                }
+            }
+        } else {
+            callback("TLS sessions are not supported on Native platform", true)
+        }
+    }
+}
+
 // TODO: Should be shared somehow between native targets
 
 @OptIn(ExperimentalForeignApi::class)
@@ -74,5 +98,15 @@ fun triggerCoroutineCfptr(
 ) {
     triggerCoroutine(delayInMs) { str, b ->
         cfptr.invoke(data, str.cstr, b)
+    }
+}
+
+@OptIn(ExperimentalForeignApi::class)
+fun getKtorIoWelcomePageAsTextCfptr(
+    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>,
+    data: COpaquePointer
+) {
+    getKtorIoWelcomePageAsText { s, b ->
+        cfptr.invoke(data, s.cstr, b)
     }
 }

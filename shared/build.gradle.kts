@@ -26,43 +26,47 @@ kotlin {
     }
 
     val coroutines_version = "1.8.0"
+    val ktor_version = "2.3.10"
 
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
+                implementation("io.ktor:ktor-client-core:$ktor_version")
             }
         }
 
         val androidMain by getting {
             dependencies {
-
+                implementation("io.ktor:ktor-client-okhttp:$ktor_version")
             }
         }
 
         val jvmMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:$coroutines_version")
-
+                implementation("io.ktor:ktor-client-okhttp:$ktor_version")
             }
         }
 
         val nativeWinX64Main by getting {
             dependencies {
-
+                implementation("io.ktor:ktor-client-winhttp:$ktor_version")
             }
         }
 
         val nativeLinuxX64Main by getting {
             dependencies {
-
+                // TODO: Add curl engine
+                implementation("io.ktor:ktor-client-cio:$ktor_version")
             }
         }
 
         val nativeLinuxArm64Main by getting  {
             dependencies {
-
+                // TODO: Add curl engine
+                implementation("io.ktor:ktor-client-cio:$ktor_version")
             }
         }
     }

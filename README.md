@@ -31,9 +31,15 @@
 4. `gradle :shared:linkAndCopyReleaseStaticNativeLinuxArm64` 
 5. `gradle :shared:linkAndCopySharedForAllTargets`
 
-## Generate SqlDelight DB
+## SqlDelight DB
 
-`gradle :shared:generateSqlDelightInterface`
+1. task to generate db `gradle :shared:generateSqlDelightInterface`
+2. no native driver for linux arm 64
+3. Requires presence of pre-compiled sqlite3, more details 
+   1. https://github.com/cashapp/sqldelight/blob/master/drivers/native-driver/build.gradle#L99-L101
+   2. https://github.com/cashapp/sqldelight/issues/3033
+4. So it is not that easy even to finish it for win/linux x86
+
 
 [//]: # (TODO: one more level of shared code needed)
 shared - platformSpecific

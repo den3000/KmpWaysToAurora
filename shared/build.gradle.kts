@@ -37,6 +37,7 @@ kotlin {
     val version_coroutines = "1.8.0"
     val version_sqldelight  = "2.0.0"
     val version_ktor = "2.3.10"
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -82,6 +83,8 @@ kotlin {
                 // implementation("io.ktor:ktor-client-curl:$ktor_version")
                 implementation("io.ktor:ktor-client-cio:$version_ktor")
                 implementation("app.cash.sqldelight:native-driver:$version_sqldelight")
+                // not yet available
+                //  implementation("app.cash.sqldelight:native-driver:$version_sqldelight")
             }
         }
     }

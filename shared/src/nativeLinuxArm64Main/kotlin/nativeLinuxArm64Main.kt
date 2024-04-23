@@ -3,7 +3,6 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import app.cash.sqldelight.db.SqlDriver
-import com.den3000.kmpwaystoaurora.Database
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer

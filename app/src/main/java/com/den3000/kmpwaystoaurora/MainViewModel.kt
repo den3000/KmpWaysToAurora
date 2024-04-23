@@ -13,6 +13,7 @@ import platform
 import serializeToString
 import triggerCoroutine
 import triggerLambda
+import getKtorIoWelcomePageAsText
 
 class MainViewModel: ViewModel() {
 
@@ -62,7 +63,9 @@ class MainViewModel: ViewModel() {
     }
 
     fun ktor() {
-        text.update { "ktor" }
+        getKtorIoWelcomePageAsText { strBody, b ->
+            text.update { strBody }
+        }
     }
 
     fun db() {

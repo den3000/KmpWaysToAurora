@@ -83,7 +83,14 @@ public slots:
     }
 
     void ktor() {
-        updateText("ktor");
+        auto klib = libshared_symbols()->kotlin.root;
+        auto noCapture = [](void * data, const char * text, bool finished) {
+            auto that = reinterpret_cast<KotlinNativeVM *>(data);
+            that->updateText(text);
+        };
+        typedef void(*NormalFuncType)(void *, const char *, bool);
+        NormalFuncType noCaptureLambdaPtr = noCapture;
+        klib.getKtorIoWelcomePageAsTextCfptr((libshared_KNativePtr)noCaptureLambdaPtr, this);
     }
 
     void db() {

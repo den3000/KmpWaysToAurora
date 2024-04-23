@@ -2,6 +2,7 @@ fun main() {
     std()
     serialization()
     coroutines()
+    ktor()
 }
 
 fun std() {
@@ -45,10 +46,21 @@ fun serialization() {
 fun coroutines() {
     println("\n=== COROUTINES ===\n")
 
-    var coFinished = false
+    var end = false
     triggerCoroutine(1000) { text, finished ->
         println(text)
-        coFinished = finished
+        end = finished
     }
-    while (!coFinished) { /**/ }
+    while (!end) { /**/ }
+}
+
+fun ktor() {
+    println("\n=== KTOR ===\n")
+
+    var end = false
+    getKtorIoWelcomePageAsText { text, finished ->
+        println(text)
+        end = finished
+    }
+    while (!end) { /**/ }
 }

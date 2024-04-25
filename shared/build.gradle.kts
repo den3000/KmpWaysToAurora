@@ -58,14 +58,15 @@ kotlin {
 
         val nativeLinuxX64Main by getting {
             dependencies {
-                // TODO: Add curl engine
+                implementation("io.ktor:ktor-client-curl:$ktor_version")
                 implementation("io.ktor:ktor-client-cio:$ktor_version")
             }
         }
 
         val nativeLinuxArm64Main by getting  {
             dependencies {
-                // TODO: Add curl engine
+                // Not yet available
+                // implementation("io.ktor:ktor-client-curl:$ktor_version")
                 implementation("io.ktor:ktor-client-cio:$ktor_version")
             }
         }

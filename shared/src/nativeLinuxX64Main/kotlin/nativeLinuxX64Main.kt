@@ -1,5 +1,5 @@
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
+import io.ktor.client.engine.curl.Curl
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import kotlinx.cinterop.ByteVar
@@ -59,7 +59,7 @@ actual fun triggerCoroutine(delayInMs: Long, callback: (String, Boolean) -> Unit
 }
 
 actual fun getHttpRequestClient() : HttpClient? {
-    return  null // HttpClient(CIO) - TLS sessions are not supported on Native platform
+    return HttpClient(Curl)
 }
 
 actual fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit) {

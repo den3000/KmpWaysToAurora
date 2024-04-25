@@ -38,7 +38,7 @@ TRANSLATIONS += \
     translations/com.den3000.kmpwaystoaurora.KmpWaysToAurora.ts \
     translations/com.den3000.kmpwaystoaurora.KmpWaysToAurora-ru.ts \
 
-unix:!macx: LIBS += -L$$PWD/$${SHARED_LIB_PATH}/ -lshared
+unix:!macx: LIBS += -L$$PWD/$${SHARED_LIB_PATH} -lshared -lcurl
 
 INCLUDEPATH += $$PWD/$${SHARED_LIB_PATH}
 DEPENDPATH += $$PWD/$${SHARED_LIB_PATH}

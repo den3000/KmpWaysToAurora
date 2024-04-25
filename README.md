@@ -34,3 +34,9 @@
 [//]: # (TODO: one more level of shared code needed)
 shared - platformSpecific
 shared - dependency for other modules
+
+# Curl integration
+While shared module build as static lib to be available on aurora, after adding ktor curl web engine
+it will have dynamic dependency on libcurl.so. The good thing, libcurl is available in aurora, the bad
+thing - this fact should be explicitly described in .pro file. So, final aurora app should be linked 
+not only with libshared.a using `-lshared` option, but also using `-lcurl` option.

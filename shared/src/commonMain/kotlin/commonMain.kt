@@ -26,7 +26,7 @@ expect fun getHttpRequestClient() : HttpClient?
 expect fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit)
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-expect class DriverFactory {
+expect class DriverFactory() {
     fun createDriver(): SqlDriver?
 }
 

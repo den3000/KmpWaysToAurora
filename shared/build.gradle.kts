@@ -56,7 +56,6 @@ kotlin {
 
         val jvmMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:$version_coroutines")
                 implementation("io.ktor:ktor-client-okhttp:$version_ktor")
                 implementation("app.cash.sqldelight:sqlite-driver:$version_sqldelight")
             }
@@ -81,9 +80,9 @@ kotlin {
             dependencies {
                 // Not yet available
                 // implementation("io.ktor:ktor-client-curl:$ktor_version")
-                implementation("io.ktor:ktor-client-cio:$version_ktor")
-                // not yet available
-                //  implementation("app.cash.sqldelight:native-driver:$version_sqldelight")
+
+                // Not yet available
+                // implementation("app.cash.sqldelight:native-driver:$version_sqldelight")
             }
         }
     }

@@ -1,6 +1,3 @@
-import com.den3000.kmpwaystoaurora.Database
-import com.den3000.kmpwaystoaurora.ProgrammerQueries
-
 fun main() {
     std()
     serialization()

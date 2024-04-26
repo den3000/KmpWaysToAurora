@@ -72,8 +72,14 @@ actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Uni
     }
 }
 
-actual class DriverFactory(private val context: Context) {
+actual class DriverFactory(private val context: Context?) {
+    actual constructor() : this(null)
+
     actual fun createDriver(): SqlDriver? {
-        return AndroidSqliteDriver(Database.Schema, context, "Database.db")
+        return if (context != null) {
+            AndroidSqliteDriver(Database.Schema, context, "Database.db")
+        } else {
+            null
+        }
     }
 }

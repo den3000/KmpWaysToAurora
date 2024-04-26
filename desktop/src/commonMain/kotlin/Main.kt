@@ -55,7 +55,7 @@ fun coroutines() {
         println(text)
         end = finished
     }
-    while (!end) { /**/ }
+    while (!end) { /* wait loop */ }
 }
 
 fun ktor() {
@@ -66,7 +66,7 @@ fun ktor() {
         println(text)
         end = finished
     }
-    while (!end) { /**/ }
+    while (!end) { /* wait loop */ }
 }
 
 fun db() {

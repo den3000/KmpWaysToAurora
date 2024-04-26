@@ -18,11 +18,11 @@ expect fun serializeToString(dc: DataClass): String
 
 expect fun deserializeFromString(str: String): DataClass
 
-expect fun triggerCoroutine(delayInMs: Long, callback: (String, Boolean) -> Unit)
+expect fun triggerCoroutine(delayInMs: Long, callback: suspend (String, Boolean) -> Unit)
 
 expect fun getHttpRequestClient() : HttpClient?
 
-expect fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit)
+expect fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit)
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 expect class DriverFactory {

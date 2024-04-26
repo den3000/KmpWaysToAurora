@@ -42,7 +42,7 @@ actual fun deserializeFromString(str: String): DataClass {
     return Json.decodeFromString(str)
 }
 
-actual fun triggerCoroutine(delayInMs: Long, callback: (String, Boolean) -> Unit) {
+actual fun triggerCoroutine(delayInMs: Long, callback: suspend (String, Boolean) -> Unit) {
     val scope = CoroutineScope(Dispatchers.Default)
     var max = 3
     scope.launch {
@@ -65,7 +65,7 @@ actual fun getHttpRequestClient() : HttpClient? {
     return HttpClient(Curl)
 }
 
-actual fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit) {
+actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
     val scope = CoroutineScope(Dispatchers.Default)
     scope.launch {
         val response = getHttpRequestClient()?.get("https://ktor.io/docs/welcome.html")

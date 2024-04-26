@@ -1,15 +1,13 @@
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
+import com.den3000.kmpwaystoaurora.Database
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
-import app.cash.sqldelight.db.SqlDriver
-import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
-import com.den3000.kmpwaystoaurora.Database
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -34,20 +32,17 @@ actual fun deserializeFromString(str: String): DataClass {
     return Json.decodeFromString(str)
 }
 
-actual fun triggerCoroutine(delayInMs: Long, callback: (String, Boolean) -> Unit) {
-    val scope = CoroutineScope(Dispatchers.IO)
-    var max = 3
-    scope.launch {
-        while (max > 0) {
-            withContext(Dispatchers.Main) {
+actual fun triggerCoroutine(delayInMs: Long, callback: suspend (String, Boolean) -> Unit) {
+    runBlocking {
+        var max = 3
+        launch {
+            while (max > 0) {
                 callback("$max", false)
+
+                max -= 1
+                delay(delayInMs)
             }
 
-            max -= 1
-            delay(delayInMs)
-        }
-
-        withContext(Dispatchers.Main) {
             callback("Kotlin Coroutines World!", true)
         }
     }
@@ -57,12 +52,11 @@ actual fun getHttpRequestClient() : HttpClient? {
     return  HttpClient(OkHttp)
 }
 
-actual fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit) {
-    val scope = CoroutineScope(Dispatchers.IO)
-    scope.launch {
-        val response = getHttpRequestClient()?.get("https://ktor.io/docs/welcome.html")
-        response?.bodyAsText()?.let {
-            withContext(Dispatchers.Main) {
+actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
+    runBlocking {
+        launch {
+            val response = getHttpRequestClient()?.get("https://ktor.io/docs/welcome.html")
+            response?.bodyAsText()?.let {
                 callback(it, true)
             }
         }

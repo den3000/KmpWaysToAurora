@@ -7,8 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.den3000.kmpwaystoaurora.hockey.data.Programmer
-import com.den3000.kmpwaystoaurora.hockey.data.ProgrammerQueries
+import createDatabase
 import deserializeFromString
 import getDataClass
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -74,8 +73,7 @@ class MainViewModel: ViewModel() {
 
     fun db(context: Context) {
         val df = DriverFactory(context)
-        val dr = df.createDriver() ?: return
-        val db = Database(dr)
+        val db = createDatabase(df) ?: return
 
         val programmerQueries: ProgrammerQueries = db.programmerQueries
         text.update { programmerQueries.selectAll().executeAsList().joinToString(separator = "\n") }

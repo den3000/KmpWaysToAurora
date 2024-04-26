@@ -72,10 +72,9 @@ fun ktor() {
 fun db() {
     println("\n=== DB ===\n")
 
-    val df = DriverFactory()
-    val dr = df.createDriver() ?: return
-    val db = Database(dr)
-
-    val programmerQueries: ProgrammerQueries = db.programmerQueries
-    println(programmerQueries.selectAll().executeAsList().joinToString(separator = "\n"))
+    DriverFactory().createDriver()?.let { driver ->
+        val db = Database(driver)
+        val programmerQueries: ProgrammerQueries = db.programmerQueries
+        println(programmerQueries.selectAll().executeAsList().joinToString(separator = "\n"))
+    }
 }

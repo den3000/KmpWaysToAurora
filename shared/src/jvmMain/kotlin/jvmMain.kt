@@ -69,7 +69,7 @@ actual fun getKtorIoWelcomePageAsText(callback: (String, Boolean) -> Unit) {
     }
 }
 
-actual class DriverFactory() {
+actual class DriverFactory {
     actual fun createDriver(): SqlDriver? {
         val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
         Database.Schema.create(driver)

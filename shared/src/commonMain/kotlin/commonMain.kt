@@ -2,6 +2,8 @@ import app.cash.sqldelight.db.SqlDriver
 import com.den3000.kmpwaystoaurora.Database
 import com.den3000.kmpwaystoaurora.ProgrammerQueries
 import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -49,7 +51,25 @@ fun triggerCoroutine(delayInMs: Long, callback: suspend (String, Boolean) -> Uni
 
 expect fun getHttpRequestClient() : HttpClient?
 
-expect fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit)
+fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
+    val scope = CoroutineScope(getExecutionContext())
+    scope.launch {
+        val client = getHttpRequestClient() ?: run {
+            withContext(getCallbackContext()) {
+                callback("NO HTTP CLIENT AVAILABLE", true)
+            }
+            return@launch
+        }
+
+        val response = client.get("https://ktor.io/docs/welcome.html")
+        response.bodyAsText().let {
+            withContext(getCallbackContext()) {
+                callback(it, true)
+            }
+            client.close()
+        }
+    }
+}
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 expect class DriverFactory() {

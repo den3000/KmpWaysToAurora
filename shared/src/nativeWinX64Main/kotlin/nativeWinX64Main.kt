@@ -46,23 +46,7 @@ actual fun getExecutionContext() = (Dispatchers.Default as CoroutineContext)
 
 actual fun getCallbackContext() = (Dispatchers.Default as CoroutineContext)
 
-actual fun getHttpRequestClient() : HttpClient? {
-    return  HttpClient(WinHttp)
-}
-
-actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
-    val scope = CoroutineScope(Dispatchers.Default)
-    scope.launch {
-        val client = getHttpRequestClient()
-        val response = client?.get("https://ktor.io/docs/welcome.html")
-        response?.bodyAsText()?.let {
-            withContext(Dispatchers.Default) {
-                callback(it, true)
-            }
-            client.close()
-        }
-    }
-}
+actual fun getHttpRequestClient() : HttpClient? = HttpClient(WinHttp)
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DriverFactory {

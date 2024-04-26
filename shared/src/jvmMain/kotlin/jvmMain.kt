@@ -37,23 +37,7 @@ actual fun getExecutionContext() = (Dispatchers.IO as CoroutineContext)
 
 actual fun getCallbackContext() = (Dispatchers.Default as CoroutineContext)
 
-actual fun getHttpRequestClient() : HttpClient? {
-    return  HttpClient(OkHttp)
-}
-
-actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
-    // TODO: Might be a problem when exported with JavaToNative
-    runBlocking {
-        launch {
-            val client = getHttpRequestClient()
-            val response = client?.get("https://ktor.io/docs/welcome.html")
-            response?.bodyAsText()?.let {
-                callback(it, true)
-                client.close()
-            }
-        }
-    }
-}
+actual fun getHttpRequestClient() : HttpClient? = HttpClient(OkHttp)
 
 actual class DriverFactory {
     actual fun createDriver(): SqlDriver? {

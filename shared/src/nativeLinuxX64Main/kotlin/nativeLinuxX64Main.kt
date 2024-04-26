@@ -47,28 +47,7 @@ actual fun getExecutionContext() = (Dispatchers.Default as CoroutineContext)
 
 actual fun getCallbackContext() = (Dispatchers.Default as CoroutineContext)
 
-actual fun getHttpRequestClient() : HttpClient? {
-    return HttpClient(Curl)
-}
-
-actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
-    val scope = CoroutineScope(Dispatchers.Default)
-    scope.launch {
-        val client = getHttpRequestClient()
-        val response = client?.get("https://ktor.io/docs/welcome.html")
-        if (response != null) {
-            response.bodyAsText().let {
-                withContext(Dispatchers.Default) {
-                    callback(it, true)
-                }
-                client.close()
-            }
-        } else {
-            callback("TLS sessions are not supported on Native platform", true)
-            client?.close()
-        }
-    }
-}
+actual fun getHttpRequestClient() : HttpClient? = HttpClient(Curl)
 
 actual class DriverFactory {
     actual fun createDriver(): SqlDriver? {

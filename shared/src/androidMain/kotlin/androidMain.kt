@@ -39,23 +39,7 @@ actual fun getExecutionContext() = (Dispatchers.IO as CoroutineContext)
 
 actual fun getCallbackContext() = (Dispatchers.Main as CoroutineContext)
 
-actual fun getHttpRequestClient() : HttpClient? {
-    return  HttpClient(OkHttp)
-}
-
-actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
-    val scope = CoroutineScope(Dispatchers.IO)
-    scope.launch {
-        val client = getHttpRequestClient()
-        val response = client?.get("https://ktor.io/docs/welcome.html")
-        response?.bodyAsText()?.let {
-            withContext(Dispatchers.Main) {
-                callback(it, true)
-            }
-            client.close()
-        }
-    }
-}
+actual fun getHttpRequestClient() : HttpClient? = HttpClient(OkHttp)
 
 actual class DriverFactory(private val context: Context?) {
     actual constructor() : this(null)

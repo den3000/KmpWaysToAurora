@@ -1,3 +1,6 @@
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
+
 fun main() {
     std()
     serialization()
@@ -47,23 +50,23 @@ fun serialization() {
 fun coroutines() {
     println("\n=== COROUTINES ===\n")
 
-    var end = false
+    val flowEnd = MutableStateFlow(false)
     triggerCoroutine(1000) { text, finished ->
-        println(text)
-        end = finished
+        println("text: $text finished: $finished")
+        flowEnd.update { finished }
     }
-    while (!end) { /* wait loop */ }
+    while (!flowEnd.value) { /* wait loop */ }
 }
 
 fun ktor() {
     println("\n=== KTOR ===\n")
 
-    var end = false
+    val flowEnd = MutableStateFlow(false)
     getKtorIoWelcomePageAsText { text, finished ->
         println(text)
-        end = finished
+        flowEnd.update { finished }
     }
-    while (!end) { /* wait loop */ }
+    while (!flowEnd.value) { /* wait loop */ }
 }
 
 fun db() {

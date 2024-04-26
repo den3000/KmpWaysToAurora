@@ -37,33 +37,12 @@ kotlin {
         }
     }
 
+    val version_coroutines = "1.8.0"
+
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":shared"))
-            }
-        }
-
-        val jvmMain by getting {
-            dependencies {
-                implementation(project(":shared"))
-            }
-        }
-
-        val nativeWinX64Main by getting {
-            dependencies {
-                implementation(project(":shared"))
-            }
-        }
-
-        val nativeLinuxX64Main by getting {
-            dependencies {
-                implementation(project(":shared"))
-            }
-        }
-
-        val nativeLinuxArm64Main by getting  {
-            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutines")
                 implementation(project(":shared"))
             }
         }

@@ -45,40 +45,7 @@ actual fun getHttpRequestClient() : HttpClient? = null // Curl WebEngine not yet
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DriverFactory {
     actual fun createDriver(): SqlDriver? {
-        println("NativeSqliteDriver not implemented for Linux Arm64")
+        // NativeSqliteDriver not yet available for LinuxArm64
         return null
-    }
-}
-
-// TODO: Should be shared somehow between native targets
-
-@OptIn(ExperimentalForeignApi::class)
-fun triggerLambdaCfptr(
-    cfptr: CPointer<CFunction<(COpaquePointer) -> Unit>>,
-    data: COpaquePointer
-) {
-    triggerLambda {
-        cfptr.invoke(data)
-    }
-}
-
-@OptIn(ExperimentalForeignApi::class)
-fun triggerCoroutineCfptr(
-    delayInMs: Long,
-    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>,
-    data: COpaquePointer
-) {
-    triggerCoroutine(delayInMs) { str, b ->
-        cfptr.invoke(data, str.cstr, b)
-    }
-}
-
-@OptIn(ExperimentalForeignApi::class)
-fun getKtorIoWelcomePageAsTextCfptr(
-    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>,
-    data: COpaquePointer
-) {
-    getKtorIoWelcomePageAsText { s, b ->
-        cfptr.invoke(data, s.cstr, b)
     }
 }

@@ -42,7 +42,7 @@ fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
     scope.launch {
         val client = getHttpRequestClient() ?: run {
             withContext(getCallbackContext()) {
-                callback("NO HTTP CLIENT AVAILABLE", true)
+                callback("NO HttpClient AVAILABLE", true)
             }
             return@launch
         }
@@ -58,7 +58,7 @@ fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
 }
 
 fun getProgrammersFromSqlDelight(driverFactory: DriverFactory): String {
-    val driver = driverFactory.createDriver() ?: return "FAILED TO CREATE DRIVER"
+    val driver = driverFactory.createDriver() ?: return "NO NativeSqliteDriver AVAILABLE"
     val database = Database(driver)
     val programmerQueries: ProgrammerQueries = database.programmerQueries
     val str = programmerQueries.selectAll().executeAsList().joinToString(separator = "\n")

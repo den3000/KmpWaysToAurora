@@ -21,6 +21,7 @@ public:
 public slots:
     void std() {
         auto klib = libshared_symbols()->kotlin.root;
+
         auto ktText = klib.platform();
         auto ktDataClass1 = klib.getDataClass();
         auto ktDataClass1Str = klib.DataClass.toString(ktDataClass1);
@@ -66,7 +67,6 @@ public slots:
         dc = klib.deserializeFromString(str);
         log.append("\nDeserialized from string: ");
         log.append(klib.DataClass.toString(dc));
-
 
         updateText(log);
     }

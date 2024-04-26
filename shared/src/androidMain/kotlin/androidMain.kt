@@ -23,10 +23,6 @@ actual fun getDataClass(): DataClass {
     )
 }
 
-actual fun triggerLambda(callback: () -> Unit) {
-    callback()
-}
-
 actual fun serializeToString(dc: DataClass): String {
     return Json.encodeToString(dc)
 }
@@ -41,6 +37,7 @@ actual fun getCallbackContext() = (Dispatchers.Main as CoroutineContext)
 
 actual fun getHttpRequestClient() : HttpClient? = HttpClient(OkHttp)
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DriverFactory(private val context: Context?) {
     actual constructor() : this(null)
 

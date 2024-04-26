@@ -31,10 +31,6 @@ actual fun getDataClass(): DataClass {
     )
 }
 
-actual fun triggerLambda(callback: () -> Unit) {
-    callback()
-}
-
 actual fun serializeToString(dc: DataClass): String {
     return Json.encodeToString(dc)
 }
@@ -49,6 +45,7 @@ actual fun getCallbackContext() = (Dispatchers.Default as CoroutineContext)
 
 actual fun getHttpRequestClient() : HttpClient? = HttpClient(Curl)
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DriverFactory {
     actual fun createDriver(): SqlDriver? {
         return NativeSqliteDriver(Database.Schema, "test.db")

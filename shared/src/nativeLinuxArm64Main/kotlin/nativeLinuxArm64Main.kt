@@ -28,10 +28,6 @@ actual fun getDataClass(): DataClass {
     )
 }
 
-actual fun triggerLambda(callback: () -> Unit) {
-    callback()
-}
-
 actual fun serializeToString(dc: DataClass): String {
     return Json.encodeToString(dc)
 }
@@ -46,6 +42,7 @@ actual fun getCallbackContext() = (Dispatchers.Default as CoroutineContext)
 
 actual fun getHttpRequestClient() : HttpClient? = null // Curl WebEngine not yet available for LinuxArm64
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DriverFactory {
     actual fun createDriver(): SqlDriver? {
         println("NativeSqliteDriver not implemented for Linux Arm64")

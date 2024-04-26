@@ -30,10 +30,6 @@ actual fun getDataClass(): DataClass {
     )
 }
 
-actual fun triggerLambda(callback: () -> Unit) {
-    callback()
-}
-
 actual fun serializeToString(dc: DataClass): String {
     return Json.encodeToString(dc)
 }

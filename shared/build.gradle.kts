@@ -82,7 +82,6 @@ kotlin {
                 // Not yet available
                 // implementation("io.ktor:ktor-client-curl:$ktor_version")
                 implementation("io.ktor:ktor-client-cio:$version_ktor")
-                implementation("app.cash.sqldelight:native-driver:$version_sqldelight")
                 // not yet available
                 //  implementation("app.cash.sqldelight:native-driver:$version_sqldelight")
             }

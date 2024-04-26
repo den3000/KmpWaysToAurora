@@ -82,13 +82,8 @@ actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Uni
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DriverFactory {
     actual fun createDriver(): SqlDriver? {
-        println("will create driver")
-        val schema = Database.Schema
-        val name = "test.db"
-        val d = NativeSqliteDriver(schema, name)
-        println("driver created")
-//        return d
-        return null
+        // Database.db will be created at user dir, something like C:\Users\__USER_NAME__
+        return NativeSqliteDriver(Database.Schema, "Database.db")
     }
 }
 

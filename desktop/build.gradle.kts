@@ -13,6 +13,10 @@ kotlin {
         binaries {
             executable("kn-on-aurora-win-x86_64") {
                 entryPoint = "main"
+                linkerOpts += listOf(
+                    "-L$projectDir/../libs/winX64/sqlite",
+                    "-lsqlite3",
+                )
             }
         }
     }

@@ -5,23 +5,24 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlin.coroutines.CoroutineContext
 
 actual fun platform() = "Shared JVM"
-
-actual fun triggerLambda(callback: () -> Unit) {
-    callback()
-}
 
 actual fun getDataClass(): DataClass {
     return DataClass(
         int = 10,
         string = "some string"
     )
+}
+
+actual fun triggerLambda(callback: () -> Unit) {
+    callback()
 }
 
 actual fun serializeToString(dc: DataClass): String {
@@ -32,22 +33,9 @@ actual fun deserializeFromString(str: String): DataClass {
     return Json.decodeFromString(str)
 }
 
-actual fun triggerCoroutine(delayInMs: Long, callback: suspend (String, Boolean) -> Unit) {
-    // TODO: Might be a problem when exported with JavaToNative
-    runBlocking {
-        var max = 3
-        launch {
-            while (max > 0) {
-                callback("$max", false)
+actual fun getExecutionContext() = (Dispatchers.IO as CoroutineContext)
 
-                max -= 1
-                delay(delayInMs)
-            }
-
-            callback("Kotlin Coroutines World!", true)
-        }
-    }
-}
+actual fun getCallbackContext() = (Dispatchers.Default as CoroutineContext)
 
 actual fun getHttpRequestClient() : HttpClient? {
     return  HttpClient(OkHttp)

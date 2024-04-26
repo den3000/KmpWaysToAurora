@@ -17,18 +17,19 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlin.coroutines.CoroutineContext
 
 actual fun platform() = "Shared Linux Arm64"
-
-actual fun triggerLambda(callback: () -> Unit) {
-    callback()
-}
 
 actual fun getDataClass(): DataClass {
     return DataClass(
         int = 10,
         string = "some string"
     )
+}
+
+actual fun triggerLambda(callback: () -> Unit) {
+    callback()
 }
 
 actual fun serializeToString(dc: DataClass): String {
@@ -39,24 +40,9 @@ actual fun deserializeFromString(str: String): DataClass {
     return Json.decodeFromString(str)
 }
 
-actual fun triggerCoroutine(delayInMs: Long, callback: suspend (String, Boolean) -> Unit) {
-    val scope = CoroutineScope(Dispatchers.Default)
-    var max = 3
-    scope.launch {
-        while (max > 0) {
-            withContext(Dispatchers.Default) {
-                callback("$max", false)
-            }
+actual fun getExecutionContext() = (Dispatchers.Default as CoroutineContext)
 
-            max -= 1
-            delay(delayInMs)
-        }
-
-        withContext(Dispatchers.Default) {
-            callback("Kotlin Coroutines World!", true)
-        }
-    }
-}
+actual fun getCallbackContext() = (Dispatchers.Default as CoroutineContext)
 
 actual fun getHttpRequestClient() : HttpClient? {
     return  null // HttpClient(CIO) - TLS sessions are not supported on Native platform

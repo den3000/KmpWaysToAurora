@@ -66,15 +66,18 @@ actual fun getHttpRequestClient() : HttpClient? {
 actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
     val scope = CoroutineScope(Dispatchers.Default)
     scope.launch {
-        val response = getHttpRequestClient()?.get("https://ktor.io/docs/welcome.html")
+        val client = getHttpRequestClient()
+        val response = client?.get("https://ktor.io/docs/welcome.html")
         if (response != null) {
             response.bodyAsText().let {
                 withContext(Dispatchers.Default) {
                     callback(it, true)
                 }
+                client.close()
             }
         } else {
             callback("TLS sessions are not supported on Native platform", true)
+            client?.close()
         }
     }
 }

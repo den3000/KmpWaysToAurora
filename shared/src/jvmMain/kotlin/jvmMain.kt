@@ -33,6 +33,7 @@ actual fun deserializeFromString(str: String): DataClass {
 }
 
 actual fun triggerCoroutine(delayInMs: Long, callback: suspend (String, Boolean) -> Unit) {
+    // TODO: Might be a problem when exported with JavaToNative
     runBlocking {
         var max = 3
         launch {
@@ -53,11 +54,14 @@ actual fun getHttpRequestClient() : HttpClient? {
 }
 
 actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
+    // TODO: Might be a problem when exported with JavaToNative
     runBlocking {
         launch {
-            val response = getHttpRequestClient()?.get("https://ktor.io/docs/welcome.html")
+            val client = getHttpRequestClient()
+            val response = client?.get("https://ktor.io/docs/welcome.html")
             response?.bodyAsText()?.let {
                 callback(it, true)
+                client.close()
             }
         }
     }

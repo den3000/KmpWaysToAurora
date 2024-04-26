@@ -61,11 +61,13 @@ actual fun getHttpRequestClient() : HttpClient? {
 actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
     val scope = CoroutineScope(Dispatchers.IO)
     scope.launch {
-        val response = getHttpRequestClient()?.get("https://ktor.io/docs/welcome.html")
+        val client = getHttpRequestClient()
+        val response = client?.get("https://ktor.io/docs/welcome.html")
         response?.bodyAsText()?.let {
             withContext(Dispatchers.Main) {
                 callback(it, true)
             }
+            client.close()
         }
     }
 }

@@ -68,11 +68,13 @@ actual fun getHttpRequestClient() : HttpClient? {
 actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
     val scope = CoroutineScope(Dispatchers.Default)
     scope.launch {
-        val response = getHttpRequestClient()?.get("https://ktor.io/docs/welcome.html")
+        val client = getHttpRequestClient()
+        val response = client?.get("https://ktor.io/docs/welcome.html")
         response?.bodyAsText()?.let {
             withContext(Dispatchers.Default) {
                 callback(it, true)
             }
+            client.close()
         }
     }
 }
@@ -80,7 +82,13 @@ actual fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Uni
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DriverFactory {
     actual fun createDriver(): SqlDriver? {
-        return NativeSqliteDriver(Database.Schema, "test.db")
+        println("will create driver")
+        val schema = Database.Schema
+        val name = "test.db"
+        val d = NativeSqliteDriver(schema, name)
+        println("driver created")
+//        return d
+        return null
     }
 }
 

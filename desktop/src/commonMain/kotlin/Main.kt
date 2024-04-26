@@ -72,9 +72,6 @@ fun ktor() {
 fun db() {
     println("\n=== DB ===\n")
 
-    DriverFactory().createDriver()?.let { driver ->
-        val db = Database(driver)
-        val programmerQueries: ProgrammerQueries = db.programmerQueries
-        println(programmerQueries.selectAll().executeAsList().joinToString(separator = "\n"))
-    }
+    val df = DriverFactory()
+    println(getProgrammersFromSqlDelight(df))
 }

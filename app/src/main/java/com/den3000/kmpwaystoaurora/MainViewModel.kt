@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import createDatabase
 import deserializeFromString
 import getDataClass
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,6 +16,7 @@ import serializeToString
 import triggerCoroutine
 import triggerLambda
 import getKtorIoWelcomePageAsText
+import getProgrammersFromSqlDelight
 
 class MainViewModel: ViewModel() {
 
@@ -73,10 +73,9 @@ class MainViewModel: ViewModel() {
 
     fun db(context: Context) {
         val df = DriverFactory(context)
-        val db = createDatabase(df) ?: return
-
-        val programmerQueries: ProgrammerQueries = db.programmerQueries
-        text.update { programmerQueries.selectAll().executeAsList().joinToString(separator = "\n") }
+        text.update {
+            getProgrammersFromSqlDelight(df)
+        }
     }
 
     companion object {

@@ -1,5 +1,6 @@
 import app.cash.sqldelight.db.SqlDriver
 import com.den3000.kmpwaystoaurora.Database
+import com.den3000.kmpwaystoaurora.ProgrammerQueries
 import io.ktor.client.HttpClient
 import kotlinx.serialization.Serializable
 
@@ -29,10 +30,11 @@ expect class DriverFactory {
     fun createDriver(): SqlDriver?
 }
 
-fun createDatabase(driverFactory: DriverFactory): Database? {
-    val driver = driverFactory.createDriver() ?: return null
+fun getProgrammersFromSqlDelight(driverFactory: DriverFactory): String {
+    val driver = driverFactory.createDriver() ?: return "FAILED TO CREATE DRIVER"
     val database = Database(driver)
-
-    // Do more work with the database (see below).
-    return database
+    val programmerQueries: ProgrammerQueries = database.programmerQueries
+    val str = programmerQueries.selectAll().executeAsList().joinToString(separator = "\n")
+    driver.close()
+    return str
 }

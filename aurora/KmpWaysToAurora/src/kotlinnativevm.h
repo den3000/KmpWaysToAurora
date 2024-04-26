@@ -94,7 +94,11 @@ public slots:
     }
 
     void db() {
-        updateText("db");
+        auto klib = libshared_symbols()->kotlin.root;
+
+        auto df = klib.DriverFactory.DriverFactory();
+        auto str = klib.getProgrammersFromSqlDelight(df);
+        updateText(str);
     }
 
 signals:

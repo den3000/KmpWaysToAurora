@@ -1,4 +1,5 @@
 import android.content.Context
+import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.den3000.kmpwaystoaurora.Database
@@ -36,9 +37,9 @@ actual fun getHttpRequestClient() : HttpClient? = HttpClient(OkHttp)
 actual class DriverFactory(private val context: Context?) {
     actual constructor() : this(null)
 
-    actual fun createDriver(): SqlDriver? {
+    actual suspend fun createDriver(): SqlDriver? {
         return if (context != null) {
-            AndroidSqliteDriver(Database.Schema, context, "Database.db")
+            AndroidSqliteDriver(Database.Schema.synchronous(), context, "Database.db")
         } else {
             null
         }

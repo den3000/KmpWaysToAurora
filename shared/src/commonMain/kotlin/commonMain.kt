@@ -18,5 +18,5 @@ expect fun getHttpRequestClient() : HttpClient?
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 expect class DriverFactory() {
-    fun createDriver(): SqlDriver?
+    suspend fun createDriver(): SqlDriver?
 }

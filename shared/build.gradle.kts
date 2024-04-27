@@ -11,6 +11,7 @@ sqldelight {
     databases {
         create("Database") {
             packageName.set("com.den3000.kmpwaystoaurora") // TODO: ???
+            generateAsync.set(true)
         }
     }
 }
@@ -32,6 +33,12 @@ kotlin {
         binaries {
             staticLib {  }
         }
+    }
+    js(IR) {
+        moduleName = "shared"
+        version = "0.0.1"
+        nodejs()
+        binaries.library()
     }
 
     val version_coroutines = "1.8.0"
@@ -86,6 +93,14 @@ kotlin {
 
                 // Not yet available
                 // implementation("app.cash.sqldelight:native-driver:$version_sqldelight")
+            }
+        }
+
+        val jsMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-js:$version_ktor")
+                implementation("app.cash.sqldelight:web-worker-driver:$version_sqldelight")
+                implementation(devNpm("copy-webpack-plugin", "9.1.0"))
             }
         }
     }

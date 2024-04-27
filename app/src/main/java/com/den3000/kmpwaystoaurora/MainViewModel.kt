@@ -10,16 +10,17 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import deserializeFromString
 import getDataClass
 import getDiffMs
+import getKtorIoWelcomePageAsText
+import getProgrammersFromSqlDelight
+import getTimeMark
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import platform
+import runTestOne
+import runTestTwo
 import serializeToString
 import triggerCoroutine
 import triggerLambda
-import getKtorIoWelcomePageAsText
-import runTestOne
-import getProgrammersFromSqlDelight
-import getTimeMark
 
 class MainViewModel: ViewModel() {
 
@@ -63,14 +64,14 @@ class MainViewModel: ViewModel() {
     }
 
     fun coroutines() {
-        triggerCoroutine(1000) { text, finished ->
+        triggerCoroutine(1000) { text, _ ->
             this@MainViewModel.text.update { text }
         }
     }
 
     fun ktor() {
-        getKtorIoWelcomePageAsText { strBody, b ->
-            text.update { strBody }
+        getKtorIoWelcomePageAsText { text, _ ->
+            this@MainViewModel.text.update { text }
         }
     }
 
@@ -86,14 +87,23 @@ class MainViewModel: ViewModel() {
 
         val start = getTimeMark()
         val df = DriverFactory(ctx)
-        runTestOne(df) { strBody, finished ->
+        runTestOne(df) { text, _ ->
             totalTime.update { getDiffMs(start) }
-            text.update { "Time spent: ${totalTime.value} ms\n" + strBody }
+            this@MainViewModel.text.update { "Time spent: ${totalTime.value} ms\n" + text }
         }
     }
 
     fun test2(ctx: Context) {
+        val totalTime = MutableStateFlow<Long>(0)
 
+        val start = MutableStateFlow(getTimeMark())
+        val df = DriverFactory(ctx)
+        runTestTwo(df, started = {
+            start.update { getTimeMark() }
+        }) { text, _ ->
+            totalTime.update { getDiffMs(start.value) }
+            this@MainViewModel.text.update { "Time spent: ${totalTime.value} ms\n" + text }
+        }
     }
 
     companion object {

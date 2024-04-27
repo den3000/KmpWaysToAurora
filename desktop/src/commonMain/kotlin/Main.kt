@@ -8,6 +8,7 @@ fun main() {
     ktor()
     db()
     test1()
+    test2()
 }
 
 fun std() {
@@ -95,5 +96,20 @@ fun test1() {
 }
 
 fun test2() {
+    println("\n=== TEST 2 ===\n")
 
+    val flowEnd = MutableStateFlow(false)
+    val totalTime = MutableStateFlow<Long>(0)
+
+    val start = MutableStateFlow(getTimeMark())
+    val df = DriverFactory()
+    runTestTwo(df, started = {
+        start.update { getTimeMark() }
+    }) { text, finished ->
+        totalTime.update { getDiffMs(start.value) }
+        println("Time spent: ${totalTime.value} ms\n" + text.take(40))
+
+        flowEnd.update { finished }
+    }
+    while (!flowEnd.value) { /* wait loop */ }
 }

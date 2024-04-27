@@ -103,7 +103,7 @@ Page {
                 bottom: parent.bottom;
                 margins: Theme.horizontalPageMargin
             }
-            text: qsTr("TEST2")
+            text: qsTr("TEST 2")
             onClicked: viewModel.test2()
         }
     }

@@ -17,6 +17,12 @@ class KotlinNativeVM : public QObject
         libshared_kref_kotlinx_datetime_Instant start;
     } testOneRes;
 
+    struct TestTwoRes {
+        KotlinNativeVM * that;
+        const char * text;
+        libshared_kref_kotlinx_datetime_Instant start;
+    } testTwoRes;
+
     Q_OBJECT
     Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged)
 
@@ -79,7 +85,7 @@ public slots:
 
     void coroutines() {
         auto klib = libshared_symbols()->kotlin.root;
-        auto noCapture = [](void * data, const char * text, bool finished) {
+        auto noCapture = [](void * data, const char * text, bool) {
             auto that = reinterpret_cast<KotlinNativeVM *>(data);
             that->updateText(text);
         };
@@ -90,7 +96,7 @@ public slots:
 
     void ktor() {
         auto klib = libshared_symbols()->kotlin.root;
-        auto noCapture = [](void * data, const char * text, bool finished) {
+        auto noCapture = [](void * data, const char * text, bool) {
             auto that = reinterpret_cast<KotlinNativeVM *>(data);
             that->updateText(text);
         };
@@ -113,7 +119,7 @@ public slots:
         testOneRes = {this, "", klib.getTimeMark()};
         auto df = klib.DriverFactory.DriverFactory();
 
-        auto noCapture = [](void * data, const char * text, bool finished) {
+        auto noCapture = [](void * data, const char * text, bool) {
             auto res = reinterpret_cast<TestOneRes *>(data);
             auto totalTime = libshared_symbols()->kotlin.root.getDiffMs(res->start);
             res->that->updateText(QString("Time spent: %1 ms\n%2")
@@ -128,7 +134,34 @@ public slots:
     }
 
     void test2() {
+        auto klib = libshared_symbols()->kotlin.root;
 
+        testTwoRes = {this, "", klib.getTimeMark()};
+        auto df = klib.DriverFactory.DriverFactory();
+
+        auto noCapture1 = [](void * data) {
+            auto res = reinterpret_cast<TestTwoRes *>(data);
+            res->start = libshared_symbols()->kotlin.root.getTimeMark();
+        };
+        typedef void(*NormalFuncType1)(void *);
+        NormalFuncType1 noCaptureLambdaPtr1 = noCapture1;
+
+        auto noCapture2 = [](void * data, const char * text, bool) {
+            auto res = reinterpret_cast<TestTwoRes *>(data);
+            auto totalTime = libshared_symbols()->kotlin.root.getDiffMs(res->start);
+            res->that->updateText(QString("Time spent: %1 ms\n%2")
+                                  .arg(totalTime)
+                                  .arg(text));
+        };
+        typedef void(*NormalFuncType2)(void *, const char *, bool);
+        NormalFuncType2 noCaptureLambdaPtr2 = noCapture2;
+
+        klib.runTestTwoCfptr(
+                    df,
+                    (libshared_KNativePtr)noCaptureLambdaPtr1,
+                    (libshared_KNativePtr)noCaptureLambdaPtr2,
+                    &testTwoRes
+                    );
     }
 
 signals:

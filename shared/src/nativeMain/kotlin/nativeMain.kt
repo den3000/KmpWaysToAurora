@@ -48,3 +48,17 @@ fun runTestOneCfptr(
         cfptr.invoke(data, s.cstr, b)
     }
 }
+
+@OptIn(ExperimentalForeignApi::class)
+fun runTestTwoCfptr(
+    driverFactory: DriverFactory,
+    startedCfptr: CPointer<CFunction<(COpaquePointer) -> Unit>>,
+    callbackCfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>,
+    data: COpaquePointer
+) {
+    runTestTwo(driverFactory, {
+        startedCfptr.invoke(data)
+    }) { s, b ->
+        callbackCfptr.invoke(data, s.cstr, b)
+    }
+}

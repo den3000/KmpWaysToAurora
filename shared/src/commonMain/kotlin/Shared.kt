@@ -9,8 +9,10 @@ import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import spacexlaunches.Api
 import spacexlaunches.Db
+import spacexlaunches.RocketLaunch
 
 @Serializable
 data class DataClass(
@@ -91,11 +93,51 @@ fun runTestOne(driverFactory: DriverFactory, callback: suspend (String, Boolean)
             withContext(getCallbackContext()) {
                 callback("Attempt: $attempts\n$str", false)
             }
-            api.close()
 
             attempts--
         }
 
+        withContext(getCallbackContext()) {
+            callback("", true)
+        }
+    }
+}
+
+fun runTestTwo(
+    driverFactory: DriverFactory,
+    started: () -> Unit,
+    callback: suspend (String, Boolean) -> Unit
+) {
+    val scope = CoroutineScope(getExecutionContext())
+    scope.launch {
+        val api = Api()
+        val db = Db(driverFactory)
+        val allLaunchesJsonText = api.getAllLaunchesJsonText()
+        val json = Json {
+            ignoreUnknownKeys = true
+            useAlternativeNames = false
+        }
+
+        started()
+
+        var attempts = 100
+        while (attempts > 0) {
+            val newLaunches = json.decodeFromString<List<RocketLaunch>>(allLaunchesJsonText)
+
+            db.clearAndCreateLaunches(newLaunches)
+            val cachedLaunches = db.getAllLaunches()
+            val str = cachedLaunches.joinToString("\n") {
+                "#: ${it.flightNumber} ${it.missionName} success: ${it.launchSuccess}"
+            }
+
+            withContext(getCallbackContext()) {
+                callback("Attempt: $attempts\n$str", false)
+            }
+
+            attempts--
+        }
+
+        api.close()
         withContext(getCallbackContext()) {
             callback("", true)
         }

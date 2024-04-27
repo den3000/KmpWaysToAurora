@@ -125,7 +125,7 @@ fun MainView(
                 end.linkTo(parent.end)
                 bottom.linkTo(refBtTest2.top, 16.dp)
             }) {
-            Text(text = "Test 1")
+            Text(text = "TEST 1")
         }
 
         Button(
@@ -137,7 +137,7 @@ fun MainView(
                 end.linkTo(parent.end)
                 bottom.linkTo(parent.bottom)
             }) {
-            Text(text = "Test 2")
+            Text(text = "TEST 2")
         }
     }
 }

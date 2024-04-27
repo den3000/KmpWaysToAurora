@@ -114,7 +114,7 @@
     </message>
     <message>
         <location filename="../qml/pages/KotlinNativePage.qml" line="106"/>
-        <source>TEST2</source>
+        <source>TEST 2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

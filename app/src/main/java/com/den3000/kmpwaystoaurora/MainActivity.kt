@@ -33,6 +33,8 @@ class MainActivity : ComponentActivity() {
                         onCoroutines = viewModel::coroutines,
                         onKtor = viewModel::ktor,
                         onDb = { viewModel.db(ctx) },
+                        onTest1 = { viewModel.test1(ctx) },
+                        onTest2 = { viewModel.test2(ctx) },
                     )
                 }
             }

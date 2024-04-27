@@ -33,6 +33,7 @@ Page {
             font.pixelSize: Theme.fontSizeSmall
             wrapMode: Text.WordWrap
             text: viewModel.text
+            clip: true
         }
 
         Button {
@@ -79,11 +80,31 @@ Page {
         Button {
             id: btAction5
             anchors { left: parent.left; right: parent.right;
-                bottom: parent.bottom;
+                bottom: btAction6.top;
                 margins: Theme.horizontalPageMargin
             }
             text: qsTr("DB")
             onClicked: viewModel.db()
+        }
+
+        Button {
+            id: btAction6
+            anchors { left: parent.left; right: parent.right;
+                bottom: btAction7.top;
+                margins: Theme.horizontalPageMargin
+            }
+            text: qsTr("TEST 1")
+            onClicked: viewModel.test1()
+        }
+
+        Button {
+            id: btAction7
+            anchors { left: parent.left; right: parent.right;
+                bottom: parent.bottom;
+                margins: Theme.horizontalPageMargin
+            }
+            text: qsTr("TEST2")
+            onClicked: viewModel.test2()
         }
     }
 }

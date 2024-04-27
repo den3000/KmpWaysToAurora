@@ -16,6 +16,7 @@ import serializeToString
 import triggerCoroutine
 import triggerLambda
 import getKtorIoWelcomePageAsText
+import getLaunchesRaw
 import getProgrammersFromSqlDelight
 
 class MainViewModel: ViewModel() {
@@ -76,6 +77,17 @@ class MainViewModel: ViewModel() {
         text.update {
             getProgrammersFromSqlDelight(df)
         }
+    }
+
+    fun test1(ctx: Context) {
+        val df = DriverFactory(ctx)
+        getLaunchesRaw(df) {strBody, b ->
+            text.update { strBody }
+        }
+    }
+
+    fun test2(ctx: Context) {
+
     }
 
     companion object {

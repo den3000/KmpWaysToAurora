@@ -25,6 +25,8 @@ fun MainView(
     onCoroutines: (() -> Unit)? = null,
     onKtor: (() -> Unit)? = null,
     onDb: (() -> Unit)? = null,
+    onTest1: (() -> Unit)? = null,
+    onTest2: (() -> Unit)? = null,
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -37,7 +39,9 @@ fun MainView(
             refBtSerialization,
             refBtCoroutines,
             refBtKtor,
-            refBtDb
+            refBtDb,
+            refBtTest1,
+            refBtTest2,
         ) = createRefs()
 
         Text(
@@ -107,9 +111,33 @@ fun MainView(
                 height = Dimension.value(40.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
+                bottom.linkTo(refBtTest1.top, 16.dp)
             }) {
             Text(text = "DB")
+        }
+
+        Button(
+            onClick = onTest1 ?: {},
+            modifier.constrainAs(refBtTest1) {
+                width = Dimension.fillToConstraints
+                height = Dimension.value(40.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(refBtTest2.top, 16.dp)
+            }) {
+            Text(text = "Test 1")
+        }
+
+        Button(
+            onClick = onTest2 ?: {},
+            modifier.constrainAs(refBtTest2) {
+                width = Dimension.fillToConstraints
+                height = Dimension.value(40.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
+            }) {
+            Text(text = "Test 2")
         }
     }
 }

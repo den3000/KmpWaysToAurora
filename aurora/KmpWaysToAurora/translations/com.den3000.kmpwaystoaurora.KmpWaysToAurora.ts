@@ -83,28 +83,38 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinNativePage.qml" line="44"/>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="45"/>
         <source>Std</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinNativePage.qml" line="55"/>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="56"/>
         <source>Serialization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinNativePage.qml" line="65"/>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="66"/>
         <source>Coroutines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinNativePage.qml" line="75"/>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="76"/>
         <source>Ktor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinNativePage.qml" line="85"/>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="86"/>
         <source>DB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="96"/>
+        <source>TEST 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/KotlinNativePage.qml" line="106"/>
+        <source>TEST2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

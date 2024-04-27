@@ -7,6 +7,7 @@ fun main() {
     coroutines()
     ktor()
     db()
+    test1()
 }
 
 fun std() {
@@ -74,4 +75,20 @@ fun db() {
 
     val df = DriverFactory()
     println(getProgrammersFromSqlDelight(df))
+}
+
+fun test1() {
+    println("\n=== TEST 1 ===\n")
+
+    val flowEnd = MutableStateFlow(false)
+    val df = DriverFactory()
+    getLaunchesRaw(df) { text, finished ->
+        println(text)
+        flowEnd.update { finished }
+    }
+    while (!flowEnd.value) { /* wait loop */ }
+}
+
+fun test2() {
+
 }

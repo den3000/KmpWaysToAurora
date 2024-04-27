@@ -48,6 +48,9 @@ actual fun getHttpRequestClient() : HttpClient? = HttpClient(Curl)
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DriverFactory {
     actual fun createDriver(): SqlDriver? {
-        return NativeSqliteDriver(Database.Schema, "test.db")
+        // Database.db will be created at user dir, something like /home/defaultuser
+        // and wouldn't be deleted when app uninstalled
+        // TODO: Fix this
+        return NativeSqliteDriver(Database.Schema, "Database.db")
     }
 }

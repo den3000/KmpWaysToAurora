@@ -4,6 +4,8 @@
 2. KN Win X64 `gradle :desktop:runKn-on-aurora-win-x86_64DebugExecutableNative`
 3. KN Linux X64 `gradle :desktop:runKn-on-aurora-linux-x86_64DebugExecutableNativeLinuxX64`
 4. KN Linux Arm64 `gradle :desktop:runKn-on-aurora-linux-arm64DebugExecutableNativeLinuxArm64`
+5. JS `gradle :jsApp:jsNodeDevelopmentRun`
+6. JS `gradle :jsApp:jsBrowserDevelopmentRun`
 
 ## Build tasks for executables
 
@@ -45,3 +47,9 @@ While shared module build as static lib to be available on aurora, after adding 
 it will have dynamic dependency on libcurl.so. The good thing, libcurl is available in aurora, the bad
 thing - this fact should be explicitly described in .pro file. So, final aurora app should be linked 
 not only with libshared.a using `-lshared` option, but also using `-lcurl` option.
+
+# JS
+https://github.com/chrimaeon/curriculumvitae/tree/7566f291cf5463fb0b1e80ad0474cc7e08a6b245
+https://stackoverflow.com/a/66768662/6583492
+https://kotlinlang.org/docs/running-kotlin-js.html#run-the-browser-target
+https://stackoverflow.com/a/67268300/6583492

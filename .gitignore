@@ -31,3 +31,6 @@
 /desktop/build
 
 /shared/build
+
+/jsApp/build
+/kotlin-js-store

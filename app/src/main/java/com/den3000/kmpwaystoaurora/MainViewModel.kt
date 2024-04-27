@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import deserializeFromString
 import getDataClass
+import getDiffMs
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import platform
@@ -16,8 +17,9 @@ import serializeToString
 import triggerCoroutine
 import triggerLambda
 import getKtorIoWelcomePageAsText
-import getLaunchesRaw
+import runTestOne
 import getProgrammersFromSqlDelight
+import getTimeMark
 
 class MainViewModel: ViewModel() {
 
@@ -80,9 +82,13 @@ class MainViewModel: ViewModel() {
     }
 
     fun test1(ctx: Context) {
+        val totalTime = MutableStateFlow<Long>(0)
+
+        val start = getTimeMark()
         val df = DriverFactory(ctx)
-        getLaunchesRaw(df) {strBody, b ->
-            text.update { strBody }
+        runTestOne(df) { strBody, finished ->
+            totalTime.update { getDiffMs(start) }
+            text.update { "Time spent: ${totalTime.value} ms\n" + strBody }
         }
     }
 

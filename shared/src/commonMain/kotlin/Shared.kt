@@ -6,6 +6,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import spacexlaunches.Api
 import spacexlaunches.Db
@@ -68,21 +70,34 @@ fun getProgrammersFromSqlDelight(driverFactory: DriverFactory): String {
     return str
 }
 
-fun getLaunchesRaw(driverFactory: DriverFactory, callback: suspend (String, Boolean) -> Unit) {
+fun getTimeMark() = Clock.System.now()
+
+fun getDiffMs(mark: Instant) = (Clock.System.now() - mark).inWholeMilliseconds
+
+fun runTestOne(driverFactory: DriverFactory, callback: suspend (String, Boolean) -> Unit) {
     val scope = CoroutineScope(getExecutionContext())
     scope.launch {
-        val api = Api()
-        val db = Db(driverFactory)
-        val newLaunches = api.getAllLaunches()
-        db.clearAndCreateLaunches(newLaunches)
-        val cachedLaunches = db.getAllLaunches()
-        val str = cachedLaunches.take(10).joinToString("\n") {
-            "${it.flightNumber} ${it.missionName}"
+        var attempts = 10
+        while (attempts > 0) {
+            val api = Api()
+            val db = Db(driverFactory)
+            val newLaunches = api.getAllLaunches()
+            db.clearAndCreateLaunches(newLaunches)
+            val cachedLaunches = db.getAllLaunches()
+            val str = cachedLaunches.joinToString("\n") {
+                "#: ${it.flightNumber} ${it.missionName} success: ${it.launchSuccess}"
+            }
+
+            withContext(getCallbackContext()) {
+                callback("Attempt: $attempts\n$str", false)
+            }
+            api.close()
+
+            attempts--
         }
 
         withContext(getCallbackContext()) {
-            callback(str, true)
+            callback("", true)
         }
-        api.close()
     }
 }

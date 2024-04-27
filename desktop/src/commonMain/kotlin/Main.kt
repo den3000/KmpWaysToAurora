@@ -81,9 +81,14 @@ fun test1() {
     println("\n=== TEST 1 ===\n")
 
     val flowEnd = MutableStateFlow(false)
+    val totalTime = MutableStateFlow<Long>(0)
+
+    val start = getTimeMark()
     val df = DriverFactory()
-    getLaunchesRaw(df) { text, finished ->
-        println(text)
+    runTestOne(df) { text, finished ->
+        totalTime.update { getDiffMs(start) }
+        println("Time spent: ${totalTime.value} ms\n" + text.take(40))
+
         flowEnd.update { finished }
     }
     while (!flowEnd.value) { /* wait loop */ }

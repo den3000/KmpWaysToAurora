@@ -39,12 +39,12 @@ fun getKtorIoWelcomePageAsTextCfptr(
 }
 
 @OptIn(ExperimentalForeignApi::class)
-fun getLaunchesRawCfptr(
+fun runTestOneCfptr(
     driverFactory: DriverFactory,
     cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>,
     data: COpaquePointer
 ) {
-    getLaunchesRaw(driverFactory) { s, b ->
+    runTestOne(driverFactory) { s, b ->
         cfptr.invoke(data, s.cstr, b)
     }
 }

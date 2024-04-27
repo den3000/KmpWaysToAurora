@@ -11,6 +11,12 @@
 
 class KotlinNativeVM : public QObject
 {
+    struct TestOneRes {
+        KotlinNativeVM * that;
+        const char * text;
+        libshared_kref_kotlinx_datetime_Instant start;
+    } testOneRes;
+
     Q_OBJECT
     Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged)
 
@@ -104,14 +110,21 @@ public slots:
     void test1() {
         auto klib = libshared_symbols()->kotlin.root;
 
+        testOneRes = {this, "", klib.getTimeMark()};
+        auto df = klib.DriverFactory.DriverFactory();
+
         auto noCapture = [](void * data, const char * text, bool finished) {
-            auto that = reinterpret_cast<KotlinNativeVM *>(data);
-            that->updateText(text);
+            auto res = reinterpret_cast<TestOneRes *>(data);
+            auto totalTime = libshared_symbols()->kotlin.root.getDiffMs(res->start);
+            res->that->updateText(QString("Time spent: %1 ms\n%2")
+                                  .arg(totalTime)
+                                  .arg(text));
+
         };
         typedef void(*NormalFuncType)(void *, const char *, bool);
         NormalFuncType noCaptureLambdaPtr = noCapture;
-        auto df = klib.DriverFactory.DriverFactory();
-        klib.getLaunchesRawCfptr(df, (libshared_KNativePtr)noCaptureLambdaPtr, this);
+
+        klib.runTestOneCfptr(df, (libshared_KNativePtr)noCaptureLambdaPtr, &testOneRes);
     }
 
     void test2() {

@@ -55,6 +55,8 @@ android {
 }
 
 dependencies {
+    val version_datetime = "0.6.0-RC.2"
+
     implementation(project(":shared"))
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -74,4 +76,6 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:$version_datetime")
 }

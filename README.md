@@ -40,11 +40,6 @@
    1. https://github.com/cashapp/sqldelight/blob/master/drivers/native-driver/build.gradle#L99-L101
    2. https://github.com/cashapp/sqldelight/issues/3033
 
-
-[//]: # (TODO: one more level of shared code needed)
-shared - platformSpecific
-shared - dependency for other modules
-
 # Curl integration
 While shared module build as static lib to be available on aurora, after adding ktor curl web engine
 it will have dynamic dependency on libcurl.so. The good thing, libcurl is available in aurora, the bad

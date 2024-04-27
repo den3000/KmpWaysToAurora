@@ -7,6 +7,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
+import spacexlaunches.Api
+import spacexlaunches.Db
 
 @Serializable
 data class DataClass(
@@ -64,4 +66,23 @@ fun getProgrammersFromSqlDelight(driverFactory: DriverFactory): String {
     val str = programmerQueries.selectAll().executeAsList().joinToString(separator = "\n")
     driver.close()
     return str
+}
+
+fun getLaunchesRaw(driverFactory: DriverFactory, callback: suspend (String, Boolean) -> Unit) {
+    val scope = CoroutineScope(getExecutionContext())
+    scope.launch {
+        val api = Api()
+        val db = Db(driverFactory)
+        val newLaunches = api.getAllLaunches()
+        db.clearAndCreateLaunches(newLaunches)
+        val cachedLaunches = db.getAllLaunches()
+        val str = cachedLaunches.take(10).joinToString("\n") {
+            "${it.flightNumber} ${it.missionName}"
+        }
+
+        withContext(getCallbackContext()) {
+            callback(str, true)
+        }
+        api.close()
+    }
 }

@@ -39,6 +39,17 @@ fun getKtorIoWelcomePageAsTextCfptr(
 }
 
 @OptIn(ExperimentalForeignApi::class)
+fun getProgrammersFromSqlDelightCfptr(
+    driverFactory: DriverFactory,
+    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>) -> Unit>>,
+    data: COpaquePointer
+) {
+    getProgrammersFromSqlDelight(driverFactory) { str ->
+        cfptr.invoke(data, str.cstr)
+    }
+}
+
+@OptIn(ExperimentalForeignApi::class)
 fun runTestOneCfptr(
     driverFactory: DriverFactory,
     cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>,

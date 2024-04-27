@@ -74,8 +74,14 @@ fun ktor() {
 fun db() {
     println("\n=== DB ===\n")
 
+    val flowEnd = MutableStateFlow(false)
+
     val df = DriverFactory()
-    println(getProgrammersFromSqlDelight(df))
+    getProgrammersFromSqlDelight(df) {
+        println(it)
+        flowEnd.update { true }
+    }
+    while (!flowEnd.value) { /* wait loop */ }
 }
 
 fun test1() {

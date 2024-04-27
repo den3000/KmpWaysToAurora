@@ -2,10 +2,16 @@ package spacexlaunches
 
 import DriverFactory
 import com.den3000.kmpwaystoaurora.Database
+import com.den3000.kmpwaystoaurora.LaunchQueries
 
-internal class Db(databaseDriverFactory: DriverFactory) {
-    private val database: Database? = databaseDriverFactory.createDriver()?.let { Database(it) }
-    private val dbQuery = database?.launchQueries
+internal class Db(private val databaseDriverFactory: DriverFactory) {
+    private var database: Database? = null
+    private var dbQuery: LaunchQueries? = null
+
+    suspend fun start() {
+        database = databaseDriverFactory.createDriver()?.let { Database(it) }
+        dbQuery = database?.launchQueries
+    }
 
     internal fun getAllLaunches(): List<RocketLaunch> {
         return dbQuery?.selectAllLaunchesInfo(::mapLaunchSelecting)?.executeAsList() ?: emptyList()
@@ -37,11 +43,11 @@ internal class Db(databaseDriverFactory: DriverFactory) {
         )
     }
 
-    internal fun clearAndCreateLaunches(launches: List<RocketLaunch>) {
+    internal suspend fun clearAndCreateLaunches(launches: List<RocketLaunch>) {
         dbQuery?.transaction {
-            dbQuery.removeAllLaunches()
+            dbQuery?.removeAllLaunches()
             launches.forEach { launch ->
-                dbQuery.insertLaunch(
+                dbQuery?.insertLaunch(
                     flightNumber = launch.flightNumber.toLong(),
                     missionName = launch.missionName,
                     details = launch.details,

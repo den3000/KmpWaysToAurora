@@ -108,9 +108,15 @@ public slots:
     void db() {
         auto klib = libshared_symbols()->kotlin.root;
 
+        auto noCapture = [](void * data, const char * text, bool) {
+            auto that = reinterpret_cast<KotlinNativeVM *>(data);
+            that->updateText(text);
+        };
+        typedef void(*NormalFuncType)(void *, const char *, bool);
+        NormalFuncType noCaptureLambdaPtr = noCapture;
+
         auto df = klib.DriverFactory.DriverFactory();
-        auto str = klib.getProgrammersFromSqlDelight(df);
-        updateText(str);
+        klib.getProgrammersFromSqlDelightCfptr(df, (libshared_KNativePtr)noCaptureLambdaPtr, this);
     }
 
     void test1() {

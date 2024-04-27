@@ -77,8 +77,8 @@ class MainViewModel: ViewModel() {
 
     fun db(context: Context) {
         val df = DriverFactory(context)
-        text.update {
-            getProgrammersFromSqlDelight(df)
+        getProgrammersFromSqlDelight(df) { text ->
+            this@MainViewModel.text.update { text }
         }
     }
 

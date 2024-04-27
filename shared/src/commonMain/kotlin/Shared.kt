@@ -63,13 +63,19 @@ fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
     }
 }
 
-fun getProgrammersFromSqlDelight(driverFactory: DriverFactory): String {
-    val driver = driverFactory.createDriver() ?: return "NO NativeSqliteDriver AVAILABLE"
-    val database = Database(driver)
-    val programmerQueries: ProgrammerQueries = database.programmerQueries
-    val str = programmerQueries.selectAll().executeAsList().joinToString(separator = "\n")
-    driver.close()
-    return str
+fun getProgrammersFromSqlDelight(driverFactory: DriverFactory, callback: (String) -> Unit) {
+    val scope = CoroutineScope(getExecutionContext())
+    scope.launch {
+        val driver = driverFactory.createDriver() ?: run {
+            callback("NO NativeSqliteDriver AVAILABLE")
+            return@launch
+        }
+        val database = Database(driver)
+        val programmerQueries: ProgrammerQueries = database.programmerQueries
+        val str = programmerQueries.selectAll().executeAsList().joinToString(separator = "\n")
+        driver.close()
+        callback(str)
+    }
 }
 
 fun getTimeMark() = Clock.System.now()
@@ -82,7 +88,7 @@ fun runTestOne(driverFactory: DriverFactory, callback: suspend (String, Boolean)
         var attempts = 10
         while (attempts > 0) {
             val api = Api()
-            val db = Db(driverFactory)
+            val db = Db(driverFactory).apply { start() }
             val newLaunches = api.getAllLaunches()
             db.clearAndCreateLaunches(newLaunches)
             val cachedLaunches = db.getAllLaunches()

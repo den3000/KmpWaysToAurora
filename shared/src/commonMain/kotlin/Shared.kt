@@ -63,7 +63,7 @@ fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
     }
 }
 
-fun getProgrammersFromSqlDelight(driverFactory: DriverFactory, callback: (String) -> Unit) {
+fun getProgrammersFromSqlDelight(driverFactory: DriverFactory, callback: suspend (String) -> Unit) {
     val scope = CoroutineScope(getExecutionContext())
     scope.launch {
         val driver = driverFactory.createDriver() ?: run {

@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     kotlin("plugin.serialization") version "1.9.23"
-    id("app.cash.sqldelight") version "2.0.0-alpha05"
+    id("app.cash.sqldelight") version "2.0.2"
 }
 
 version = "1.0-SNAPSHOT"
@@ -11,6 +11,7 @@ sqldelight {
     databases {
         create("Database") {
             packageName.set("com.den3000.kmpwaystoaurora") // TODO: ???
+            generateAsync.set(true)
         }
     }
 }
@@ -37,12 +38,14 @@ kotlin {
     js(IR) {
         moduleName = "shared"
         version = "0.0.1"
-        nodejs()
+//        nodejs()
+        browser()
+        binaries.executable()
         binaries.library()
     }
 
     val version_coroutines = "1.8.0"
-    val version_sqldelight  = "2.0.0-alpha05"
+    val version_sqldelight  = "2.0.2"
     val version_ktor = "2.3.10"
     val version_datetime = "0.6.0-RC.2"
 
@@ -99,9 +102,11 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-js:$version_ktor")
-                implementation("app.cash.sqldelight:sqljs-driver:$version_sqldelight")
-                implementation(npm("sql.js", "1.8.0")) // 1.8.0 is SUPER IMPORTANT
-                implementation(devNpm("copy-webpack-plugin", "9.1.0"))
+
+                implementation("app.cash.sqldelight:web-worker-driver:$version_sqldelight")
+                implementation(npm("@cashapp/sqldelight-sqljs-worker", version_sqldelight))
+//                implementation(npm("sql.js", "1.8.0"))
+                implementation(devNpm("copy-webpack-plugin", "11.0.0"))
             }
         }
     }

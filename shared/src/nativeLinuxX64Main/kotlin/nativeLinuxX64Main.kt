@@ -1,3 +1,4 @@
+import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import com.den3000.kmpwaystoaurora.Database
@@ -37,6 +38,6 @@ actual class DriverFactory {
         // Database.db will be created at user dir, something like /home/defaultuser
         // and wouldn't be deleted when app uninstalled
         // TODO: Fix this
-        return NativeSqliteDriver(Database.Schema, "Database.db")
+        return NativeSqliteDriver(Database.Schema.synchronous(), "Database.db")
     }
 }

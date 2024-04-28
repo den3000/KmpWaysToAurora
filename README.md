@@ -1,11 +1,15 @@
 # Run Tasks
 
-1. JVM `gradle :desktop:run`
-2. KN Win X64 `gradle :desktop:runKn-on-aurora-win-x86_64DebugExecutableNative`
-3. KN Linux X64 `gradle :desktop:runKn-on-aurora-linux-x86_64DebugExecutableNativeLinuxX64`
+1. JVM            `gradle :desktop:run`
+2. KN Win X64     `gradle :desktop:runKn-on-aurora-win-x86_64DebugExecutableNative`
+3. KN Linux X64   `gradle :desktop:runKn-on-aurora-linux-x86_64DebugExecutableNativeLinuxX64`
 4. KN Linux Arm64 `gradle :desktop:runKn-on-aurora-linux-arm64DebugExecutableNativeLinuxArm64`
-5. JS `gradle :jsApp:jsNodeDevelopmentRun`
-6. JS `gradle :jsApp:jsBrowserDevelopmentRun`
+5. Browser JS     `gradle :jsApp:jsBrowserDevelopmentRun`
+6. Browser JS     `gradle :jsApp:jsBrowserProductionRun`
+7. Node JS        `gradle :jsApp:jsNodeDevelopmentRun`
+
+Browser JS     `gradle :shared:jsBrowserDevelopmentRun`
+Browser JS     `gradle :shared:jsBrowserProductionRun`
 
 ## Build tasks for executables
 

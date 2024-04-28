@@ -1,5 +1,8 @@
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 fun main() {
     std()
@@ -8,7 +11,7 @@ fun main() {
 //    ktor()
     db()
 //    test1()
-    test2()
+//    test2()
 }
 
 fun std() {
@@ -71,9 +74,31 @@ fun db() {
     // TODO: Finish wait loop with promises
     println("\n=== DB ===\n")
 
-    val df = DriverFactory()
-    getProgrammersFromSqlDelight(df) {
-        println(it)
+//    val df = DriverFactory()
+//    getProgrammersFromSqlDelight(df) {
+//        println(it)
+//    }
+
+//    val driverFactory = DriverFactory()
+    val scope = CoroutineScope(getExecutionContext())
+    scope.launch {
+
+        val driver = async {
+            val driverFactory = DriverFactory()
+            val driver = driverFactory.createDriver()
+            driver
+        }.await()
+
+//            ?: run {
+//            callback("NO NativeSqliteDriver AVAILABLE")
+//            return@launch
+//        }
+//        val database = Database(driver)
+//        val programmerQueries: ProgrammerQueries = database.programmerQueries
+//        val str = programmerQueries.selectAll().executeAsList().joinToString(separator = "\n")
+//        driver.close()
+//        callback(str)
+        println("YEP")
     }
 }
 

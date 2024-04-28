@@ -47,12 +47,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="21"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="25"/>
         <source>Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="26"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="30"/>
         <source>Action</source>
         <translation type="unfinished"></translation>
     </message>

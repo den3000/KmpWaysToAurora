@@ -11,7 +11,7 @@ sqldelight {
     databases {
         create("Database") {
             packageName.set("com.den3000.kmpwaystoaurora") // TODO: ???
-            generateAsync.set(true)
+            generateAsync = true
         }
     }
 }
@@ -105,7 +105,7 @@ kotlin {
 
                 implementation("app.cash.sqldelight:web-worker-driver:$version_sqldelight")
                 implementation(npm("@cashapp/sqldelight-sqljs-worker", version_sqldelight))
-//                implementation(npm("sql.js", "1.8.0"))
+                implementation(npm("sql.js", "1.8.0"))
                 implementation(devNpm("copy-webpack-plugin", "11.0.0"))
             }
         }

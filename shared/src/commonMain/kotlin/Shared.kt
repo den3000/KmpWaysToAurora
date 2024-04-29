@@ -66,17 +66,15 @@ fun getKtorIoWelcomePageAsText(callback: suspend (String, Boolean) -> Unit) {
 fun getProgrammersFromSqlDelight(driverFactory: DriverFactory, callback: suspend (String) -> Unit) {
     val scope = CoroutineScope(getExecutionContext())
     scope.launch {
-        val driver = driverFactory.createDriver()
-//            ?: run {
-//            callback("NO NativeSqliteDriver AVAILABLE")
-//            return@launch
-//        }
-//        val database = Database(driver)
-//        val programmerQueries: ProgrammerQueries = database.programmerQueries
-//        val str = programmerQueries.selectAll().executeAsList().joinToString(separator = "\n")
-//        driver.close()
-//        callback(str)
-        callback("YEP")
+        val driver = driverFactory.createDriver() ?: run {
+            callback("NO NativeSqliteDriver AVAILABLE")
+            return@launch
+        }
+        val database = Database(driver)
+        val programmerQueries: ProgrammerQueries = database.programmerQueries
+        val str = programmerQueries.selectAll().executeAsList().joinToString(separator = "\n")
+        driver.close()
+        callback(str)
     }
 }
 

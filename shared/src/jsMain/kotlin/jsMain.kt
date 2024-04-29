@@ -1,46 +1,37 @@
+import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.async.coroutines.awaitCreate
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.worker.WebWorkerDriver
 import com.den3000.kmpwaystoaurora.Database
+import com.den3000.kmpwaystoaurora.ProgrammerQueries
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.js.Js
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.w3c.dom.Worker
 import kotlin.coroutines.CoroutineContext
 
-val scope = MainScope()
-
-//class DbHelper(private val driverFactory: DriverFactory) {
-//    private val db: Database? = null
-//
-//    private val mutex = Mutex()
-//
-//    private suspend fun createDb(driverFactory: DriverFactory): Database {
-//        return Database(driverFactory.createDriver())
-//    }
-//}
 suspend fun main() {
-
-    println("JS SHARED STARTED")
-    println("JS SHARED SWITCHED")
-    val mutex = Mutex()
-    mutex.withLock {
-        val worker = Worker(js("""new URL("@cashapp/sqldelight-sqljs-worker/sqljs.worker.js", import.meta.url)""") as String)
-        val driver = WebWorkerDriver(worker)
-    }
-
-//        .also { Database.Schema.create(it).await() }
-//    driver.close()
-    println("JS SHARED FINISHED")
+    println("SHARED APP")
+    val worker = Worker(js("""new URL("@cashapp/sqldelight-sqljs-worker/sqljs.worker.js", import.meta.url)"""))
+    println("WORKER CREATED")
+    val driver = WebWorkerDriver(worker)
+    println("DRIVER CREATED")
+    Database.Schema.awaitCreate(driver)
+    println("AWAITED")
+    val database = Database(driver)
+    println("DB CREATED")
+    val programmerQueries: ProgrammerQueries = database.programmerQueries
+    println("QUERIES CREATED")
+    val str = programmerQueries.selectAll().awaitAsList().joinToString(separator = "\n")
+    println("QUERIES EXECUTED")
+    println(str)
+    driver.close()
+    println("DRIVER CLOSED")
+    println("FINISHED")
 }
+
 actual fun platform() = "Shared JVM"
 
 actual fun getDataClass(): DataClass {
@@ -67,16 +58,14 @@ actual fun getHttpRequestClient() : HttpClient? = HttpClient(Js)
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DriverFactory {
     actual suspend fun createDriver(): SqlDriver? {
-        // Browser JS
-        val worker = Worker(js("""new URL("@cashapp/sqldelight-sqljs-worker/sqljs.worker.js", import.meta.url)""") as String)
-
         // NODE JS
 //      // val worker = Worker(js("new URL('file://' + require('path').resolve(__dirname, '../../../node_modules/@cashapp/sqldelight-sqljs-worker/sqljs.worker.js'));") as String)
 
+        // Browser JS
+        val worker = Worker(js("""new URL("@cashapp/sqldelight-sqljs-worker/sqljs.worker.js", import.meta.url)"""))
         val driver = WebWorkerDriver(worker)
-//            .also { Database.Schema.create(it).await() }
         Database.Schema.awaitCreate(driver)
-        return null
+        return driver
     }
 
 //    actual suspend fun createDriver(): SqlDriver? {

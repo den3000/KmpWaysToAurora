@@ -1,17 +1,18 @@
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
-fun main() {
+suspend fun main() {
+    println("JS APP")
+
     std()
     serialization()
-//    coroutines()
-//    ktor()
+    coroutines()
+    ktor()
     db()
-//    test1()
-//    test2()
+    test1()
+    test2()
 }
 
 fun std() {
@@ -52,82 +53,69 @@ fun serialization() {
     println("Deserialized from string: $dc")
 }
 
-fun coroutines() {
-    // TODO: Finish wait loop with promises
+suspend fun coroutines() {
     println("\n=== COROUTINES ===\n")
 
-    triggerCoroutine(1000) { text, finished ->
-        println("text: $text finished: $finished")
+    suspendCoroutine { continuation ->
+        triggerCoroutine(1000) { text, finished ->
+            println(println("text: $text finished: $finished"))
+            if (finished) { continuation.resume(Unit) }
+        }
     }
 }
 
-fun ktor() {
-    // TODO: Finish wait loop with promises
+suspend fun ktor() {
     println("\n=== KTOR ===\n")
 
-    getKtorIoWelcomePageAsText { text, _ ->
-        println(text)
+    suspendCoroutine { continuation ->
+        getKtorIoWelcomePageAsText { text, finished ->
+            println(text)
+            if (finished) { continuation.resume(Unit) }
+        }
     }
 }
 
-fun db() {
-    // TODO: Finish wait loop with promises
+suspend fun db() {
     println("\n=== DB ===\n")
 
-//    val df = DriverFactory()
-//    getProgrammersFromSqlDelight(df) {
-//        println(it)
-//    }
-
-//    val driverFactory = DriverFactory()
-    val scope = CoroutineScope(getExecutionContext())
-    scope.launch {
-
-        val driver = async {
-            val driverFactory = DriverFactory()
-            val driver = driverFactory.createDriver()
-            driver
-        }.await()
-
-//            ?: run {
-//            callback("NO NativeSqliteDriver AVAILABLE")
-//            return@launch
-//        }
-//        val database = Database(driver)
-//        val programmerQueries: ProgrammerQueries = database.programmerQueries
-//        val str = programmerQueries.selectAll().executeAsList().joinToString(separator = "\n")
-//        driver.close()
-//        callback(str)
-        println("YEP")
+    suspendCoroutine { continuation ->
+        val df = DriverFactory()
+        getProgrammersFromSqlDelight(df) {
+            println(it)
+            continuation.resume(Unit)
+        }
     }
 }
 
-fun test1() {
-    // TODO: Finish wait loop with promises
+suspend fun test1() {
     println("\n=== TEST 1 ===\n")
 
-    val totalTime = MutableStateFlow<Long>(0)
+    suspendCoroutine { continuation ->
+        val totalTime = MutableStateFlow<Long>(0)
 
-    val start = getTimeMark()
-    val df = DriverFactory()
-    runTestOne(df) { text, _ ->
-        totalTime.update { getDiffMs(start) }
-        println("Time spent: ${totalTime.value} ms\n" + text.take(40))
+        val start = getTimeMark()
+        val df = DriverFactory()
+        runTestOne(df) { text, finished ->
+            totalTime.update { getDiffMs(start) }
+            println("Time spent: ${totalTime.value} ms\n" + text.take(40))
+            if (finished) { continuation.resume(Unit) }
+        }
     }
 }
 
-fun test2() {
-    // TODO: Finish wait loop with promises
+suspend fun test2() {
     println("\n=== TEST 2 ===\n")
 
-    val totalTime = MutableStateFlow<Long>(0)
-
-    val start = MutableStateFlow(getTimeMark())
-    val df = DriverFactory()
-    runTestTwo(df, started = {
-        start.update { getTimeMark() }
-    }) { text, _ ->
-        totalTime.update { getDiffMs(start.value) }
-        println("Time spent: ${totalTime.value} ms\n" + text.take(40))
+    suspendCoroutine { continuation ->
+        val totalTime = MutableStateFlow<Long>(0)
+        val start = MutableStateFlow(getTimeMark())
+        val df = DriverFactory()
+        runTestTwo(df, started = {
+            start.update { getTimeMark() }
+        }) { text, finished ->
+            totalTime.update { getDiffMs(start.value) }
+            println("Time spent: ${totalTime.value} ms\n" + text.take(40))
+            if (finished) { continuation.resume(Unit) }
+        }
     }
 }

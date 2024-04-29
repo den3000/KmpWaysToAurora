@@ -1,9 +1,7 @@
-import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.async.coroutines.awaitCreate
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.worker.WebWorkerDriver
 import com.den3000.kmpwaystoaurora.Database
-import com.den3000.kmpwaystoaurora.ProgrammerQueries
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.js.Js
 import kotlinx.coroutines.Dispatchers
@@ -11,26 +9,6 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.w3c.dom.Worker
 import kotlin.coroutines.CoroutineContext
-
-suspend fun main() {
-    println("SHARED APP")
-    val worker = Worker(js("""new URL("@cashapp/sqldelight-sqljs-worker/sqljs.worker.js", import.meta.url)"""))
-    println("WORKER CREATED")
-    val driver = WebWorkerDriver(worker)
-    println("DRIVER CREATED")
-    Database.Schema.awaitCreate(driver)
-    println("AWAITED")
-    val database = Database(driver)
-    println("DB CREATED")
-    val programmerQueries: ProgrammerQueries = database.programmerQueries
-    println("QUERIES CREATED")
-    val str = programmerQueries.selectAll().awaitAsList().joinToString(separator = "\n")
-    println("QUERIES EXECUTED")
-    println(str)
-    driver.close()
-    println("DRIVER CLOSED")
-    println("FINISHED")
-}
 
 actual fun platform() = "Shared JVM"
 
@@ -67,8 +45,8 @@ actual class DriverFactory {
         Database.Schema.awaitCreate(driver)
         return driver
     }
+}
 
-//    actual suspend fun createDriver(): SqlDriver? {
-//        return initSqlDriver(Database.Schema).await()
-//    }
+fun main() {
+    println("JS SHARED")
 }

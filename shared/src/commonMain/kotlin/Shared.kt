@@ -1,3 +1,4 @@
+import app.cash.sqldelight.async.coroutines.awaitAsList
 import com.den3000.kmpwaystoaurora.Database
 import com.den3000.kmpwaystoaurora.ProgrammerQueries
 import io.ktor.client.request.get
@@ -72,7 +73,7 @@ fun getProgrammersFromSqlDelight(driverFactory: DriverFactory, callback: suspend
         }
         val database = Database(driver)
         val programmerQueries: ProgrammerQueries = database.programmerQueries
-        val str = programmerQueries.selectAll().executeAsList().joinToString(separator = "\n")
+        val str = programmerQueries.selectAll().awaitAsList().joinToString(separator = "\n")
         driver.close()
         callback(str)
     }

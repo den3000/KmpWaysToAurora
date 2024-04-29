@@ -1,6 +1,7 @@
 package spacexlaunches
 
 import DriverFactory
+import app.cash.sqldelight.async.coroutines.awaitAsList
 import com.den3000.kmpwaystoaurora.Database
 import com.den3000.kmpwaystoaurora.LaunchQueries
 
@@ -13,8 +14,8 @@ internal class Db(private val databaseDriverFactory: DriverFactory) {
         dbQuery = database?.launchQueries
     }
 
-    internal fun getAllLaunches(): List<RocketLaunch> {
-        return dbQuery?.selectAllLaunchesInfo(::mapLaunchSelecting)?.executeAsList() ?: emptyList()
+    internal suspend fun getAllLaunches(): List<RocketLaunch> {
+        return dbQuery?.selectAllLaunchesInfo(::mapLaunchSelecting)?.awaitAsList() ?: emptyList()
     }
 
     private fun mapLaunchSelecting(

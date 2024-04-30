@@ -1,3 +1,4 @@
+import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import com.den3000.kmpwaystoaurora.Database
@@ -35,6 +36,6 @@ actual fun getHttpRequestClient() : HttpClient? = HttpClient(WinHttp)
 actual class DriverFactory {
     actual suspend fun createDriver(): SqlDriver? {
         // Database.db will be created at user dir, something like C:\Users\__USER_NAME__
-        return NativeSqliteDriver(Database.Schema, "Database.db")
+        return NativeSqliteDriver(Database.Schema.synchronous(), "Database.db")
     }
 }

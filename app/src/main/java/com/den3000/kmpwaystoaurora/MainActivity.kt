@@ -31,6 +31,7 @@ class MainActivity : ComponentActivity() {
                         onStd = viewModel::std,
                         onSerialization = viewModel::serialization,
                         onCoroutines = viewModel::coroutines,
+                        onFlow = viewModel::flow,
                         onKtor = viewModel::ktor,
                         onDb = { viewModel.db(ctx) },
                         onTest1 = { viewModel.test1(ctx) },

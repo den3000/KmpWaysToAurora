@@ -29,7 +29,7 @@ fun triggerLambda(callback: () -> Unit) {
 
 suspend fun triggerCoroutine(delayInMs: Long): String {
     delay(delayInMs)
-    return "Some result"
+    return "Coroutine finished"
 }
 
 suspend fun triggerFlow(delayInMs: Long): Flow<String> {
@@ -41,8 +41,6 @@ suspend fun triggerFlow(delayInMs: Long): Flow<String> {
             max -= 1
             delay(delayInMs)
         }
-
-        emit("Kotlin Flow World!")
     }
 }
 

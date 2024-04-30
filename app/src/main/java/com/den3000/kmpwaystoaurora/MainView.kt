@@ -23,6 +23,7 @@ fun MainView(
     onStd: (() -> Unit)? = null,
     onSerialization: (() -> Unit)? = null,
     onCoroutines: (() -> Unit)? = null,
+    onFlow: (() -> Unit)? = null,
     onKtor: (() -> Unit)? = null,
     onDb: (() -> Unit)? = null,
     onTest1: (() -> Unit)? = null,
@@ -38,11 +39,14 @@ fun MainView(
             refBtStd,
             refBtSerialization,
             refBtCoroutines,
+            refBtFlow,
             refBtKtor,
             refBtDb,
             refBtTest1,
             refBtTest2,
         ) = createRefs()
+
+        val glCenterX = createGuidelineFromStart(0.5f)
 
         Text(
             text = text,
@@ -62,8 +66,8 @@ fun MainView(
                 width = Dimension.fillToConstraints
                 height = Dimension.value(40.dp)
                 start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                bottom.linkTo(refBtSerialization.top, 16.dp)
+                end.linkTo(glCenterX, 8.dp)
+                bottom.linkTo(refBtCoroutines.top, 16.dp)
             }) {
             Text(text = "Std")
         }
@@ -73,7 +77,7 @@ fun MainView(
             modifier.constrainAs(refBtSerialization) {
                 width = Dimension.fillToConstraints
                 height = Dimension.value(40.dp)
-                start.linkTo(parent.start)
+                start.linkTo(glCenterX, 8.dp)
                 end.linkTo(parent.end)
                 bottom.linkTo(refBtCoroutines.top, 16.dp)
             }) {
@@ -86,10 +90,22 @@ fun MainView(
                 width = Dimension.fillToConstraints
                 height = Dimension.value(40.dp)
                 start.linkTo(parent.start)
-                end.linkTo(parent.end)
+                end.linkTo(glCenterX, 8.dp)
                 bottom.linkTo(refBtKtor.top, 16.dp)
             }) {
             Text(text = "Coroutines")
+        }
+
+        Button(
+            onClick = onFlow ?: {},
+            modifier.constrainAs(refBtFlow) {
+                width = Dimension.fillToConstraints
+                height = Dimension.value(40.dp)
+                start.linkTo(glCenterX, 8.dp)
+                end.linkTo(parent.end)
+                bottom.linkTo(refBtKtor.top, 16.dp)
+            }) {
+            Text(text = "Flow")
         }
 
         Button(
@@ -98,8 +114,8 @@ fun MainView(
                 width = Dimension.fillToConstraints
                 height = Dimension.value(40.dp)
                 start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                bottom.linkTo(refBtDb.top, 16.dp)
+                end.linkTo(glCenterX, 8.dp)
+                bottom.linkTo(refBtTest1.top, 16.dp)
             }) {
             Text(text = "Ktor")
         }
@@ -109,7 +125,7 @@ fun MainView(
             modifier.constrainAs(refBtDb) {
                 width = Dimension.fillToConstraints
                 height = Dimension.value(40.dp)
-                start.linkTo(parent.start)
+                start.linkTo(glCenterX, 8.dp)
                 end.linkTo(parent.end)
                 bottom.linkTo(refBtTest1.top, 16.dp)
             }) {
@@ -122,8 +138,8 @@ fun MainView(
                 width = Dimension.fillToConstraints
                 height = Dimension.value(40.dp)
                 start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                bottom.linkTo(refBtTest2.top, 16.dp)
+                end.linkTo(glCenterX, 8.dp)
+                bottom.linkTo(parent.bottom)
             }) {
             Text(text = "TEST 1")
         }
@@ -133,7 +149,7 @@ fun MainView(
             modifier.constrainAs(refBtTest2) {
                 width = Dimension.fillToConstraints
                 height = Dimension.value(40.dp)
-                start.linkTo(parent.start)
+                start.linkTo(glCenterX, 8.dp)
                 end.linkTo(parent.end)
                 bottom.linkTo(parent.bottom)
             }) {

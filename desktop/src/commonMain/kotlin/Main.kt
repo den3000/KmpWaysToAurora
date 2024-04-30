@@ -22,7 +22,7 @@ fun std() {
 
     val ktDataClass2 = DataClass(
         int = 2,
-        string = "some android string"
+        string = "Some desktop string"
     )
     val ktDataClass2Int = ktDataClass2.int
     val ktDataClass2Str = ktDataClass2.string
@@ -54,10 +54,9 @@ fun serialization() {
 suspend fun coroutine() {
     println("\n=== COROUTINES ===\n")
 
-    println("suspend started")
+    println("Coroutine started")
     val str = triggerCoroutine(4000)
-    println("suspend finished")
-    println(println("text: $str"))
+    println(str)
 }
 
 suspend fun flow() {
@@ -66,30 +65,28 @@ suspend fun flow() {
     println("flow started")
     triggerFlow(2000)
         .flowOn(getExecutionContext())
-        .collect {
-            println("flow collected")
-            println(println("text: $it"))
+        .collect { result ->
+            println(result)
         }
 }
 
 suspend fun ktor() {
     println("\n=== KTOR ===\n")
 
-    println("suspend started")
-    val str = getKtorIoWelcomePageAsText()
-    println("suspend finished")
-    println(println("text: $str"))
+    println("Request started")
+    val result = getKtorIoWelcomePageAsText()
+    println(println(result))
 }
 
 suspend fun db() {
     println("\n=== DB ===\n")
 
-    println("flow started")
-    getProgrammersFromSqlDelight(DriverFactory())
+    println("DB started")
+    val df = DriverFactory()
+    getProgrammersFromSqlDelight(df)
         .flowOn(getExecutionContext())
-        .collect {
-            println("flow collected")
-            println(println(it))
+        .collect { result ->
+            println(result)
         }
 }
 

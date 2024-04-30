@@ -7,7 +7,7 @@
 3. KN Linux X64   `gradle :desktop:runKn-on-aurora-linux-x86_64DebugExecutableNativeLinuxX64`
 4. KN Linux Arm64 `gradle :desktop:runKn-on-aurora-linux-arm64DebugExecutableNativeLinuxArm64`
 5. JS Browser
-   1. JS App      `gradle :jsApp:jsBrowserDevelopmentRun`
+   1. Desktop     `gradle :desktop:jsBrowserDevelopmentRun`
    2. Shared      `gradle :shared:jsBrowserDevelopmentRun`
 
 ## Build tasks for executables

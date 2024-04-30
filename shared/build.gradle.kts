@@ -38,7 +38,6 @@ kotlin {
     js(IR) {
         moduleName = "shared"
         version = "0.0.1"
-//        nodejs()
         browser()
         binaries.executable()
         binaries.library()

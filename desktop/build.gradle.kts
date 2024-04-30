@@ -37,6 +37,12 @@ kotlin {
         }
     }
 
+    js(IR) {
+        moduleName = getProject().name
+        browser()
+        binaries.executable()
+    }
+
     val version_coroutines = "1.8.0"
     val version_datetime = "0.6.0-RC.2"
 

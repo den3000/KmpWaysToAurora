@@ -5,7 +5,6 @@ plugins {
 kotlin {
     js(IR) {
         moduleName = getProject().name
-//        nodejs()
         browser()
         binaries.executable()
     }

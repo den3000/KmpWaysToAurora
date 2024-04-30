@@ -18,4 +18,3 @@ rootProject.name = "KmpWaysToAurora"
 include(":shared")
 include(":app")
 include(":desktop")
-include(":jsApp")

@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
 import org.w3c.dom.Worker
 import kotlin.coroutines.CoroutineContext
 
-actual fun platform() = "Shared JVM"
+actual fun platform() = "Shared JS"
 
 actual fun getDataClass(): DataClass {
     return DataClass(

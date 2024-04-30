@@ -1,16 +1,26 @@
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-suspend fun main() {
-    std()
-    serialization()
-    coroutine()
-    flow()
-    ktor()
-    db()
-    test1()
-    test2()
+fun main() {
+    val finished = MutableStateFlow(false)
+    CoroutineScope(getExecutionContext()).launch {
+        std()
+        serialization()
+        coroutine()
+        flow()
+        ktor()
+        db()
+        test1()
+        test2()
+        finished.update { true }
+    }
+
+    if (!platform().contains("JS")) {
+        // Not JS, so wait on run loop
+        while (!(finished.value)) { /**/ }
+    }
 }
 
 fun std() {
@@ -64,7 +74,6 @@ suspend fun flow() {
 
     println("flow started")
     triggerFlow(2000)
-        .flowOn(getExecutionContext())
         .collect { result ->
             println(result)
         }
@@ -84,7 +93,6 @@ suspend fun db() {
     println("DB started")
     val df = DriverFactory()
     getProgrammersFromSqlDelight(df)
-        .flowOn(getExecutionContext())
         .collect { result ->
             println(result)
         }
@@ -98,7 +106,6 @@ suspend fun test1() {
     val df = DriverFactory()
 
     runTestOne(df)
-        .flowOn(getExecutionContext())
         .collect { text ->
             totalTime.update { getDiffMs(start) }
             println("Time spent: ${totalTime.value} ms\n" + text.take(40))

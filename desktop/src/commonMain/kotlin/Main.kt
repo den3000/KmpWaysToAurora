@@ -1,12 +1,12 @@
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 suspend fun main() {
     std()
     serialization()
-    coroutines()
+    coroutine()
+    flow()
     ktor()
     db()
     test1()
@@ -51,69 +51,73 @@ fun serialization() {
     println("Deserialized from string: $dc")
 }
 
-suspend fun coroutines() {
+suspend fun coroutine() {
     println("\n=== COROUTINES ===\n")
 
-    suspendCoroutine { continuation ->
-        triggerCoroutine(1000) { text, finished ->
-            println(println("text: $text finished: $finished"))
-            if (finished) { continuation.resume(Unit) }
+    println("suspend started")
+    val str = triggerCoroutine(4000)
+    println("suspend finished")
+    println(println("text: $str"))
+}
+
+suspend fun flow() {
+    println("\n=== FLOWS ===\n")
+
+    println("flow started")
+    triggerFlow(2000)
+        .flowOn(getExecutionContext())
+        .collect {
+            println("flow collected")
+            println(println("text: $it"))
         }
-    }
 }
 
 suspend fun ktor() {
     println("\n=== KTOR ===\n")
 
-    suspendCoroutine { continuation ->
-        getKtorIoWelcomePageAsText { text, finished ->
-            println(text)
-            if (finished) { continuation.resume(Unit) }
-        }
-    }
+    println("suspend started")
+    val str = getKtorIoWelcomePageAsText()
+    println("suspend finished")
+    println(println("text: $str"))
 }
 
 suspend fun db() {
     println("\n=== DB ===\n")
 
-    suspendCoroutine { continuation ->
-        val df = DriverFactory()
-        getProgrammersFromSqlDelight(df) {
-            println(it)
-            continuation.resume(Unit)
+    println("flow started")
+    getProgrammersFromSqlDelight(DriverFactory())
+        .flowOn(getExecutionContext())
+        .collect {
+            println("flow collected")
+            println(println(it))
         }
-    }
 }
 
 suspend fun test1() {
     println("\n=== TEST 1 ===\n")
 
-    suspendCoroutine { continuation ->
-        val totalTime = MutableStateFlow<Long>(0)
+    val totalTime = MutableStateFlow<Long>(0)
+    val start = getTimeMark()
+    val df = DriverFactory()
 
-        val start = getTimeMark()
-        val df = DriverFactory()
-        runTestOne(df) { text, finished ->
+    runTestOne(df)
+        .flowOn(getExecutionContext())
+        .collect { text ->
             totalTime.update { getDiffMs(start) }
             println("Time spent: ${totalTime.value} ms\n" + text.take(40))
-            if (finished) { continuation.resume(Unit) }
         }
-    }
 }
 
 suspend fun test2() {
     println("\n=== TEST 2 ===\n")
 
-    suspendCoroutine { continuation ->
-        val totalTime = MutableStateFlow<Long>(0)
-        val start = MutableStateFlow(getTimeMark())
-        val df = DriverFactory()
-        runTestTwo(df, started = {
-            start.update { getTimeMark() }
-        }) { text, finished ->
-            totalTime.update { getDiffMs(start.value) }
-            println("Time spent: ${totalTime.value} ms\n" + text.take(40))
-            if (finished) { continuation.resume(Unit) }
-        }
+    val totalTime = MutableStateFlow<Long>(0)
+    val start = MutableStateFlow(getTimeMark())
+    val df = DriverFactory()
+    runTestTwo(df, started = {
+        start.update { getTimeMark() }
+    }).collect {text ->
+        totalTime.update { getDiffMs(start.value) }
+        println("Time spent: ${totalTime.value} ms\n" + text.take(40))
     }
 }

@@ -17,7 +17,7 @@ Item {
         }
     }
 
-    function runAsyc(method, result, error) {
+    function runAsync(method, result, error) {
         if (method.indexOf("return") === -1) {
             webview.runJavaScript("return " + method, function(data) {
                 root._listeners[data] = [result, error]
@@ -54,6 +54,8 @@ Item {
                             // error
                             root._listeners[data.caller][1](data.error)
                         }
+                    } else {
+                        console.log("Untracked event")
                     }
                 } catch (e) {
                     // If something went wrong

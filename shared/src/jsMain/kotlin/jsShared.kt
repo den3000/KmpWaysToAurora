@@ -19,3 +19,20 @@ fun init() {
 external object Uuid {
     fun v4(): String
 }
+
+@OptIn(ExperimentalJsExport::class)
+@JsExport
+fun platformJS() = platform()
+
+@OptIn(ExperimentalJsExport::class)
+@JsExport
+fun getKtorIoWelcomePageAsTextJS(): Any {
+    val scope = CoroutineScope(getExecutionContext())
+    val caller = Uuid.v4()
+    scope.async {
+        getKtorIoWelcomePageAsText()
+    }.asPromise().then {
+        sendEventResponse(caller, response = it)
+    }
+    return caller
+}

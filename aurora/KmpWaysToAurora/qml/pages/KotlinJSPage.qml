@@ -46,7 +46,7 @@ Page {
 
             Button {
                 text: qsTr("Std")
-                onClicked: getPlatform()
+                onClicked: platformJS()
             }
 
             Button {
@@ -85,7 +85,7 @@ Page {
 
             Button {
                 text: qsTr("Ktor")
-                onClicked: {}
+                onClicked: getKtorIoWelcomePageAsTextJS()
             }
 
             Button {
@@ -121,9 +121,21 @@ Page {
         }
     }
 
-    function getPlatform() {
+    function platformJS() {
         libKMPShared.run(
-            "shared.platform()",
+            "shared.platformJS()",
+            function(result) {
+                strText = result
+            },
+            function(error) {
+                console.log(error)
+            }
+        );
+    }
+
+    function getKtorIoWelcomePageAsTextJS() {
+        libKMPShared.runAsync(
+            "shared.getKtorIoWelcomePageAsTextJS()",
             function(result) {
                 strText = result
             },

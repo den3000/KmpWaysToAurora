@@ -62,3 +62,17 @@ https://github.com/chrimaeon/curriculumvitae/tree/7566f291cf5463fb0b1e80ad0474cc
 https://stackoverflow.com/a/66768662/6583492
 https://kotlinlang.org/docs/running-kotlin-js.html#run-the-browser-target
 https://stackoverflow.com/a/67268300/6583492
+
+## Aurora JS
+
+```
+index.html should contain
+
+<body onload="shared.__PACKAGE_NAME__.init()"></body>
+
+So if in there is no package set in shared/jsMain/kotlin/*.kt
+then you just need 
+
+<body onload="shared.init()"></body>
+
+```

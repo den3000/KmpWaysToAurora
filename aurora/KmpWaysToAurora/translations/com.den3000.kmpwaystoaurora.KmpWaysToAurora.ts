@@ -47,42 +47,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="55"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="48"/>
         <source>Std</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="62"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="55"/>
         <source>Serialization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="76"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="69"/>
         <source>Coroutines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="81"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="74"/>
         <source>Flow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="96"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="89"/>
         <source>Ktor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="101"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="94"/>
         <source>DB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="115"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="108"/>
         <source>TEST 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="120"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="113"/>
         <source>TEST 2</source>
         <translation type="unfinished"></translation>
     </message>

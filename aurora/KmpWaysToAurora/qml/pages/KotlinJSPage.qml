@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-//import "../kmp" as KMP
+import "../kmp" as KMP
 
 Page {
     allowedOrientations: Orientation.All
@@ -11,13 +11,6 @@ Page {
     }
 
     property string strText: "No value"
-
-//    KMP.Shared {
-//        id: libKMPShared
-//        onCompleted: {
-//            console.log("KMP LOADED")
-//        }
-//    }
 
     Column {
         id: layout
@@ -120,6 +113,13 @@ Page {
                 text: qsTr("TEST 2")
                 onClicked: {}
             }
+        }
+    }
+
+    KMP.Shared {
+        id: libKMPShared
+        onCompleted: {
+            strText = "KMP LOADED"
         }
     }
 

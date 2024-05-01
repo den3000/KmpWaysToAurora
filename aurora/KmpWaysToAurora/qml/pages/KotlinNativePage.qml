@@ -26,7 +26,7 @@ Page {
         Label {
             id: text
             anchors { left: parent.left; right: parent.right;
-                top: parent.top; bottom: btAction1.top;
+                top: parent.top; bottom: row4.top;
                 margins: Theme.horizontalPageMargin
             }
             color: palette.highlightColor
@@ -36,75 +36,82 @@ Page {
             clip: true
         }
 
-        Button {
-            id: btAction1
+        Row {
+            id: row4
+            spacing: Theme.horizontalPageMargin
             anchors { left: parent.left; right: parent.right;
-                bottom: btAction2.top;
+                bottom: row3.top;
                 margins: Theme.horizontalPageMargin
             }
-            text: qsTr("Std")
-            onClicked: viewModel.std()
 
+            Button {
+                text: qsTr("Std")
+                onClicked: viewModel.std()
+
+            }
+
+            Button {
+                text: qsTr("Serialization")
+                onClicked: viewModel.serialization()
+            }
         }
 
-        Button {
-            id: btAction2
+        Row {
+            id: row3
+            spacing: Theme.horizontalPageMargin
             anchors { left: parent.left; right: parent.right;
-                bottom: btAction3.top;
+                bottom: row2.top;
                 margins: Theme.horizontalPageMargin
             }
-            text: qsTr("Serialization")
-            onClicked: viewModel.serialization()
+
+            Button {
+                text: qsTr("Coroutines")
+                onClicked: viewModel.coroutines()
+            }
+
+            Button {
+                text: qsTr("Flow")
+                onClicked: viewModel.flow()
+            }
         }
 
-        Button {
-            id: btAction3
+        Row {
+            id: row2
+            spacing: Theme.horizontalPageMargin
             anchors { left: parent.left; right: parent.right;
-                bottom: btAction4.top;
+                bottom: row1.top;
                 margins: Theme.horizontalPageMargin
             }
-            text: qsTr("Coroutines")
-            onClicked: viewModel.coroutines()
-        }
 
-        Button {
-            id: btAction4
-            anchors { left: parent.left; right: parent.right;
-                bottom: btAction5.top;
-                margins: Theme.horizontalPageMargin
+
+            Button {
+                text: qsTr("Ktor")
+                onClicked: viewModel.ktor()
             }
-            text: qsTr("Ktor")
-            onClicked: viewModel.ktor()
-        }
 
-        Button {
-            id: btAction5
-            anchors { left: parent.left; right: parent.right;
-                bottom: btAction6.top;
-                margins: Theme.horizontalPageMargin
+            Button {
+                text: qsTr("DB")
+                onClicked: viewModel.db()
             }
-            text: qsTr("DB")
-            onClicked: viewModel.db()
         }
 
-        Button {
-            id: btAction6
-            anchors { left: parent.left; right: parent.right;
-                bottom: btAction7.top;
-                margins: Theme.horizontalPageMargin
-            }
-            text: qsTr("TEST 1")
-            onClicked: viewModel.test1()
-        }
-
-        Button {
-            id: btAction7
+        Row {
+            id: row1
+            spacing: Theme.horizontalPageMargin
             anchors { left: parent.left; right: parent.right;
                 bottom: parent.bottom;
                 margins: Theme.horizontalPageMargin
             }
-            text: qsTr("TEST 2")
-            onClicked: viewModel.test2()
+
+            Button {
+                text: qsTr("TEST 1")
+                onClicked: viewModel.test1()
+            }
+
+            Button {
+                text: qsTr("TEST 2")
+                onClicked: viewModel.test2()
+            }
         }
     }
 }

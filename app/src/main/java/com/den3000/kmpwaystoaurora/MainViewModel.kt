@@ -78,7 +78,7 @@ class MainViewModel: ViewModel() {
     }
 
     fun flow() {
-        text.update { "flow started" }
+        text.update { "Flow started" }
 
         viewModelScope.launch {
             triggerFlow(1000)

@@ -6,6 +6,8 @@ import kotlinx.cinterop.CValuesRef
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.invoke
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalForeignApi::class)
 fun triggerLambdaCfptr(
@@ -20,21 +22,40 @@ fun triggerLambdaCfptr(
 @OptIn(ExperimentalForeignApi::class)
 fun triggerCoroutineCfptr(
     delayInMs: Long,
-    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>,
+    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>) -> Unit>>,
     data: COpaquePointer
 ) {
-    triggerCoroutine(delayInMs) { str, b ->
-        cfptr.invoke(data, str.cstr, b)
+    val scope = CoroutineScope(getExecutionContext())
+    scope.launch {
+        val result = triggerCoroutine(delayInMs)
+        cfptr.invoke(data, result.cstr)
+    }
+}
+
+@OptIn(ExperimentalForeignApi::class)
+fun triggerFlowCfptr(
+    delayInMs: Long,
+    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>) -> Unit>>,
+    data: COpaquePointer
+) {
+    val scope = CoroutineScope(getExecutionContext())
+    scope.launch {
+        triggerFlow(delayInMs)
+            .collect { result ->
+                cfptr.invoke(data, result.cstr)
+            }
     }
 }
 
 @OptIn(ExperimentalForeignApi::class)
 fun getKtorIoWelcomePageAsTextCfptr(
-    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>,
+    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>) -> Unit>>,
     data: COpaquePointer
 ) {
-    getKtorIoWelcomePageAsText { s, b ->
-        cfptr.invoke(data, s.cstr, b)
+    val scope = CoroutineScope(getExecutionContext())
+    scope.launch {
+        val result = getKtorIoWelcomePageAsText()
+        cfptr.invoke(data, result.cstr)
     }
 }
 
@@ -44,19 +65,27 @@ fun getProgrammersFromSqlDelightCfptr(
     cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>) -> Unit>>,
     data: COpaquePointer
 ) {
-    getProgrammersFromSqlDelight(driverFactory) { str ->
-        cfptr.invoke(data, str.cstr)
+    val scope = CoroutineScope(getExecutionContext())
+    scope.launch {
+        getProgrammersFromSqlDelight(driverFactory)
+            .collect { result ->
+                cfptr.invoke(data, result.cstr)
+            }
     }
 }
 
 @OptIn(ExperimentalForeignApi::class)
 fun runTestOneCfptr(
     driverFactory: DriverFactory,
-    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>,
+    cfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>) -> Unit>>,
     data: COpaquePointer
 ) {
-    runTestOne(driverFactory) { s, b ->
-        cfptr.invoke(data, s.cstr, b)
+    val scope = CoroutineScope(getExecutionContext())
+    scope.launch {
+        runTestOne(driverFactory)
+            .collect { result ->
+                cfptr.invoke(data, result.cstr)
+            }
     }
 }
 
@@ -64,12 +93,15 @@ fun runTestOneCfptr(
 fun runTestTwoCfptr(
     driverFactory: DriverFactory,
     startedCfptr: CPointer<CFunction<(COpaquePointer) -> Unit>>,
-    callbackCfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>, Boolean) -> Unit>>,
+    callbackCfptr: CPointer<CFunction<(COpaquePointer, CValuesRef<ByteVar>) -> Unit>>,
     data: COpaquePointer
 ) {
-    runTestTwo(driverFactory, {
-        startedCfptr.invoke(data)
-    }) { s, b ->
-        callbackCfptr.invoke(data, s.cstr, b)
+    val scope = CoroutineScope(getExecutionContext())
+    scope.launch {
+        runTestTwo(driverFactory) {
+            startedCfptr.invoke(data)
+        }.collect { result ->
+            callbackCfptr.invoke(data, result.cstr)
+        }
     }
 }

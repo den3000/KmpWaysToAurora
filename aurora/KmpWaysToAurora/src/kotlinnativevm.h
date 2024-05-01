@@ -85,36 +85,55 @@ public slots:
 
     void coroutines() {
         auto klib = libshared_symbols()->kotlin.root;
-        auto noCapture = [](void * data, const char * text, bool) {
+        auto noCapture = [](void * data, const char * text) {
             auto that = reinterpret_cast<KotlinNativeVM *>(data);
             that->updateText(text);
         };
-        typedef void(*NormalFuncType)(void *, const char *, bool);
+        typedef void(*NormalFuncType)(void *, const char *);
         NormalFuncType noCaptureLambdaPtr = noCapture;
+
+        updateText("Coroutine started");
         klib.triggerCoroutineCfptr(1000, (libshared_KNativePtr)noCaptureLambdaPtr, this);
+    }
+
+    void flow() {
+        auto klib = libshared_symbols()->kotlin.root;
+        auto noCapture = [](void * data, const char * text) {
+            auto that = reinterpret_cast<KotlinNativeVM *>(data);
+            that->updateText(text);
+        };
+        typedef void(*NormalFuncType)(void *, const char *);
+        NormalFuncType noCaptureLambdaPtr = noCapture;
+
+        updateText("Flow started");
+        klib.triggerFlowCfptr(1000, (libshared_KNativePtr)noCaptureLambdaPtr, this);
     }
 
     void ktor() {
         auto klib = libshared_symbols()->kotlin.root;
-        auto noCapture = [](void * data, const char * text, bool) {
+        auto noCapture = [](void * data, const char * text) {
             auto that = reinterpret_cast<KotlinNativeVM *>(data);
             that->updateText(text);
         };
-        typedef void(*NormalFuncType)(void *, const char *, bool);
+        typedef void(*NormalFuncType)(void *, const char *);
         NormalFuncType noCaptureLambdaPtr = noCapture;
+
+        updateText("Request started");
         klib.getKtorIoWelcomePageAsTextCfptr((libshared_KNativePtr)noCaptureLambdaPtr, this);
     }
 
     void db() {
         auto klib = libshared_symbols()->kotlin.root;
 
-        auto noCapture = [](void * data, const char * text, bool) {
+        auto noCapture = [](void * data, const char * text) {
             auto that = reinterpret_cast<KotlinNativeVM *>(data);
-            that->updateText(text);
+
+            that->appendText(text);
         };
-        typedef void(*NormalFuncType)(void *, const char *, bool);
+        typedef void(*NormalFuncType)(void *, const char *);
         NormalFuncType noCaptureLambdaPtr = noCapture;
 
+        updateText("DB started");
         auto df = klib.DriverFactory.DriverFactory();
         klib.getProgrammersFromSqlDelightCfptr(df, (libshared_KNativePtr)noCaptureLambdaPtr, this);
     }
@@ -125,7 +144,7 @@ public slots:
         testOneRes = {this, "", klib.getTimeMark()};
         auto df = klib.DriverFactory.DriverFactory();
 
-        auto noCapture = [](void * data, const char * text, bool) {
+        auto noCapture = [](void * data, const char * text) {
             auto res = reinterpret_cast<TestOneRes *>(data);
             auto totalTime = libshared_symbols()->kotlin.root.getDiffMs(res->start);
             res->that->updateText(QString("Time spent: %1 ms\n%2")
@@ -133,9 +152,10 @@ public slots:
                                   .arg(text));
 
         };
-        typedef void(*NormalFuncType)(void *, const char *, bool);
+        typedef void(*NormalFuncType)(void *, const char *);
         NormalFuncType noCaptureLambdaPtr = noCapture;
 
+        updateText("Test 1 started");
         klib.runTestOneCfptr(df, (libshared_KNativePtr)noCaptureLambdaPtr, &testOneRes);
     }
 
@@ -152,16 +172,17 @@ public slots:
         typedef void(*NormalFuncType1)(void *);
         NormalFuncType1 noCaptureLambdaPtr1 = noCapture1;
 
-        auto noCapture2 = [](void * data, const char * text, bool) {
+        auto noCapture2 = [](void * data, const char * text) {
             auto res = reinterpret_cast<TestTwoRes *>(data);
             auto totalTime = libshared_symbols()->kotlin.root.getDiffMs(res->start);
             res->that->updateText(QString("Time spent: %1 ms\n%2")
                                   .arg(totalTime)
                                   .arg(text));
         };
-        typedef void(*NormalFuncType2)(void *, const char *, bool);
+        typedef void(*NormalFuncType2)(void *, const char *);
         NormalFuncType2 noCaptureLambdaPtr2 = noCapture2;
 
+        updateText("Test 2 started");
         klib.runTestTwoCfptr(
                     df,
                     (libshared_KNativePtr)noCaptureLambdaPtr1,
@@ -178,6 +199,11 @@ private:
 
     void updateText(const QString &newText) {
         m_text = newText;
+        emit textChanged(m_text);
+    }
+
+    void appendText(const QString &newText) {
+        m_text.append(newText);
         emit textChanged(m_text);
     }
 };

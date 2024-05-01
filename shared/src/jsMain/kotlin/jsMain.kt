@@ -46,7 +46,3 @@ actual class DriverFactory {
         return driver
     }
 }
-
-fun main() {
-    println("JS SHARED")
-}

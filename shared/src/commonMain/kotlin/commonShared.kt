@@ -3,12 +3,9 @@ import com.den3000.kmpwaystoaurora.Database
 import com.den3000.kmpwaystoaurora.ProgrammerQueries
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable

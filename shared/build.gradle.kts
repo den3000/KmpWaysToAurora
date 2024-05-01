@@ -100,6 +100,7 @@ kotlin {
 
         val jsMain by getting {
             dependencies {
+                implementation(npm("uuid", "9.0.0"))
                 implementation("io.ktor:ktor-client-js:$version_ktor")
 
                 implementation("app.cash.sqldelight:web-worker-driver:$version_sqldelight")
@@ -128,7 +129,7 @@ android {
     }
 }
 
-//region tasks
+//region Native tasks
 val tnLinkDebugLinuxX64 = "linkDebugStaticNativeLinuxX64"
 val tnLinkDebugLinuxArm64 = "linkDebugStaticNativeLinuxArm64"
 val tnLinkReleaseLinuxX64 = "linkReleaseStaticNativeLinuxX64"
@@ -173,5 +174,17 @@ tasks.register("linkAndCopySharedForAllTargets") {
         tasks.getByName(tnCopAndLinkReleaseLinuxX64),
         tasks.getByName(tnCopAndLinkReleaseLinuxArm64)
     )
+}
+//endregion
+
+//region JS tasks
+tasks.register("jsBuildForAurora") {
+    dependsOn("jsBrowserProductionWebpack")
+    doLast {
+        copy {
+            from(layout.buildDirectory.dir("dist/js/productionExecutable"))
+            into("${rootProject.rootDir}/aurora/KmpWaysToAurora/qml/kmp")
+        }
+    }
 }
 //endregion

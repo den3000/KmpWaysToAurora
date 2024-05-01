@@ -7,7 +7,7 @@ Name=Template
 Name[ru]=Шаблон
 
 [X-Application]
-Permissions=Internet;UserDirs
+Permissions=Internet;UserDirs;WebView
 OrganizationName=com.den3000.kmpwaystoaurora
 ApplicationName=KmpWaysToAurora
 ExecDBus=/usr/bin/com.den3000.kmpwaystoaurora.KmpWaysToAurora

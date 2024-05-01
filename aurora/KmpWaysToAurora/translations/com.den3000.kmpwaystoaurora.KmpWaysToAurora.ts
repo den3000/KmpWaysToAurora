@@ -42,47 +42,47 @@
 <context>
     <name>KotlinJSPage</name>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="10"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="11"/>
         <source>Kotlin JS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="48"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="49"/>
         <source>Std</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="55"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="54"/>
         <source>Serialization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="69"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="68"/>
         <source>Coroutines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="74"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="73"/>
         <source>Flow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="89"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="88"/>
         <source>Ktor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="94"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="93"/>
         <source>DB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="108"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="107"/>
         <source>TEST 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="113"/>
+        <location filename="../qml/pages/KotlinJSPage.qml" line="112"/>
         <source>TEST 2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -174,7 +174,7 @@
 <context>
     <name>Shared</name>
     <message>
-        <location filename="../qml/kmp/Shared.qml" line="52"/>
+        <location filename="../qml/kmp/Shared.qml" line="71"/>
         <source>An unexpected error occurred, please try again later</source>
         <translation type="unfinished"></translation>
     </message>

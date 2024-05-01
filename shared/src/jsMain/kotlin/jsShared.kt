@@ -1,3 +1,7 @@
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.asPromise
+import kotlinx.coroutines.async
+
 /**
  * Init fun for run after ready index.html
  */
@@ -5,7 +9,6 @@
 @JsExport
 fun init() {
     sendEvent("Init")
-    println("SEND INIT")
 }
 
 /**

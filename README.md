@@ -9,7 +9,7 @@
 5. JS Browser
    1. Desktop     `gradle :desktop:jsBrowserDevelopmentRun`
    2. Shared      `gradle :shared:jsBrowserDevelopmentRun`
-7. Aurora JS      `gradle :shared:jsBuildForAurora`
+6. Aurora JS      `gradle :shared:jsBuildForAurora`
 
 ## Build tasks for executables
 

@@ -11,6 +11,14 @@ Item {
 
     function run(method, result, error) {
         if (method.indexOf("return") === -1) {
+            webview.runJavaScript("return " + method, result, error);
+        } else {
+            webview.runJavaScript(method, result, error);
+        }
+    }
+
+    function runAsyc(method, result, error) {
+        if (method.indexOf("return") === -1) {
             webview.runJavaScript("return " + method, function(data) {
                 root._listeners[data] = [result, error]
             }, error);

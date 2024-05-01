@@ -46,9 +46,7 @@ Page {
 
             Button {
                 text: qsTr("Std")
-                onClicked: {
-                    strText = "Platform"
-                }
+                onClicked: getPlatform()
             }
 
             Button {
@@ -124,7 +122,14 @@ Page {
     }
 
     function getPlatform() {
-        // Finish this
-        return "Platform"
+        libKMPShared.run(
+            "shared.platform()",
+            function(result) {
+                strText = result
+            },
+            function(error) {
+                console.log(error)
+            }
+        );
     }
 }

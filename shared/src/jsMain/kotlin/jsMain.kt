@@ -10,6 +10,8 @@ import kotlinx.serialization.json.Json
 import org.w3c.dom.Worker
 import kotlin.coroutines.CoroutineContext
 
+@OptIn(ExperimentalJsExport::class)
+@JsExport
 actual fun platform() = "Shared JS"
 
 actual fun getDataClass(): DataClass {

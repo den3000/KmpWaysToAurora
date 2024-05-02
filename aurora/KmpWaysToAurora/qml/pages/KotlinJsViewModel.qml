@@ -23,6 +23,22 @@ Item {
         );
     }
 
+    function coroutine(callback) {
+        libKMPShared.runAsync(
+            "shared.coroutineJS()",
+            callback,
+            function(error) { console.log(error) }
+        );
+    }
+
+    function flow(callback) {
+        libKMPShared.runAsync(
+            "shared.flowJS()",
+            callback,
+            function(error) { console.log(error) }
+        );
+    }
+
     function getKtorIoWelcomePageAsText(callback) {
         libKMPShared.runAsync(
             "shared.getKtorIoWelcomePageAsTextJS()",

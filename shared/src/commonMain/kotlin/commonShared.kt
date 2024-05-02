@@ -33,10 +33,10 @@ suspend fun triggerFlow(delayInMs: Long): Flow<String> {
     return flow {
         var max = 3
         while (max > 0) {
-            emit("Flow value: $max")
-
-            max -= 1
             delay(delayInMs)
+
+            emit("Flow value: $max")
+            max -= 1
         }
     }
 }

@@ -1,6 +1,7 @@
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.asPromise
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 /**
  * Init fun for run after ready index.html
@@ -58,6 +59,33 @@ fun serializationJS(): String {
     result += "Deserialized from string: $dc\n"
 
     return result
+}
+
+@OptIn(ExperimentalJsExport::class)
+@JsExport
+fun coroutineJS(): String {
+    val scope = CoroutineScope(getExecutionContext())
+    val caller = Uuid.v4()
+    scope.async {
+        triggerCoroutine(4000)
+    }.asPromise().then {
+        sendEventResponse(caller, response = it)
+    }
+    return caller
+}
+
+@OptIn(ExperimentalJsExport::class)
+@JsExport
+fun flowJS(): String {
+    val scope = CoroutineScope(getExecutionContext())
+    val caller = Uuid.v4()
+    scope.launch {
+        triggerFlow(2000)
+            .collect { result ->
+                sendEventResponse(caller, response = result)
+            }
+    }
+    return caller
 }
 
 @OptIn(ExperimentalJsExport::class)

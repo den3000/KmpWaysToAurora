@@ -62,27 +62,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJsPage.qml" line="79"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="81"/>
         <source>Flow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJsPage.qml" line="94"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="98"/>
         <source>Ktor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJsPage.qml" line="101"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="105"/>
         <source>DB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJsPage.qml" line="115"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="119"/>
         <source>TEST 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJsPage.qml" line="120"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="124"/>
         <source>TEST 2</source>
         <translation type="unfinished"></translation>
     </message>

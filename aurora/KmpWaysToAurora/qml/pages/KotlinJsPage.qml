@@ -72,12 +72,16 @@ Page {
 
             Button {
                 text: qsTr("Coroutines")
-                onClicked: {}
+                onClicked: vm.coroutine(function(result){
+                    strText = result
+                })
             }
 
             Button {
                 text: qsTr("Flow")
-                onClicked: {}
+                onClicked: vm.flow(function(result){
+                    strText = result
+                })
             }
         }
 

@@ -23,7 +23,8 @@ HEADERS += \
 
 DISTFILES += \
     qml/pages/AboutPage.qml \
-    qml/pages/KotlinJSPage.qml \
+    qml/pages/KotlinJsPage.qml \
+    qml/pages/KotlinJsViewModel.qml \
     qml/pages/KotlinJvmToNativePage.qml \
     qml/pages/KotlinNativePage.qml \
     qml/pages/MainPage.qml \

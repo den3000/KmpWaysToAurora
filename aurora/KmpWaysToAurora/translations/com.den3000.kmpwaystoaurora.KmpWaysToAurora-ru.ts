@@ -40,49 +40,49 @@
     </message>
 </context>
 <context>
-    <name>KotlinJSPage</name>
+    <name>KotlinJsPage</name>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="10"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="13"/>
         <source>Kotlin JS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="48"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="51"/>
         <source>Std</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="53"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="58"/>
         <source>Serialization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="67"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="74"/>
         <source>Coroutines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="72"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="79"/>
         <source>Flow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="87"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="94"/>
         <source>Ktor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="92"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="101"/>
         <source>DB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="106"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="115"/>
         <source>TEST 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJSPage.qml" line="111"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="120"/>
         <source>TEST 2</source>
         <translation type="unfinished"></translation>
     </message>

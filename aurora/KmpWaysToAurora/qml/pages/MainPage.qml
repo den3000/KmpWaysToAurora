@@ -20,7 +20,7 @@ Page {
         Button {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
             text: qsTr("Kotlin JS")
-            onClicked: pageStack.push(Qt.resolvedUrl("KotlinJSPage.qml"))
+            onClicked: pageStack.push(Qt.resolvedUrl("KotlinJsPage.qml"))
         }
 
         Button {

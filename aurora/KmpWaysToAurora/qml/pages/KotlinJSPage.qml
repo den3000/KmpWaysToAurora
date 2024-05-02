@@ -1,16 +1,19 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import "../kmp" as KMP
 
 Page {
     allowedOrientations: Orientation.All
+
+    KotlinJsViewModel {
+        id: vm
+    }
 
     PageHeader {
         id: header
         title: qsTr("Kotlin JS")
     }
 
-    property string strText: "No value"
+    property string strText: ""
 
     Column {
         id: layout
@@ -46,12 +49,16 @@ Page {
 
             Button {
                 text: qsTr("Std")
-                onClicked: std()
+                onClicked: vm.std(function(result){
+                    strText = result
+                })
             }
 
             Button {
                 text: qsTr("Serialization")
-                onClicked: serialization()
+                onClicked: vm.serialization(function(result){
+                    strText = result
+                })
             }
         }
 
@@ -85,7 +92,9 @@ Page {
 
             Button {
                 text: qsTr("Ktor")
-                onClicked: getKtorIoWelcomePageAsTextJS()
+                onClicked: vm.getKtorIoWelcomePageAsText(function(result){
+                    strText = result
+                })
             }
 
             Button {
@@ -112,41 +121,5 @@ Page {
                 onClicked: {}
             }
         }
-    }
-
-    KMP.Shared {
-        id: libKMPShared
-        onCompleted: {
-            strText = "KMP LOADED"
-        }
-    }
-
-    function std() {
-        console.log(Uuid.v4());
-        libKMPShared.run(
-            "shared.stdJS()",
-            function(result) { strText = result },
-            function(error) { console.log(error) }
-        );
-    }
-
-    function serialization() {
-        libKMPShared.run(
-            "shared.serializationJS()",
-            function(result) { strText = result },
-            function(error) { console.log(error) }
-        );
-    }
-
-    function getKtorIoWelcomePageAsTextJS() {
-        libKMPShared.runAsync(
-            "shared.getKtorIoWelcomePageAsTextJS()",
-            function(result) {
-                strText = result
-            },
-            function(error) {
-                console.log(error)
-            }
-        );
     }
 }

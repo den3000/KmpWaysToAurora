@@ -72,16 +72,22 @@ Page {
 
             Button {
                 text: qsTr("Coroutines")
-                onClicked: vm.coroutine(function(result){
-                    strText = result
-                })
+                onClicked: {
+                    strText = "Coroutine started"
+                    vm.coroutine(function(result){
+                        strText = result
+                    })
+                }
             }
 
             Button {
                 text: qsTr("Flow")
-                onClicked: vm.flow(function(result){
-                    strText = result
-                })
+                onClicked: {
+                    strText = "Flow started"
+                    vm.flow(function(result){
+                        strText = result
+                    })
+                }
             }
         }
 
@@ -96,16 +102,17 @@ Page {
 
             Button {
                 text: qsTr("Ktor")
-                onClicked: vm.ktor(function(result){
-                    strText = result
-                })
+                onClicked: {
+                    strText = "Request started"
+                    vm.ktor(function(result){
+                        strText = result
+                    })
+                }
             }
 
             Button {
                 text: qsTr("DB")
-                onClicked: vm.db(function(result){
-                    strText += result
-                })
+                onClicked: strText = "SqlDelight not available for Aurora JS target"
             }
         }
 
@@ -119,12 +126,12 @@ Page {
 
             Button {
                 text: qsTr("TEST 1")
-                onClicked: {}
+                onClicked: strText = "SqlDelight not available for Aurora JS target"
             }
 
             Button {
                 text: qsTr("TEST 2")
-                onClicked: {}
+                onClicked: strText = "SqlDelight not available for Aurora JS target"
             }
         }
     }

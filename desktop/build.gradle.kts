@@ -1,7 +1,12 @@
 plugins {
     kotlin("multiplatform")
     application
+
+    id("org.graalvm.buildtools.native") version "0.9.20"
+    id("com.google.osdetector") version "1.7.3"
 }
+
+val isWindows: Boolean by extra { osdetector.os == "windows" }
 
 group = "com.den3000.kmpwaystoaurora.desktop"
 version = "1.0-SNAPSHOT"
@@ -59,4 +64,24 @@ kotlin {
 
 application {
     mainClass = "MainKt"
+}
+
+graalvmNative {
+    toolchainDetection.set(false)
+    binaries{
+        named("main"){
+            mainClass.set("MainKt")
+            buildArgs("-Djava.awt.headless=false")
+        }
+    }
+
+    agent{
+        defaultMode.set("standard")
+
+        metadataCopy {
+            inputTaskNames.add("run") // Tasks previously executed with the agent attached.
+            outputDirectories.add("src/main/resources/META-INF/native-image")
+            mergeWithExisting.set(true)
+        }
+    }
 }

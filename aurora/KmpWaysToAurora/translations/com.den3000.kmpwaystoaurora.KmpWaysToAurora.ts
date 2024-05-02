@@ -174,7 +174,7 @@
 <context>
     <name>Shared</name>
     <message>
-        <location filename="../qml/kmp/Shared.qml" line="74"/>
+        <location filename="../qml/kmp/Shared.qml" line="64"/>
         <source>An unexpected error occurred, please try again later</source>
         <translation type="unfinished"></translation>
     </message>

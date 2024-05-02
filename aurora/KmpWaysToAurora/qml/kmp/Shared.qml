@@ -41,6 +41,7 @@ Item {
         }
 
         onRecvAsyncMessage: {
+            console.log(message)
             switch (message) {
             case "webview:action":
                 try {
@@ -55,7 +56,8 @@ Item {
                             root._listeners[data.caller][1](data.error)
                         }
                     } else {
-                        console.log("Untracked event")
+                        console.log("Unregistered callback")
+                        console.log(data.caller)
                     }
                 } catch (e) {
                     // If something went wrong

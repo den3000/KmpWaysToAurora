@@ -46,12 +46,12 @@ Page {
 
             Button {
                 text: qsTr("Std")
-                onClicked: platformJS()
+                onClicked: std()
             }
 
             Button {
                 text: qsTr("Serialization")
-                onClicked: {}
+                onClicked: serialization()
             }
         }
 
@@ -121,15 +121,20 @@ Page {
         }
     }
 
-    function platformJS() {
+    function std() {
+        console.log(Uuid.v4());
         libKMPShared.run(
-            "shared.platformJS()",
-            function(result) {
-                strText = result
-            },
-            function(error) {
-                console.log(error)
-            }
+            "shared.stdJS()",
+            function(result) { strText = result },
+            function(error) { console.log(error) }
+        );
+    }
+
+    function serialization() {
+        libKMPShared.run(
+            "shared.serializationJS()",
+            function(result) { strText = result },
+            function(error) { console.log(error) }
         );
     }
 

@@ -77,12 +77,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJsPage.qml" line="119"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="121"/>
         <source>TEST 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJsPage.qml" line="124"/>
+        <location filename="../qml/pages/KotlinJsPage.qml" line="126"/>
         <source>TEST 2</source>
         <translation type="unfinished"></translation>
     </message>

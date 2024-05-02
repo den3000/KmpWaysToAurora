@@ -1,7 +1,14 @@
+import app.cash.sqldelight.async.coroutines.awaitAsList
+import app.cash.sqldelight.async.coroutines.awaitCreate
+import app.cash.sqldelight.driver.worker.WebWorkerDriver
+import com.den3000.kmpwaystoaurora.Database
+import com.den3000.kmpwaystoaurora.ProgrammerQueries
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.asPromise
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.w3c.dom.Worker
 
 /**
  * Init fun for run after ready index.html
@@ -90,13 +97,28 @@ fun flowJS(): String {
 
 @OptIn(ExperimentalJsExport::class)
 @JsExport
-fun getKtorIoWelcomePageAsTextJS(): Any {
+fun ktorJS(): Any {
     val scope = CoroutineScope(getExecutionContext())
     val caller = Uuid.v4()
     scope.async {
         getKtorIoWelcomePageAsText()
     }.asPromise().then {
         sendEventResponse(caller, response = it)
+    }
+    return caller
+}
+
+@OptIn(ExperimentalJsExport::class)
+@JsExport
+fun dbJS(): String {
+    val scope = CoroutineScope(getExecutionContext())
+    val caller = Uuid.v4()
+    scope.launch {
+        val df = DriverFactory()
+        getProgrammersFromSqlDelight(df)
+            .collect { result ->
+                sendEventResponse(caller, response = result)
+            }
     }
     return caller
 }

@@ -39,9 +39,17 @@ Item {
         );
     }
 
-    function getKtorIoWelcomePageAsText(callback) {
+    function ktor(callback) {
         libKMPShared.runAsync(
-            "shared.getKtorIoWelcomePageAsTextJS()",
+            "shared.ktorJS()",
+            callback,
+            function(error) { console.log(error) }
+        );
+    }
+
+    function db(callback) {
+        libKMPShared.runAsync(
+            "shared.dbJS()",
             callback,
             function(error) { console.log(error) }
         );

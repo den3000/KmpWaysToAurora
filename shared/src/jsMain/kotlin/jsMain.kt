@@ -37,7 +37,7 @@ actual fun getHttpRequestClient() : HttpClient? = HttpClient(Js)
 actual class DriverFactory {
     actual suspend fun createDriver(): SqlDriver? {
         // NODE JS
-//      // val worker = Worker(js("new URL('file://' + require('path').resolve(__dirname, '../../../node_modules/@cashapp/sqldelight-sqljs-worker/sqljs.worker.js'));") as String)
+//        val worker = Worker(js("new URL('file://' + require('path').resolve(__dirname, '../../../node_modules/@cashapp/sqldelight-sqljs-worker/sqljs.worker.js'));") as String)
 
         // Browser JS
         val worker = Worker(js("""new URL("@cashapp/sqldelight-sqljs-worker/sqljs.worker.js", import.meta.url)"""))

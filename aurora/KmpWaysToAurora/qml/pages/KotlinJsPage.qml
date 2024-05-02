@@ -96,14 +96,16 @@ Page {
 
             Button {
                 text: qsTr("Ktor")
-                onClicked: vm.getKtorIoWelcomePageAsText(function(result){
+                onClicked: vm.ktor(function(result){
                     strText = result
                 })
             }
 
             Button {
                 text: qsTr("DB")
-                onClicked: {}
+                onClicked: vm.db(function(result){
+                    strText += result
+                })
             }
         }
 

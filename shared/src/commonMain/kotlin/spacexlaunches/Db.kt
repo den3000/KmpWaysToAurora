@@ -1,9 +1,12 @@
-package spacexlaunches
+package foo.spacexlaunches
 
-import DriverFactory
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import com.den3000.kmpwaystoaurora.Database
 import com.den3000.kmpwaystoaurora.LaunchQueries
+import foo.DriverFactory
+import spacexlaunches.Links
+import spacexlaunches.Patch
+import spacexlaunches.RocketLaunch
 
 internal class Db(private val databaseDriverFactory: DriverFactory) {
     private var database: Database? = null

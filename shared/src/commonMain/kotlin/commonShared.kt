@@ -1,6 +1,9 @@
+package foo
+
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import com.den3000.kmpwaystoaurora.Database
 import com.den3000.kmpwaystoaurora.ProgrammerQueries
+import foo.spacexlaunches.Db
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import kotlinx.coroutines.delay
@@ -11,7 +14,6 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import spacexlaunches.Api
-import spacexlaunches.Db
 import spacexlaunches.RocketLaunch
 
 @Serializable

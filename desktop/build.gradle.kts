@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform")
     application
 
-    id("org.graalvm.buildtools.native") version "0.9.20"
+    id("org.graalvm.buildtools.native") version "0.10.1"
     id("com.google.osdetector") version "1.7.3"
 }
 
@@ -59,6 +59,12 @@ kotlin {
                 implementation(project(":shared"))
             }
         }
+
+        val jvmMain by getting {
+            dependencies {
+                implementation("org.graalvm.sdk:graal-sdk:24.0.1")
+            }
+        }
     }
 }
 
@@ -70,7 +76,7 @@ graalvmNative {
     toolchainDetection.set(false)
     binaries{
         named("main"){
-            mainClass.set("MainKt")
+            mainClass.set("foo.Jtn")
             buildArgs("--shared")
 //            buildArgs("-Djava.awt.headless=false --shared")
         }

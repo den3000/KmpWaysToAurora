@@ -1,3 +1,5 @@
+package foo
+
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import com.den3000.kmpwaystoaurora.Database

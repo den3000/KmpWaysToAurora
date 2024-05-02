@@ -1,6 +1,6 @@
 package spacexlaunches
 
-import getHttpRequestClient
+import foo.getHttpRequestClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get

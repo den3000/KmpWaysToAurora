@@ -71,7 +71,8 @@ graalvmNative {
     binaries{
         named("main"){
             mainClass.set("MainKt")
-            buildArgs("-Djava.awt.headless=false")
+            buildArgs("--shared")
+//            buildArgs("-Djava.awt.headless=false --shared")
         }
     }
 

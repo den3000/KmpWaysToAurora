@@ -9,10 +9,19 @@ CONFIG(release, debug|release):{ SHARED_LIB_BUILD_TYPE_PATH=release }
 # path to libshared.a
 SHARED_LIB_PATH=$${SHARED_LIB_ARCH_TYPE_PATH}/$${SHARED_LIB_BUILD_TYPE_PATH}
 
+# improve this
+DESKTOP_LIB_PATH=lib_desktop/x86_64
+
 CONFIG += \
     auroraapp
 
 PKGCONFIG += \
+
+
+desktop_library_install.path = /usr/share/com.den3000.kmpwaystoaurora.KmpWaysToAurora/lib/
+desktop_library_install.files = $$PWD/$${DESKTOP_LIB_PATH}/*.so*
+desktop_library_install.CONFIG = no_check_exist
+INSTALLS += desktop_library_install
 
 SOURCES += \
     src/main.cpp \
@@ -39,9 +48,12 @@ TRANSLATIONS += \
     translations/com.den3000.kmpwaystoaurora.KmpWaysToAurora.ts \
     translations/com.den3000.kmpwaystoaurora.KmpWaysToAurora-ru.ts \
 
-unix:!macx: LIBS += -L$$PWD/$${SHARED_LIB_PATH} -lshared -lcurl -lsqlite3
+unix:!macx: LIBS += -L$$PWD/$${SHARED_LIB_PATH} -lshared -lcurl -lsqlite3 \
+    -L$$PWD/$${DESKTOP_LIB_PATH}/ -ldesktop
 
-INCLUDEPATH += $$PWD/$${SHARED_LIB_PATH}
-DEPENDPATH += $$PWD/$${SHARED_LIB_PATH}
+INCLUDEPATH += $$PWD/$${SHARED_LIB_PATH} \
+    $$PWD/$${DESKTOP_LIB_PATH}/
+DEPENDPATH += $$PWD/$${SHARED_LIB_PATH} \
+    $$PWD/$${DESKTOP_LIB_PATH}/
 
 unix:!macx: PRE_TARGETDEPS += $$PWD/$${SHARED_LIB_PATH}/libshared.a

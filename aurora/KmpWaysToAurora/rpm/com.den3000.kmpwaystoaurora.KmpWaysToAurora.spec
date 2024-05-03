@@ -1,3 +1,6 @@
+%define __provides_exclude_from ^%{_datadir}/.*$
+%define __requires_exclude ^libdesktop.*$
+
 Name:       com.den3000.kmpwaystoaurora.KmpWaysToAurora
 Summary:    My Aurora OS Application
 Version:    0.1

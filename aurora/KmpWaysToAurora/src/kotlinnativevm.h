@@ -6,6 +6,7 @@
 #include <QQuickItem>
 
 #include <libshared_api.h>
+#include <desktop.h>
 
 #include <functional>
 
@@ -32,39 +33,51 @@ public:
 
 public slots:
     void std() {
-        auto klib = libshared_symbols()->kotlin.root;
 
-        auto ktText = klib.platform();
-        auto ktDataClass1 = klib.getDataClass();
-        auto ktDataClass1Str = klib.DataClass.toString(ktDataClass1);
+        graal_isolate_t *isolate = NULL;
+        graal_isolatethread_t *thread = NULL;
 
-        auto ktDataClass2 = klib.DataClass.DataClass(
-                    2,
-                    "some aurora string"
-                    );
-        auto ktDataClass2Int = klib.DataClass.get_int(ktDataClass2);
-        auto ktDataClass2Str = klib.DataClass.get_string(ktDataClass2);
+        if (graal_create_isolate(NULL, &isolate, &thread) != 0) {
+            qDebug() << stderr << "initialization error\n";
+        }
 
-        // No Capture lambda as a C Ptr to Func
-        // https://adroit-things.com/programming/c-cpp/how-to-bind-lambda-to-function-pointer/
-        struct res {
-            const char * text;
-        } result {""};
-        auto noCapture = [](void * data) {
-            auto pResult = reinterpret_cast<res *>(data);
-            pResult->text = "Triggered from lambda on Aurora";
-        };
-        typedef void(*NormalFuncType)(void * );
-        NormalFuncType noCaptureLambdaPtr = noCapture;
-        klib.triggerLambdaCfptr((libshared_KNativePtr)noCaptureLambdaPtr, &result);
-        // --------------------------------------------------------------------------
+        qDebug() << "Platform: " << (char *)platform(thread);
 
-        updateText(QString("Hello, %1\n%2\nDataClass2\nint: %3\nstring: %4\nfromLambda: %5")
-                           .arg(ktText)
-                           .arg(ktDataClass1Str)
-                           .arg(ktDataClass2Int)
-                           .arg(ktDataClass2Str)
-                           .arg(result.text));
+        graal_tear_down_isolate(thread);
+
+//        auto klib = libshared_symbols()->kotlin.root;
+
+//        auto ktText = klib.platform();
+//        auto ktDataClass1 = klib.getDataClass();
+//        auto ktDataClass1Str = klib.DataClass.toString(ktDataClass1);
+
+//        auto ktDataClass2 = klib.DataClass.DataClass(
+//                    2,
+//                    "some aurora string"
+//                    );
+//        auto ktDataClass2Int = klib.DataClass.get_int(ktDataClass2);
+//        auto ktDataClass2Str = klib.DataClass.get_string(ktDataClass2);
+
+//        // No Capture lambda as a C Ptr to Func
+//        // https://adroit-things.com/programming/c-cpp/how-to-bind-lambda-to-function-pointer/
+//        struct res {
+//            const char * text;
+//        } result {""};
+//        auto noCapture = [](void * data) {
+//            auto pResult = reinterpret_cast<res *>(data);
+//            pResult->text = "Triggered from lambda on Aurora";
+//        };
+//        typedef void(*NormalFuncType)(void * );
+//        NormalFuncType noCaptureLambdaPtr = noCapture;
+//        klib.triggerLambdaCfptr((libshared_KNativePtr)noCaptureLambdaPtr, &result);
+//        // --------------------------------------------------------------------------
+
+//        updateText(QString("Hello, %1\n%2\nDataClass2\nint: %3\nstring: %4\nfromLambda: %5")
+//                           .arg(ktText)
+//                           .arg(ktDataClass1Str)
+//                           .arg(ktDataClass2Int)
+//                           .arg(ktDataClass2Str)
+//                           .arg(result.text));
     }
 
     void serialization() {

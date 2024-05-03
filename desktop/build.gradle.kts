@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     kotlin("multiplatform")
     application
@@ -10,6 +12,18 @@ val isWindows: Boolean by extra { osdetector.os == "windows" }
 
 group = "com.den3000.kmpwaystoaurora.desktop"
 version = "1.0-SNAPSHOT"
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
 
 kotlin {
     jvm { withJava() }
@@ -69,16 +83,25 @@ kotlin {
 }
 
 application {
-    mainClass = "MainKt"
+    mainClass = "foo.MainKt"
 }
 
 graalvmNative {
     toolchainDetection.set(false)
     binaries{
-        named("main"){
+        named("main") {
+//            mainClass.set("foo.MainKt")
+//            buildArgs(
+//                "-Djava.awt.headless=false",
+//                // build as static executable
+//                "-H:+StaticExecutableWithDynamicLibC",
+//            )
+
             mainClass.set("foo.Jtn")
-            buildArgs("--shared")
-//            buildArgs("-Djava.awt.headless=false --shared")
+            buildArgs(
+                // build as lib, not executable
+                "--shared",
+            )
         }
     }
 

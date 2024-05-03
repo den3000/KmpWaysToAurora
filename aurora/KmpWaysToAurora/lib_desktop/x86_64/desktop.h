@@ -10,7 +10,7 @@ extern "C" {
 
 int run_main(int argc, char** argv);
 
-void * platform(graal_isolatethread_t*);
+char* platform(graal_isolatethread_t*);
 
 #if defined(__cplusplus)
 }

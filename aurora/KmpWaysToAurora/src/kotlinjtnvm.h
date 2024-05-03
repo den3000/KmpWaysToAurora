@@ -32,17 +32,17 @@ public slots:
             qDebug() << stderr << "initialization error\n";
         }
 
-        qDebug() << "Platform: " << (char *)platform(thread);
+        updateText((char *)platform(thread));
 
         graal_tear_down_isolate(thread);
     }
 
     void test2_foo() {
-
-        auto noCapture = [](char * text) {
-            qDebug() << "Lambda: " << text;
+        auto noCapture = [](char * text, size_t p) {
+            auto vm = reinterpret_cast<KotlinJtnVM *>(p);
+            vm->updateText(text);
         };
-        typedef void(*NormalFuncType)(char *);
+        typedef void(*NormalFuncType)(char *, size_t);
         NormalFuncType noCaptureLambdaPtr = noCapture;
 
         graal_isolate_t *isolate = NULL;
@@ -52,7 +52,7 @@ public slots:
             qDebug() << stderr << "initialization error\n";
         }
 
-        test2(thread, (void *) noCaptureLambdaPtr);
+        test2(thread, (void *) noCaptureLambdaPtr, (size_t)this);
 
         graal_tear_down_isolate(thread);
     }

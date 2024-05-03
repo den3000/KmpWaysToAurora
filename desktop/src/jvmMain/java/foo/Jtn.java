@@ -6,10 +6,11 @@ import org.graalvm.nativeimage.c.function.CFunctionPointer;
 import org.graalvm.nativeimage.c.function.InvokeCFunctionPointer;
 import org.graalvm.nativeimage.c.type.CCharPointer;
 import org.graalvm.nativeimage.c.type.CTypeConversion;
+import org.graalvm.word.Pointer;
 
 interface IStringCallback extends CFunctionPointer {
     @InvokeCFunctionPointer
-    int invoke(CCharPointer str);
+    void invoke(CCharPointer str, Pointer data);
 }
 
 public class Jtn {
@@ -24,7 +25,7 @@ public class Jtn {
     }
 
     @CEntryPoint(name = "test2")
-    private static void test2(IsolateThread thread, IStringCallback callback) {
-        callback.invoke(CTypeConversion.toCString("FFFFFFFFFFFFFFFUCK").get());
+    private static void test2(IsolateThread thread, IStringCallback callback, Pointer data) {
+        callback.invoke(CTypeConversion.toCString("FFFFFFFFFFFFFFFUCK").get(), data);
     }
 }

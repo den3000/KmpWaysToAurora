@@ -12,7 +12,7 @@ int run_main(int argc, char** argv);
 
 char* platform(graal_isolatethread_t*);
 
-void test2(graal_isolatethread_t*, void *);
+void test2(graal_isolatethread_t*, void *, size_t);
 
 #if defined(__cplusplus)
 }

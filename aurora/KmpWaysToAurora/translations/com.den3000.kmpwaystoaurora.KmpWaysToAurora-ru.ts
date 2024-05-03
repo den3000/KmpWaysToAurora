@@ -90,18 +90,18 @@
 <context>
     <name>KotlinJvmToNativePage</name>
     <message>
-        <location filename="../qml/pages/KotlinJvmToNativePage.qml" line="7"/>
-        <source>Kotlin JVM To Native</source>
+        <location filename="../qml/pages/KotlinJvmToNativePage.qml" line="12"/>
+        <source>Kotlin Native</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJvmToNativePage.qml" line="21"/>
-        <source>Text</source>
+        <location filename="../qml/pages/KotlinJvmToNativePage.qml" line="48"/>
+        <source>TEST 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/KotlinJvmToNativePage.qml" line="26"/>
-        <source>Action</source>
+        <location filename="../qml/pages/KotlinJvmToNativePage.qml" line="53"/>
+        <source>TEST 2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

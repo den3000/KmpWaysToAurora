@@ -77,3 +77,12 @@ then you just need
 <body onload="shared.init()"></body>
 
 ```
+
+1. Clean project
+2. Archive
+3. Copy to build engine
+4. Run `gradle :shared:generateSqlDelightInterface`
+5. Run `gradle :desktop:nativeCompile`
+6. Archive ./desktop/build/native/nativeCompile to host
+7. Unpack on host
+8. Integrate into aurora app

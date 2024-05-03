@@ -28,6 +28,7 @@ SOURCES += \
 
 HEADERS += \
     $${SHARED_LIB_PATH}/libshared_api.h \
+    src/kotlinjtnvm.h \
     src/kotlinnativevm.h
 
 DISTFILES += \

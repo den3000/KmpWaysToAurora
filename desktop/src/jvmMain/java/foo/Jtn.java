@@ -7,6 +7,7 @@ import org.graalvm.nativeimage.c.function.InvokeCFunctionPointer;
 import org.graalvm.nativeimage.c.type.CCharPointer;
 import org.graalvm.nativeimage.c.type.CTypeConversion;
 import org.graalvm.word.Pointer;
+import org.jetbrains.annotations.NotNull;
 
 interface IStringCallback extends CFunctionPointer {
     @InvokeCFunctionPointer
@@ -14,18 +15,22 @@ interface IStringCallback extends CFunctionPointer {
 }
 
 public class Jtn {
-    public static void main (String[] args) {
+    public static void main (String[] args) { }
 
-    }
-
-    @CEntryPoint(name = "platform")
+    @CEntryPoint(name = "jtn_platform")
     private static CCharPointer platform(IsolateThread thread) {
         String result = foo.JvmMainKt.platform();
         return CTypeConversion.toCString(result).get();
     }
 
-    @CEntryPoint(name = "test2")
+    @CEntryPoint(name = "jtn_test2")
     private static void test2(IsolateThread thread, IStringCallback callback, Pointer data) {
-        callback.invoke(CTypeConversion.toCString("FFFFFFFFFFFFFFFUCK").get(), data);
+        // Anonymous class is mandatory here, lambda wouldn't work with Graal
+        foo.MainKt.test2_jtn(new IFoo() {
+            @Override
+            public void invoke(@NotNull String str) {
+                callback.invoke(CTypeConversion.toCString(str).get(), data);
+            }
+        });
     }
 }

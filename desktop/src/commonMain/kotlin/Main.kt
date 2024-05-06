@@ -127,3 +127,21 @@ suspend fun test2() {
         println("Time spent: ${totalTime.value} ms\n" + text.take(40))
     }
 }
+
+interface IFoo {
+    fun invoke(str: String)
+}
+fun test2_jtn(callback: foo.IFoo) {
+    CoroutineScope(getExecutionContext()).launch {
+        val totalTime = MutableStateFlow<Long>(0)
+        val start = MutableStateFlow(getTimeMark())
+        val df = DriverFactory()
+        runTestTwo(df, started = {
+            start.update { getTimeMark() }
+        }).collect {text ->
+            totalTime.update { getDiffMs(start.value) }
+//            println("Time spent: ${totalTime.value} ms\n" + text.take(40))
+            callback.invoke("Time spent: ${totalTime.value} ms\n" + text.take(40))
+        }
+    }
+}

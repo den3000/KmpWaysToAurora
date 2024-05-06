@@ -46,12 +46,12 @@ Page {
 
             Button {
                 text: qsTr("TEST 1")
-                onClicked: viewModel.platform_foo()
+                onClicked: viewModel.platform()
             }
 
             Button {
                 text: qsTr("TEST 2")
-                onClicked: viewModel.test2_foo()
+                onClicked: viewModel.test2()
             }
         }
     }

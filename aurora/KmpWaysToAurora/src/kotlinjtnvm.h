@@ -12,7 +12,8 @@ class KotlinJtnVM : public QObject
 {
     struct TestTwoRes {
         KotlinJtnVM * that;
-        const char * text;
+        graal_isolate_t *isolate;
+        graal_isolatethread_t *thread;
     } testTwoRes;
 
     Q_OBJECT
@@ -23,21 +24,27 @@ public:
     ~KotlinJtnVM() { qDebug(); }
 
 public slots:
-    void platform_foo() {
-
+    void platform() {
         graal_isolate_t *isolate = NULL;
         graal_isolatethread_t *thread = NULL;
 
         if (graal_create_isolate(NULL, &isolate, &thread) != 0) {
-            qDebug() << stderr << "initialization error\n";
+            qDebug() << "initialization error\n";
         }
 
-        updateText((char *)platform(thread));
+        updateText((char *)jtn_platform(thread));
 
         graal_tear_down_isolate(thread);
     }
 
-    void test2_foo() {
+    void test2() {
+        graal_isolate_t *isolate = NULL;
+        graal_isolatethread_t *thread = NULL;
+
+        if (graal_create_isolate(NULL, &isolate, &thread) != 0) {
+            qDebug() << "initialization error\n";
+        }
+
         auto noCapture = [](char * text, size_t p) {
             auto vm = reinterpret_cast<KotlinJtnVM *>(p);
             vm->updateText(text);
@@ -45,16 +52,10 @@ public slots:
         typedef void(*NormalFuncType)(char *, size_t);
         NormalFuncType noCaptureLambdaPtr = noCapture;
 
-        graal_isolate_t *isolate = NULL;
-        graal_isolatethread_t *thread = NULL;
+        jtn_test2(thread, (void *) noCaptureLambdaPtr, (size_t)this);
 
-        if (graal_create_isolate(NULL, &isolate, &thread) != 0) {
-            qDebug() << stderr << "initialization error\n";
-        }
-
-        test2(thread, (void *) noCaptureLambdaPtr, (size_t)this);
-
-        graal_tear_down_isolate(thread);
+        // TODO: Fix app crash
+//        graal_tear_down_isolate(thread);
     }
 
 signals:

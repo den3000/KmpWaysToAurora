@@ -12,6 +12,14 @@
   "name":"android.os.Build$VERSION"
 },
 {
+  "name":"com.den3000.kmpwaystoaurora.shared.spacexlaunches.RocketLaunch",
+  "fields":[{"name":"Companion"}]
+},
+{
+  "name":"com.den3000.kmpwaystoaurora.shared.spacexlaunches.RocketLaunch$Companion",
+  "methods":[{"name":"serializer","parameterTypes":[] }]
+},
+{
   "name":"com.sun.crypto.provider.AESCipher$General",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
@@ -213,14 +221,6 @@
   "name":"org.sqlite.JDBC"
 },
 {
-  "name":"spacexlaunches.RocketLaunch",
-  "fields":[{"name":"Companion"}]
-},
-{
-  "name":"spacexlaunches.RocketLaunch$Companion",
-  "methods":[{"name":"serializer","parameterTypes":[] }]
-},
-{
   "name":"sun.security.pkcs12.PKCS12KeyStore",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
@@ -238,6 +238,10 @@
 },
 {
   "name":"sun.security.provider.DSA$SHA256withDSA",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.JavaKeyStore$JKS",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {

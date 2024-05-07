@@ -1,3 +1,5 @@
+package com.den3000.kmpwaystoaurora.shared
+
 import kotlinx.browser.document
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart

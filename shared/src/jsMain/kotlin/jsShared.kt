@@ -1,14 +1,9 @@
-import app.cash.sqldelight.async.coroutines.awaitAsList
-import app.cash.sqldelight.async.coroutines.awaitCreate
-import app.cash.sqldelight.driver.worker.WebWorkerDriver
-import com.den3000.kmpwaystoaurora.Database
-import com.den3000.kmpwaystoaurora.ProgrammerQueries
+package com.den3000.kmpwaystoaurora.shared
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.asPromise
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.w3c.dom.Worker
 
 /**
  * Init fun for run after ready index.html

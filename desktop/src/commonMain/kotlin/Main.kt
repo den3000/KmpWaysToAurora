@@ -1,5 +1,21 @@
-package foo
+package com.den3000.kmpwaystoaurora.desktop
 
+import com.den3000.kmpwaystoaurora.shared.DataClass
+import com.den3000.kmpwaystoaurora.shared.DriverFactory
+import com.den3000.kmpwaystoaurora.shared.deserializeFromString
+import com.den3000.kmpwaystoaurora.shared.getDataClass
+import com.den3000.kmpwaystoaurora.shared.getDiffMs
+import com.den3000.kmpwaystoaurora.shared.getExecutionContext
+import com.den3000.kmpwaystoaurora.shared.getKtorIoWelcomePageAsText
+import com.den3000.kmpwaystoaurora.shared.getProgrammersFromSqlDelight
+import com.den3000.kmpwaystoaurora.shared.getTimeMark
+import com.den3000.kmpwaystoaurora.shared.platform
+import com.den3000.kmpwaystoaurora.shared.runTestOne
+import com.den3000.kmpwaystoaurora.shared.runTestTwo
+import com.den3000.kmpwaystoaurora.shared.serializeToString
+import com.den3000.kmpwaystoaurora.shared.triggerCoroutine
+import com.den3000.kmpwaystoaurora.shared.triggerFlow
+import com.den3000.kmpwaystoaurora.shared.triggerLambda
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -125,23 +141,5 @@ suspend fun test2() {
     }).collect {text ->
         totalTime.update { getDiffMs(start.value) }
         println("Time spent: ${totalTime.value} ms\n" + text.take(40))
-    }
-}
-
-interface IFoo {
-    fun invoke(str: String)
-}
-fun test2_jtn(callback: foo.IFoo) {
-    CoroutineScope(getExecutionContext()).launch {
-        val totalTime = MutableStateFlow<Long>(0)
-        val start = MutableStateFlow(getTimeMark())
-        val df = DriverFactory()
-        runTestTwo(df, started = {
-            start.update { getTimeMark() }
-        }).collect {text ->
-            totalTime.update { getDiffMs(start.value) }
-//            println("Time spent: ${totalTime.value} ms\n" + text.take(40))
-            callback.invoke("Time spent: ${totalTime.value} ms\n" + text.take(40))
-        }
     }
 }

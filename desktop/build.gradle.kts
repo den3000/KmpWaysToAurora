@@ -31,7 +31,7 @@ kotlin {
     mingwX64("nativeWinX64").apply {
         binaries {
             executable("kn-on-aurora-win-x86_64") {
-                entryPoint = "main"
+                entryPoint = "com.den3000.kmpwaystoaurora.desktop.main"
                 linkerOpts += listOf(
                     "-L$projectDir/../libs/winX64/sqlite",
                     "-lsqlite3",
@@ -43,7 +43,7 @@ kotlin {
     linuxX64("nativeLinuxX64").apply {
         binaries {
             executable("kn-on-aurora-linux-x86_64") {
-                entryPoint = "main"
+                entryPoint = "com.den3000.kmpwaystoaurora.desktop.main"
             }
         }
     }
@@ -51,7 +51,7 @@ kotlin {
     linuxArm64("nativeLinuxArm64").apply {
         binaries {
             executable("kn-on-aurora-linux-arm64") {
-                entryPoint = "main"
+                entryPoint = "com.den3000.kmpwaystoaurora.desktop.main"
             }
         }
     }
@@ -83,21 +83,21 @@ kotlin {
 }
 
 application {
-    mainClass = "foo.MainKt"
+    mainClass = "com.den3000.kmpwaystoaurora.desktop.MainKt"
 }
 
 graalvmNative {
     toolchainDetection.set(false)
     binaries{
         named("main") {
-//            mainClass.set("foo.MainKt")
+//            mainClass.set("com.den3000.kmpwaystoaurora.desktop.MainKt")
 //            buildArgs(
 //                "-Djava.awt.headless=false",
 //                // build as static executable
 //                "-H:+StaticExecutableWithDynamicLibC",
 //            )
 
-            mainClass.set("foo.Jtn")
+            mainClass.set("com.den3000.kmpwaystoaurora.desktop.Jtn")
             buildArgs(
                 // build as lib, not executable
                 "--shared",

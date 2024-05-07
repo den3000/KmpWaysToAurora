@@ -1,9 +1,11 @@
-package foo
+package com.den3000.kmpwaystoaurora.shared
 
 import app.cash.sqldelight.async.coroutines.awaitAsList
-import com.den3000.kmpwaystoaurora.Database
-import com.den3000.kmpwaystoaurora.ProgrammerQueries
-import foo.spacexlaunches.Db
+import com.den3000.kmpwaystoaurora.shared.spacexlaunches.Api
+import com.den3000.kmpwaystoaurora.shared.spacexlaunches.Db
+import com.den3000.kmpwaystoaurora.shared.spacexlaunches.RocketLaunch
+import com.den3000.kmpwaystoaurora.shared.sqldelight.Database
+import com.den3000.kmpwaystoaurora.shared.sqldelight.ProgrammerQueries
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import kotlinx.coroutines.delay
@@ -13,8 +15,6 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import spacexlaunches.Api
-import spacexlaunches.RocketLaunch
 
 @Serializable
 data class DataClass(

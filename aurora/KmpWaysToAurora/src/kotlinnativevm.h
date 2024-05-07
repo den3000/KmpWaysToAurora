@@ -32,7 +32,7 @@ public:
 
 public slots:
     void std() {
-        auto klib = libshared_symbols()->kotlin.root;
+        auto klib = libshared_symbols()->kotlin.root.com.den3000.kmpwaystoaurora.shared;
 
         auto ktText = klib.platform();
         auto ktDataClass1 = klib.getDataClass();
@@ -68,7 +68,7 @@ public slots:
     }
 
     void serialization() {
-        auto klib = libshared_symbols()->kotlin.root;
+        auto klib = libshared_symbols()->kotlin.root.com.den3000.kmpwaystoaurora.shared;
 
         auto dc = klib.getDataClass();
         QString log = "Original to string: ";
@@ -84,7 +84,8 @@ public slots:
     }
 
     void coroutines() {
-        auto klib = libshared_symbols()->kotlin.root;
+        auto klib = libshared_symbols()->kotlin.root.com.den3000.kmpwaystoaurora.shared;
+
         auto noCapture = [](void * data, const char * text) {
             auto that = reinterpret_cast<KotlinNativeVM *>(data);
             that->updateText(text);
@@ -97,7 +98,8 @@ public slots:
     }
 
     void flow() {
-        auto klib = libshared_symbols()->kotlin.root;
+        auto klib = libshared_symbols()->kotlin.root.com.den3000.kmpwaystoaurora.shared;
+
         auto noCapture = [](void * data, const char * text) {
             auto that = reinterpret_cast<KotlinNativeVM *>(data);
             that->updateText(text);
@@ -110,7 +112,8 @@ public slots:
     }
 
     void ktor() {
-        auto klib = libshared_symbols()->kotlin.root;
+        auto klib = libshared_symbols()->kotlin.root.com.den3000.kmpwaystoaurora.shared;
+
         auto noCapture = [](void * data, const char * text) {
             auto that = reinterpret_cast<KotlinNativeVM *>(data);
             that->updateText(text);
@@ -123,7 +126,7 @@ public slots:
     }
 
     void db() {
-        auto klib = libshared_symbols()->kotlin.root;
+        auto klib = libshared_symbols()->kotlin.root.com.den3000.kmpwaystoaurora.shared;
 
         auto noCapture = [](void * data, const char * text) {
             auto that = reinterpret_cast<KotlinNativeVM *>(data);
@@ -139,14 +142,14 @@ public slots:
     }
 
     void test1() {
-        auto klib = libshared_symbols()->kotlin.root;
+        auto klib = libshared_symbols()->kotlin.root.com.den3000.kmpwaystoaurora.shared;
 
         testOneRes = {this, "", klib.getTimeMark()};
         auto df = klib.DriverFactory.DriverFactory();
 
         auto noCapture = [](void * data, const char * text) {
             auto res = reinterpret_cast<TestOneRes *>(data);
-            auto totalTime = libshared_symbols()->kotlin.root.getDiffMs(res->start);
+            auto totalTime = libshared_symbols()->kotlin.root.com.den3000.kmpwaystoaurora.shared.getDiffMs(res->start);
             res->that->updateText(QString("Time spent: %1 ms\n%2")
                                   .arg(totalTime)
                                   .arg(text));
@@ -160,21 +163,21 @@ public slots:
     }
 
     void test2() {
-        auto klib = libshared_symbols()->kotlin.root;
+        auto klib = libshared_symbols()->kotlin.root.com.den3000.kmpwaystoaurora.shared;
 
         testTwoRes = {this, "", klib.getTimeMark()};
         auto df = klib.DriverFactory.DriverFactory();
 
         auto noCapture1 = [](void * data) {
             auto res = reinterpret_cast<TestTwoRes *>(data);
-            res->start = libshared_symbols()->kotlin.root.getTimeMark();
+            res->start = libshared_symbols()->kotlin.root.com.den3000.kmpwaystoaurora.shared.getTimeMark();
         };
         typedef void(*NormalFuncType1)(void *);
         NormalFuncType1 noCaptureLambdaPtr1 = noCapture1;
 
         auto noCapture2 = [](void * data, const char * text) {
             auto res = reinterpret_cast<TestTwoRes *>(data);
-            auto totalTime = libshared_symbols()->kotlin.root.getDiffMs(res->start);
+            auto totalTime = libshared_symbols()->kotlin.root.com.den3000.kmpwaystoaurora.shared.getDiffMs(res->start);
             res->that->updateText(QString("Time spent: %1 ms\n%2")
                                   .arg(totalTime)
                                   .arg(text));

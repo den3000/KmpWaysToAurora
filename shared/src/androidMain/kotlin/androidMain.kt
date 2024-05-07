@@ -1,8 +1,10 @@
+package com.den3000.kmpwaystoaurora.shared
+
 import android.content.Context
 import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import com.den3000.kmpwaystoaurora.Database
+import com.den3000.kmpwaystoaurora.shared.sqldelight.Database
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.coroutines.Dispatchers

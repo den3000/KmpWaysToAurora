@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.den3000.kmpwaystoaurora"
+    namespace = "com.den3000.kmpwaystoaurora.android"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.den3000.kmpwaystoaurora"
+        applicationId = "com.den3000.kmpwaystoaurora.android"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

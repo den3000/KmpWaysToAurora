@@ -1,4 +1,4 @@
-package spacexlaunches
+package com.den3000.kmpwaystoaurora.shared.spacexlaunches
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime

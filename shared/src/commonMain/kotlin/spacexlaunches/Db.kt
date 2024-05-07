@@ -1,12 +1,9 @@
-package foo.spacexlaunches
+package com.den3000.kmpwaystoaurora.shared.spacexlaunches
 
 import app.cash.sqldelight.async.coroutines.awaitAsList
-import com.den3000.kmpwaystoaurora.Database
-import com.den3000.kmpwaystoaurora.LaunchQueries
-import foo.DriverFactory
-import spacexlaunches.Links
-import spacexlaunches.Patch
-import spacexlaunches.RocketLaunch
+import com.den3000.kmpwaystoaurora.shared.DriverFactory
+import com.den3000.kmpwaystoaurora.shared.sqldelight.Database
+import com.den3000.kmpwaystoaurora.shared.sqldelight.LaunchQueries
 
 internal class Db(private val databaseDriverFactory: DriverFactory) {
     private var database: Database? = null

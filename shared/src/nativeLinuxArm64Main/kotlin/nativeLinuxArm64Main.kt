@@ -1,3 +1,5 @@
+package com.den3000.kmpwaystoaurora.shared
+
 import app.cash.sqldelight.db.SqlDriver
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.Dispatchers

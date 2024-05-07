@@ -1,8 +1,8 @@
-package foo
+package com.den3000.kmpwaystoaurora.shared
 
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
-import com.den3000.kmpwaystoaurora.Database
+import com.den3000.kmpwaystoaurora.shared.sqldelight.Database
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.coroutines.Dispatchers

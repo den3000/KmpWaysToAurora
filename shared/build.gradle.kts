@@ -6,11 +6,12 @@ plugins {
 }
 
 version = "1.0-SNAPSHOT"
+group = "com.den3000.kmpwaystoaurora.shared"
 
 sqldelight {
     databases {
         create("Database") {
-            packageName.set("com.den3000.kmpwaystoaurora") // TODO: ???
+            packageName.set("com.den3000.kmpwaystoaurora.shared.sqldelight") // TODO: ???
             generateAsync = true
         }
     }

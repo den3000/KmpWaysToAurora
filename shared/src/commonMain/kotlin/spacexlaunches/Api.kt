@@ -1,6 +1,6 @@
-package spacexlaunches
+package com.den3000.kmpwaystoaurora.shared.spacexlaunches
 
-import foo.getHttpRequestClient
+import com.den3000.kmpwaystoaurora.shared.getHttpRequestClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get

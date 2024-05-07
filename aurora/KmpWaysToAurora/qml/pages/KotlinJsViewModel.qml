@@ -9,7 +9,7 @@ Item {
 
     function std(callback) {
         libKMPShared.run(
-            "shared.stdJS()",
+            "shared.com.den3000.kmpwaystoaurora.shared.stdJS()",
             callback,
             function(error) { console.log(error) }
         );
@@ -17,7 +17,7 @@ Item {
 
     function serialization(callback) {
         libKMPShared.run(
-            "shared.serializationJS()",
+            "shared.com.den3000.kmpwaystoaurora.shared.serializationJS()",
             callback,
             function(error) { console.log(error) }
         );
@@ -25,7 +25,7 @@ Item {
 
     function coroutine(callback) {
         libKMPShared.runAsync(
-            "shared.coroutineJS()",
+            "shared.com.den3000.kmpwaystoaurora.shared.coroutineJS()",
             callback,
             function(error) { console.log(error) }
         );
@@ -33,7 +33,7 @@ Item {
 
     function flow(callback) {
         libKMPShared.runAsync(
-            "shared.flowJS()",
+            "shared.com.den3000.kmpwaystoaurora.shared.flowJS()",
             callback,
             function(error) { console.log(error) }
         );
@@ -41,7 +41,7 @@ Item {
 
     function ktor(callback) {
         libKMPShared.runAsync(
-            "shared.ktorJS()",
+            "shared.com.den3000.kmpwaystoaurora.shared.ktorJS()",
             callback,
             function(error) { console.log(error) }
         );
@@ -49,7 +49,7 @@ Item {
 
     function db(callback) {
         libKMPShared.runAsync(
-            "shared.dbJS()",
+            "shared.com.den3000.kmpwaystoaurora.shared.dbJS()",
             callback,
             function(error) { console.log(error) }
         );

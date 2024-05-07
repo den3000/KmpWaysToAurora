@@ -74,7 +74,7 @@ index.html should contain
 So if in there is no package set in shared/jsMain/kotlin/*.kt
 then you just need 
 
-<body onload="shared.init()"></body>
+<body onload="shared.com.den3000.kmpwaystoaurora.shared.init()"></body>
 
 ```
 

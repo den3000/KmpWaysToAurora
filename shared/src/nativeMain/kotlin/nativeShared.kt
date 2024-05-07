@@ -1,3 +1,5 @@
+package com.den3000.kmpwaystoaurora.shared
+
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer

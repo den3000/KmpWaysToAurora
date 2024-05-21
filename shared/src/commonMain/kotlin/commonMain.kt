@@ -22,3 +22,9 @@ expect fun getHttpRequestClient() : HttpClient?
 expect class DriverFactory() {
     suspend fun createDriver(): SqlDriver?
 }
+
+fun sumOfUnique(nums: IntArray): Int {
+
+    val set = nums.toSet()
+    return set.sum()
+}
